@@ -1,5 +1,15 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from "@mui/icons-material/Person";
+import ArticleIcon from "@mui/icons-material/Article";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import InfoIcon from "@mui/icons-material/Info";
+import LanguageIcon from "@mui/icons-material/Language";
+import CustomButton from "../components/UI/Button";
 import {
   Box,
   Container,
@@ -17,16 +27,7 @@ import {
   MenuItem,
 } from "@mui/material";
 
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import HomeIcon from "@mui/icons-material/Home";
-import PersonIcon from "@mui/icons-material/Person";
-import ArticleIcon from "@mui/icons-material/Article";
-import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
-import InfoIcon from "@mui/icons-material/Info";
-import LanguageIcon from "@mui/icons-material/Language";
-
+// --- Data ---
 const NAV_ITEMS = [
   { path: "/", label: "Home", icon: HomeIcon },
   { path: "/about", label: "About", icon: PersonIcon },
@@ -41,6 +42,65 @@ const LANGUAGES = [
   { code: "ES", label: "Español" },
 ];
 
+// --- NavLinkItem component (desktop or mobile) ---
+const NavLinkItem = ({
+  item,
+  isMobile = false,
+  navItemStyle,
+  activeBg,
+  hoverBg,
+  location,
+  onClick,
+}) => {
+  const Icon = item.icon;
+  const isActive = location.pathname === item.path;
+
+  const commonProps = {
+    sx: isMobile
+      ? {
+          bgcolor: isActive ? activeBg : "transparent",
+          "&:hover": { bgcolor: hoverBg },
+          borderRadius: 2,
+        }
+      : {
+          ...navItemStyle,
+          bgcolor: isActive ? activeBg : "transparent",
+          "&:hover": { bgcolor: hoverBg },
+        },
+    component: Link,
+    to: item.path,
+    onClick,
+  };
+
+  if (isMobile) {
+    return (
+      <ListItem disablePadding>
+        <ListItemButton {...commonProps}>
+          <ListItemIcon>
+            <Icon sx={{ color: isActive ? "secondary.main" : "white" }} />
+          </ListItemIcon>
+          <ListItemText
+            primary={item.label}
+            slotProps={{
+              primary: {
+                sx: { color: "white", fontWeight: isActive ? 600 : 400 },
+              },
+            }}
+          />
+        </ListItemButton>
+      </ListItem>
+    );
+  }
+
+  return (
+    <Box {...commonProps}>
+      <Icon sx={{ fontSize: "1rem" }} />
+      {item.label}
+    </Box>
+  );
+};
+
+// --- Navbar ---
 const Navbar = () => {
   const theme = useTheme();
   const location = useLocation();
@@ -66,12 +126,7 @@ const Navbar = () => {
     color: "white",
     transition: "all 0.2s ease",
     cursor: "pointer",
-  };
-
-  const openWhatsApp = () => {
-    const phone = "SEUNUMERO"; // replace with actual number
-    const text = encodeURIComponent("Olá! Quero agendar uma tatuagem.");
-    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
+    textDecoration: "none",
   };
 
   return (
@@ -91,7 +146,11 @@ const Navbar = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Box
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+          >
             {/* Logo */}
             <Typography
               component={Link}
@@ -104,7 +163,7 @@ const Navbar = () => {
                 letterSpacing: 2,
               }}
             >
-              WAGNO TATTOO
+              WAGNO INK
             </Typography>
 
             {/* Desktop nav */}
@@ -119,34 +178,23 @@ const Navbar = () => {
               }}
             >
               {NAV_ITEMS.map((item) => {
-                const Icon = item.icon;
-                const isActive = location.pathname === item.path;
-                const showDividerAfter = item.path === "/" || item.path === "/info";
-
+                const showDividerAfter =
+                  item.path === "/" || item.path === "/info"; // dividers
                 return (
                   <React.Fragment key={item.path}>
-                    <Box
-                      component={Link}
-                      to={item.path}
-                      sx={{
-                        ...navItemBase,
-                        bgcolor: isActive ? activeBg : "transparent",
-                        "&:hover": { bgcolor: hoverBg, color: theme.palette.secondary.main },
-                        textDecoration: "none",
-                        color:"white",
-                      }}
-                    >
-                      <Icon sx={{ fontSize: "1rem" }} />
-                      {item.label}
-                    </Box>
-
+                    <NavLinkItem
+                      item={item}
+                      navItemStyle={navItemBase}
+                      activeBg={activeBg}
+                      hoverBg={hoverBg}
+                      location={location}
+                    />
                     {showDividerAfter && (
                       <Box
                         sx={{
                           width: "1px",
                           height: 20,
                           bgcolor: dividerColor,
-                          mx: 0.5,
                         }}
                       />
                     )}
@@ -154,7 +202,7 @@ const Navbar = () => {
                 );
               })}
 
-              {/* Language */}
+              {/* Language selector */}
               <Box
                 role="button"
                 aria-haspopup="menu"
@@ -164,7 +212,10 @@ const Navbar = () => {
                 sx={{
                   ...navItemBase,
                   cursor: "pointer",
-                  "&:hover": { bgcolor: hoverBg, color: theme.palette.secondary.main },
+                  "&:hover": {
+                    bgcolor: hoverBg,
+                    color: theme.palette.secondary.main,
+                  },
                 }}
               >
                 <LanguageIcon sx={{ fontSize: "1rem" }} />
@@ -172,29 +223,20 @@ const Navbar = () => {
               </Box>
             </Box>
 
-            {/* CTA Booking */}
-            <Box
-              onClick={openWhatsApp}
-              sx={{
-                display: { xs: "none", lg: "flex" },
-                alignItems: "center",
-                gap: 1,
-                bgcolor: theme.palette.secondary.main,
-                px: 3,
-                py: 1.2,
-                borderRadius: nav.borderRadius,
-                cursor: "pointer",
-                fontSize: nav.fontSize,
-                fontWeight: 600,
-                transition: "all 0.2s ease",
-                "&:hover": { bgcolor: alpha(theme.palette.secondary.main, 0.85) },
-              }}
-            >
-              Book Now
-              <ArrowForwardIcon sx={{ fontSize: "1rem" }} />
+            {/* Desktop Book Now */}
+            <Box sx={{ display: { xs: "none", lg: "flex" } }}>
+              <CustomButton
+                size="medium"
+                component="a"
+                href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Book Now <ArrowForwardIcon sx={{ fontSize: 18 }} />
+              </CustomButton>
             </Box>
 
-            {/* Mobile button */}
+            {/* Mobile menu button */}
             <IconButton
               onClick={() => setMobileOpen(true)}
               sx={{
@@ -234,17 +276,14 @@ const Navbar = () => {
               setCurrentLanguage(lang.code);
               setLanguageAnchor(null);
             }}
-            sx={{
-              fontSize: nav.fontSize,
-              "&:hover": { bgcolor: hoverBg },
-            }}
+            sx={{ fontSize: nav.fontSize, "&:hover": { bgcolor: hoverBg } }}
           >
             {lang.label}
           </MenuItem>
         ))}
       </Menu>
 
-      {/* Mobile Drawer from right */}
+      {/* Mobile Drawer */}
       <Drawer
         anchor="right"
         open={mobileOpen}
@@ -265,70 +304,41 @@ const Navbar = () => {
       >
         <Box display="flex" justifyContent="space-between" mb={6}>
           <Typography fontWeight={700} variant="h5">
-            WAGNO TATTOO
+            WAGNO INK
           </Typography>
           <IconButton onClick={() => setMobileOpen(false)}>
             <CloseIcon sx={{ color: "white" }} />
           </IconButton>
         </Box>
 
-        <List sx={{ flexGrow: 1, display: "flex", flexDirection: "column", gap: 2 }}>
-          {NAV_ITEMS.map((item) => {
-            const Icon = item.icon;
-            const isActive = location.pathname === item.path;
-
-            return (
-              <ListItem key={item.path} disablePadding>
-                <ListItemButton
-                  component={Link}
-                  to={item.path}
-                  onClick={() => setMobileOpen(false)}
-                  sx={{
-                    bgcolor: isActive ? activeBg : "transparent",
-                    "&:hover": { bgcolor: hoverBg },
-                    borderRadius: nav.borderRadius,
-                  }}
-                >
-                  <ListItemIcon>
-                    <Icon sx={{ color: isActive ? theme.palette.secondary.main : "white" }} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.label}
-                    slotProps={{
-                      primary: {
-                        sx: {
-                          color: "white",
-                          fontSize: nav.fontSize,
-                          fontWeight: isActive ? 600 : 400,
-                        },
-                      },
-                    }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
+        <List
+          sx={{ flexGrow: 1, display: "flex", flexDirection: "column", gap: 2 }}
+        >
+          {NAV_ITEMS.map((item) => (
+            <NavLinkItem
+              key={item.path}
+              item={item}
+              isMobile
+              activeBg={activeBg}
+              hoverBg={hoverBg}
+              location={location}
+              onClick={() => setMobileOpen(false)}
+            />
+          ))}
         </List>
 
-        {/* Mobile CTA */}
+        {/* Mobile Book Now */}
         <Box mt={4}>
-          <ListItemButton
-            onClick={openWhatsApp}
-            sx={{
-              bgcolor: theme.palette.secondary.main,
-              "&:hover": { bgcolor: alpha(theme.palette.secondary.main, 0.85) },
-              borderRadius: nav.borderRadius,
-              justifyContent: "center",
-              py: 1.5,
-            }}
+          <CustomButton
+            size="medium"
+            fullWidth
+            component="a"
+            href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <ListItemText
-              primary="Book Now"
-              slotProps={{
-                primary: { sx: { color: "white", fontWeight: 700, textAlign: "center" } },
-              }}
-            />
-          </ListItemButton>
+            Book Now <ArrowForwardIcon sx={{ fontSize: 18 }} />
+          </CustomButton>
         </Box>
       </Drawer>
     </>

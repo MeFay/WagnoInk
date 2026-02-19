@@ -1,92 +1,129 @@
-import React from 'react';
-import { Box, Container, Grid, Typography, Link, IconButton, Divider } from '@mui/material';
-import { Instagram, Facebook, Twitter, Pinterest } from '@mui/icons-material';
+import { Box, Typography, IconButton, Stack } from "@mui/material";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import EmailIcon from "@mui/icons-material/Email";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import { motion } from "framer-motion";
+
+const MotionBox = motion(Box);
 
 const Footer = () => {
   return (
-    <Box
+    <MotionBox
       component="footer"
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
       sx={{
-        bgcolor: 'background.paper',
-        borderTop: '1px solid',
-        borderColor: 'divider',
-        mt: 'auto',
-        py: 6
+        py: { xs: 8, md: 10 },
+        px: { xs: 4, md: 8 },
+        borderTop: "1px solid",
+        borderColor: "divider",
+        backgroundColor: "background.paper",
       }}
     >
-      <Container maxWidth="lg">
-        {/* Fix 1: Remove 'item' props and update size syntax */}
-        <Grid container spacing={4}>
-          <Grid size={{ xs: 12, md: 4 }}>  {/* Changed from item xs={12} md={4} */}
-            <Typography variant="h6" color="primary" gutterBottom>
-              Ink & Steel
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Custom tattoo artistry in Jakarta. Creating meaningful, 
-              permanent art since 2015.
-            </Typography>
-            <Box sx={{ mt: 2 }}>
-              <IconButton color="primary" size="small">
-                <Instagram />
-              </IconButton>
-              <IconButton color="primary" size="small">
-                <Facebook />
-              </IconButton>
-              <IconButton color="primary" size="small">
-                <Twitter />
-              </IconButton>
-              <IconButton color="primary" size="small">
-                <Pinterest />
-              </IconButton>
-            </Box>
-          </Grid>
-          
-          <Grid size={{ xs: 12, md: 4 }}>  {/* Changed from item xs={12} md={4} */}
-            <Typography variant="h6" color="primary" gutterBottom>
-              Quick Links
-            </Typography>
-            <Link href="/" color="text.secondary" display="block" sx={{ mb: 1 }}>
-              Home
-            </Link>
-            <Link href="/about" color="text.secondary" display="block" sx={{ mb: 1 }}>
-              About
-            </Link>
-            <Link href="/gallery" color="text.secondary" display="block" sx={{ mb: 1 }}>
-              Gallery
-            </Link>
-            <Link href="/blog" color="text.secondary" display="block" sx={{ mb: 1 }}>
-              Blog
-            </Link>
-            <Link href="/info" color="text.secondary" display="block">
-              Info & Contact
-            </Link>
-          </Grid>
-          
-          <Grid size={{ xs: 12, md: 4 }}>  {/* Changed from item xs={12} md={4} */}
-            <Typography variant="h6" color="primary" gutterBottom>
-              Studio Hours
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Tuesday - Saturday: 11am - 8pm
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Sunday - Monday: Closed
-            </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-              Jl. Contoh No. 123
-              <br />
-              Porto, Portugal
-            </Typography>
-          </Grid>
-        </Grid>
-        
-        <Divider sx={{ my: 3 }} />
-        
-        <Typography variant="body2" color="text.secondary" align="center">
-          © {new Date().getFullYear()} Wagno Reis Tattoo. All rights reserved.
+      <Stack
+        direction={{ xs: "column", md: "row" }}
+        spacing={6}
+        justifyContent="space-between"
+        alignItems={{ xs: "center", md: "flex-start" }}
+        textAlign={{ xs: "center", md: "left" }}
+      >
+        {/* Brand */}
+        <Box>
+          <Typography
+            variant="h6"
+            sx={{
+              fontWeight: 800,
+              letterSpacing: 2,
+            }}
+          >
+            WAGNO TATTOO
+          </Typography>
+
+          <Typography variant="body2" color="text.secondary">
+            Minimal. Precise. Timeless.
+          </Typography>
+        </Box>
+
+        {/* Social Icons */}
+        <Stack direction={{ xs: "column", md: "row" }}>
+          {[
+            {
+              icon: <InstagramIcon />,
+              link: "https://www.instagram.com/wagno.ink/",
+            },
+            {
+              icon: <WhatsAppIcon />,
+              link: "https://wa.me/351910848391",
+            },
+            {
+              icon: <EmailIcon />,
+              link: "mailto:Wagno.ink@icloud.com",
+            },
+          ].map((item, index) => (
+            <IconButton
+              key={index}
+              component="a"
+              href={item.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transform: "translateY(-4px) scale(1.05)",
+                  color: "secondary.main",
+                },
+              }}
+            >
+              {item.icon}
+            </IconButton>
+          ))}
+        </Stack>
+      </Stack>
+
+      {/* Bottom Section */}
+      <Box
+        sx={{
+          pt: 4,
+          borderTop: "1px solid",
+          borderColor: "divider",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          © {new Date().getFullYear()} Wagno Ink. All rights reserved.
         </Typography>
-      </Container>
-    </Box>
+
+        <Typography
+          variant="body2"
+          sx={{
+            color: "text.disabled",
+          }}
+        >
+          Built and designed by{" "}
+          <a
+            href="www.linkedin.com/in/fatima-alves-azevedodo-271ab1212"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              textDecoration: "none",
+              fontWeight: 600,
+              position: "relative",
+              color: "inherit",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.textDecoration = "underline";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.textDecoration = "none";
+            }}
+          >
+            Fátima Azevedo
+          </a>
+        </Typography>
+      </Box>
+    </MotionBox>
   );
 };
 

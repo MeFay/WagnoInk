@@ -21,14 +21,14 @@ const HeroSection = () => {
     >
       <Typography
         variant="h3"
-        sx={{ fontWeight: 900, mb: 2, color: "text.primary" }}
+        sx={{ fontWeight: 900, p: 1, color: "text.primary" }}
       >
         WAGNO TATTOO
       </Typography>
 
       <Typography
         variant="h6"
-        sx={{ mb: 4, maxWidth: 500, color: "text.secondary" }}
+        sx={{ maxWidth: 500,  p: 1, color: "text.secondary" }}
       >
         Unique tattoos designed for your story. Explore our gallery for
         inspiration.

@@ -214,7 +214,6 @@ const Navbar = () => {
                   cursor: "pointer",
                   "&:hover": {
                     bgcolor: hoverBg,
-                    color: theme.palette.secondary.main,
                   },
                 }}
               >
@@ -264,7 +263,6 @@ const Navbar = () => {
               bgcolor: theme.palette.background.elevated,
               border: `1px solid ${dividerColor}`,
               borderRadius: 2,
-              mt: 1,
             },
           },
         }}
@@ -302,7 +300,7 @@ const Navbar = () => {
           },
         }}
       >
-        <Box display="flex" justifyContent="space-between" mb={6}>
+        <Box display="flex" justifyContent="space-between">
           <Typography fontWeight={700} variant="h5">
             WAGNO INK
           </Typography>

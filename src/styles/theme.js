@@ -38,15 +38,15 @@ const theme = createTheme({
       contrastText: "#ffffff",
     },
 
-    secondary: {
-      main: "#ff6f00", // laranja para detalhes/hover
-      contrastText: "#ffffff",
-    },
+secondary: {
+  main: "#aaaaaa",
+  contrastText: "#ffffff",
+},
 
     background: {
-      default: "#0a0a0a",
-      paper: "#111111",
-      elevated: "#1a1a1a",
+      default: "#121212",
+      paper: "#1a1a1a",
+      elevated: "#222222",
     },
 
     text: {

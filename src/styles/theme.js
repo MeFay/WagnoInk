@@ -1,22 +1,13 @@
 import { createTheme, alpha } from "@mui/material/styles";
 
 const theme = createTheme({
-  /* -------------------------------------------------------------------------- */
-  /* Breakpoints                                                                 */
-  /* -------------------------------------------------------------------------- */
   breakpoints: {
     values: { xs: 0, sm: 768, md: 1024, lg: 1440, xl: 1820 },
   },
 
-  /* -------------------------------------------------------------------------- */
-  /* Shape & spacing                                                             */
-  /* -------------------------------------------------------------------------- */
   spacing: 8,
   shape: { borderRadius: 12 },
 
-  /* -------------------------------------------------------------------------- */
-  /* Navigation & Design Tokens                                                  */
-  /* -------------------------------------------------------------------------- */
   navigation: {
     height: 72,
     itemHeight: 44,
@@ -25,62 +16,53 @@ const theme = createTheme({
     mobileMenuButtonSize: 52,
   },
 
-  /* -------------------------------------------------------------------------- */
-  /* Palette                                                                     */
-  /* -------------------------------------------------------------------------- */
   palette: {
     mode: "dark",
 
     primary: {
-      main: "#c62828", // vermelho escuro
+      main: "#c62828",
       light: "#e53935",
       dark: "#8e0000",
       contrastText: "#ffffff",
     },
 
-secondary: {
-  main: "#aaaaaa",
-  contrastText: "#ffffff",
-},
+    secondary: {
+      main: "#aaaaaa",
+      contrastText: "#ffffff",
+    },
 
     background: {
-      default: "#121212",
+      default: "#0a0a0a",
       paper: "#1a1a1a",
       elevated: "#222222",
     },
 
     text: {
       primary: "#ffffff",
-      secondary: "#d0d0d0",
-      disabled: "#7b7575",
+      secondary: "#e0e0e0", // 🔥 Brighter from #d0d0d0
+      disabled: "#999999", // 🔥 Brighter from #7b7575
     },
 
     divider: alpha("#c62828", 0.25),
   },
 
-  /* -------------------------------------------------------------------------- */
-  /* Typography                                                                  */
-  /* -------------------------------------------------------------------------- */
   typography: {
     fontFamily: "Geist, Roboto, Helvetica, Arial, sans-serif",
-
     h1: { fontSize: "4rem", fontWeight: 900, lineHeight: 1.1 },
     h2: { fontSize: "3rem", fontWeight: 800, lineHeight: 1.15 },
     h3: { fontSize: "2.25rem", fontWeight: 700 },
-
     body1: { fontSize: "1rem", lineHeight: 1.6 },
     body2: { fontSize: "0.875rem", lineHeight: 1.6 },
-
     button: { textTransform: "none", fontWeight: 500 },
   },
 
-  /* -------------------------------------------------------------------------- */
-  /* Components                                                                  */
-  /* -------------------------------------------------------------------------- */
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        body: { backgroundColor: "#0a0a0a", color: "#ffffff" },
+        body: {
+          backgroundColor: "#0a0a0a",
+          color: "#ffffff",
+        },
       },
     },
 
@@ -91,7 +73,7 @@ secondary: {
           padding: "10px 22px",
           transition: "all 0.2s ease",
           "&:hover": {
-            backgroundColor: alpha("#ff6f00", 0.2),
+            backgroundColor: "transparent",
           },
         },
       },

@@ -1,55 +1,551 @@
-import { Box, TextField, Button } from '@mui/material';
-import { useState } from 'react';
+import { Box, Typography, TextField, Button } from "@mui/material";
+import { motion } from "framer-motion";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PhoneIcon from "@mui/icons-material/Phone";
+import EmailIcon from "@mui/icons-material/Email";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [message, setMessage] = useState('');
+const MotionBox = motion(Box);
 
-  const sendMessage = () => {
-    const text = encodeURIComponent(`Hello! My name is ${name}. ${message}`);
-    window.open(`https://wa.me/559892259817?text=${text}`, '_blank');
-  };
+const contactInfo = [
+  {
+    icon: LocationOnIcon,
+    label: "Studio Location",
+    value: "Porto, Portugal",
+    link: "https://maps.google.com",
+  },
+  {
+    icon: PhoneIcon,
+    label: "Phone",
+    value: "+351 910 848 391",
+    link: "tel:+351910848391",
+  },
+  {
+    icon: EmailIcon,
+    label: "Email",
+    value: "wagnotattoo@gmail.com",
+    link: "mailto:wagnotattoo@gmail.com",
+  },
+  {
+    icon: InstagramIcon,
+    label: "Instagram",
+    value: "@wagnotattoo",
+    link: "https://instagram.com/wagnotattoo",
+  },
+];
 
+const studioHours = [
+  { day: "Monday - Friday", hours: "10:00 AM - 7:00 PM" },
+  { day: "Saturday", hours: "11:00 AM - 6:00 PM" },
+  { day: "Sunday", hours: "Closed" },
+];
+
+const ContactSection = () => {
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2,
-        maxWidth: 600,
-        mx: 'auto',
-        my: 6,
-        px: 2,
+        py: { xs: 12, md: 16 },
+        px: { xs: 2, md: 6 },
+        position: "relative",
+        display: "flex", // 🔥 Flex container
+        flexDirection: "column",
+        gap: { xs: 8, md: 12 }, // 🔥 Gap between header, content, and WhatsApp CTA
       }}
     >
-      <TextField
-        label="Your Name"
-        variant="outlined"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        label="Your Message"
-        variant="outlined"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        multiline
-        rows={4}
-        fullWidth
-      />
-      <Button variant="contained" color="secondary" onClick={sendMessage}>
-        Send via WhatsApp
-      </Button>
-      <Button
-        variant="outlined"
-        color="primary"
-        href={`mailto:tattoo@example.com?subject=Message from ${name}&body=${message}`}
+      {/* Section Header */}
+      <MotionBox
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        sx={{
+          width: "100%", // 🔥 Full width
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center", // 🔥 Centers children
+          textAlign: "center",
+          gap: 2, // 🔥 Gap between elements
+        }}
       >
-        Send via Email
-      </Button>
+        <Typography
+          sx={{
+            fontSize: { xs: 12, md: 13 },
+            fontWeight: 600,
+            letterSpacing: 3,
+            color: "primary.main",
+            textTransform: "uppercase",
+            maxWidth: 700, // 🔥 Constraint on element
+          }}
+        >
+          Get in Touch
+        </Typography>
+
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 900,
+            fontSize: { xs: "2rem", md: "3rem" },
+            background: "linear-gradient(to bottom, #ffffff 60%, #999 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            maxWidth: 700, // 🔥 Constraint on element
+          }}
+        >
+          Let's Create Something Amazing
+        </Typography>
+
+        <Typography
+          sx={{
+            color: "text.secondary",
+            fontSize: { xs: "0.95rem", md: "1.1rem" },
+            lineHeight: 1.7,
+            maxWidth: 700, // 🔥 Constraint on element
+          }}
+        >
+          Ready to bring your vision to life? Reach out to discuss your next
+          tattoo.
+        </Typography>
+      </MotionBox>
+
+      {/* Main Content Grid */}
+      <Box
+        sx={{
+          maxWidth: 1200,
+          width: "100%", // 🔥 Full width
+          alignSelf: "center", // 🔥 Center the grid
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
+          gap: { xs: 4, md: 6 },
+        }}
+      >
+        {/* Left Side - Contact Info */}
+        <MotionBox
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
+          }}
+        >
+          {/* Contact Cards */}
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            {contactInfo.map((info, index) => {
+              const Icon = info.icon;
+              return (
+                <MotionBox
+                  key={info.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  component="a"
+                  href={info.link}
+                  target={info.link.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    info.link.startsWith("http")
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2.5,
+                    p: 3,
+                    borderRadius: 3,
+                    background: "rgba(26,26,26,0.6)",
+                    backdropFilter: "blur(10px)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    textDecoration: "none",
+                    transition: "all 0.3s ease",
+
+                    "&:hover": {
+                      borderColor: "rgba(198,40,40,0.3)",
+                      transform: "translateX(8px)",
+                      background: "rgba(26,26,26,0.8)",
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 50,
+                      height: 50,
+                      borderRadius: 2,
+                      background:
+                        "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))",
+                      border: "1px solid rgba(198,40,40,0.3)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Icon sx={{ color: "primary.main", fontSize: 24 }} />
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex", // 🔥 Flex for spacing
+                      flexDirection: "column",
+                      gap: 0.5, // 🔥 Gap between label and value
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: 12,
+                        color: "text.secondary",
+                        fontWeight: 500,
+                        letterSpacing: 1,
+                      }}
+                    >
+                      {info.label}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        fontSize: 16,
+                        color: "white",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {info.value}
+                    </Typography>
+                  </Box>
+                </MotionBox>
+              );
+            })}
+          </Box>
+
+          {/* Studio Hours */}
+          <MotionBox
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            sx={{
+              p: 4,
+              borderRadius: 3,
+              background: "rgba(26,26,26,0.6)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255,255,255,0.05)",
+              display: "flex", // 🔥 Flex container
+              flexDirection: "column",
+              gap: 3, // 🔥 Gap between header and schedule
+            }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+              <AccessTimeIcon sx={{ color: "primary.main", fontSize: 24 }} />
+              <Typography
+                sx={{
+                  fontSize: 18,
+                  fontWeight: 700,
+                  color: "white",
+                  letterSpacing: 0.5,
+                }}
+              >
+                Studio Hours
+              </Typography>
+            </Box>
+
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {studioHours.map((schedule, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    pb: index !== studioHours.length - 1 ? 2 : 0,
+                    borderBottom:
+                      index !== studioHours.length - 1
+                        ? "1px solid rgba(255,255,255,0.05)"
+                        : "none",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: 14,
+                      color: "text.secondary",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {schedule.day}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: 14,
+                      color: "white",
+                      fontWeight: 600,
+                    }}
+                  >
+                    {schedule.hours}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </MotionBox>
+        </MotionBox>
+
+        {/* Right Side - Contact Form */}
+        <MotionBox
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          sx={{
+            p: { xs: 4, md: 5 },
+            borderRadius: 3,
+            background: "rgba(26,26,26,0.6)",
+            backdropFilter: "blur(10px)",
+            border: "1px solid rgba(255,255,255,0.05)",
+            display: "flex", // 🔥 Flex container
+            flexDirection: "column",
+            gap: 4, // 🔥 Gap between title, description, and form
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex", // 🔥 Flex for header spacing
+              flexDirection: "column",
+              gap: 1, // 🔥 Gap between title and description
+            }}
+          >
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: 700,
+                color: "white",
+              }}
+            >
+              Send us a Message
+            </Typography>
+
+            <Typography
+              sx={{
+                color: "text.secondary",
+                fontSize: 14,
+              }}
+            >
+              Fill out the form below and we'll get back to you within 24 hours.
+            </Typography>
+          </Box>
+
+          <Box
+            component="form"
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 3, // 🔥 Gap between form fields
+            }}
+          >
+            <TextField
+              fullWidth
+              label="Your Name"
+              variant="outlined"
+              required
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  color: "white",
+                  "& fieldset": {
+                    borderColor: "rgba(255,255,255,0.1)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "rgba(198,40,40,0.3)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "primary.main",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "text.secondary",
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Email Address"
+              variant="outlined"
+              type="email"
+              required
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  color: "white",
+                  "& fieldset": {
+                    borderColor: "rgba(255,255,255,0.1)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "rgba(198,40,40,0.3)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "primary.main",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "text.secondary",
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Phone Number (Optional)"
+              variant="outlined"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  color: "white",
+                  "& fieldset": {
+                    borderColor: "rgba(255,255,255,0.1)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "rgba(198,40,40,0.3)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "primary.main",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "text.secondary",
+                },
+              }}
+            />
+
+            <TextField
+              fullWidth
+              label="Tell us about your tattoo idea"
+              variant="outlined"
+              multiline
+              rows={5}
+              required
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  color: "white",
+                  "& fieldset": {
+                    borderColor: "rgba(255,255,255,0.1)",
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "rgba(198,40,40,0.3)",
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "primary.main",
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "text.secondary",
+                },
+              }}
+            />
+
+            <Button
+              variant="contained"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                pt: 1.5, // 🔥 Padding-top instead of margin-top
+                py: 1.5,
+                borderRadius: 999,
+                background:
+                  "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))",
+                border: "1px solid rgba(198,40,40,0.4)",
+                color: "white",
+                fontWeight: 600,
+                letterSpacing: 1,
+                textTransform: "none",
+                fontSize: 15,
+                transition: "all 0.3s ease",
+
+                "&:hover": {
+                  background:
+                    "linear-gradient(135deg, rgba(198,40,40,0.3), rgba(142,0,0,0.3))",
+                  borderColor: "rgba(198,40,40,0.6)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 10px 30px rgba(198,40,40,0.3)",
+                },
+              }}
+            >
+              Send Message
+            </Button>
+          </Box>
+        </MotionBox>
+      </Box>
+
+      {/* WhatsApp CTA */}
+      <MotionBox
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        viewport={{ once: true }}
+        sx={{
+          maxWidth: 1200,
+          width: "100%", // 🔥 Full width
+          alignSelf: "center", // 🔥 Center it
+          p: 4,
+          borderRadius: 3,
+          background:
+            "linear-gradient(135deg, rgba(37,211,102,0.1), rgba(37,211,102,0.05))",
+          border: "1px solid rgba(37,211,102,0.2)",
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 3,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex", // 🔥 Flex for spacing
+            flexDirection: "column",
+            gap: 1, // 🔥 Gap between title and description
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: 20,
+              fontWeight: 700,
+              color: "white",
+            }}
+          >
+            Prefer WhatsApp?
+          </Typography>
+          <Typography sx={{ color: "text.secondary", fontSize: 14 }}>
+            Chat with us directly for faster responses and instant booking.
+          </Typography>
+        </Box>
+
+        <Button
+          variant="contained"
+          size="large"
+          component="a"
+          href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            py: 1.5,
+            px: 4,
+            borderRadius: 999,
+            background: "#25D366",
+            color: "white",
+            fontWeight: 600,
+            letterSpacing: 0.5,
+            textTransform: "none",
+            fontSize: 15,
+            whiteSpace: "nowrap",
+
+            "&:hover": {
+              background: "#20BA5A",
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          Open WhatsApp
+        </Button>
+      </MotionBox>
     </Box>
   );
 };
 
-export default ContactForm;
+export default ContactSection;

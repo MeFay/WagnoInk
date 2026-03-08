@@ -141,8 +141,8 @@ const Navbar = () => {
           position: "sticky",
           top: 0,
           zIndex: 1100,
-          backdropFilter: "blur(10px)",
-          bgcolor: alpha(theme.palette.background.default, 0.95),
+          // 🔥 Only blur, NO background color
+          backdropFilter: "blur(16px)",
         }}
       >
         <Container maxWidth="lg">

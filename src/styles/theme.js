@@ -39,8 +39,8 @@ const theme = createTheme({
 
     text: {
       primary: "#ffffff",
-      secondary: "#e0e0e0", // 🔥 Brighter from #d0d0d0
-      disabled: "#999999", // 🔥 Brighter from #7b7575
+      secondary: "#e0e0e0",
+      disabled: "#999999",
     },
 
     divider: alpha("#c62828", 0.25),
@@ -48,21 +48,21 @@ const theme = createTheme({
 
   typography: {
     fontFamily: "Geist, Roboto, Helvetica, Arial, sans-serif",
-    h1: { fontSize: "4rem", fontWeight: 900, lineHeight: 1.1 },
-    h2: { fontSize: "3rem", fontWeight: 800, lineHeight: 1.15 },
-    h3: { fontSize: "2.25rem", fontWeight: 700 },
-    body1: { fontSize: "1rem", lineHeight: 1.6 },
-    body2: { fontSize: "0.875rem", lineHeight: 1.6 },
+    h1: { fontSize: "4rem",   fontWeight: 900, lineHeight: 1.1,  color: "#ffffff" },
+    h2: { fontSize: "3rem",   fontWeight: 800, lineHeight: 1.15, color: "#ffffff" },
+    h3: { fontSize: "2.25rem",fontWeight: 700, lineHeight: 1.2,  color: "#ffffff" },
+    h4: { fontWeight: 700, color: "#ffffff" },
+    h5: { fontWeight: 700, color: "#ffffff" },
+    h6: { fontWeight: 700, color: "#ffffff" },
+    body1: { fontSize: "1rem",       lineHeight: 1.6 },
+    body2: { fontSize: "0.875rem",   lineHeight: 1.6 },
     button: { textTransform: "none", fontWeight: 500 },
   },
 
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        body: {
-          backgroundColor: "#0a0a0a",
-          color: "#ffffff",
-        },
+        body: { backgroundColor: "#0a0a0a", color: "#ffffff" },
       },
     },
 
@@ -72,18 +72,14 @@ const theme = createTheme({
           borderRadius: 999,
           padding: "10px 22px",
           transition: "all 0.2s ease",
-          "&:hover": {
-            backgroundColor: "transparent",
-          },
+          "&:hover": { backgroundColor: "transparent" },
         },
       },
     },
 
     MuiIconButton: {
       styleOverrides: {
-        root: {
-          "&:hover": { backgroundColor: alpha("#ffffff", 0.05) },
-        },
+        root: { "&:hover": { backgroundColor: alpha("#ffffff", 0.05) } },
       },
     },
 

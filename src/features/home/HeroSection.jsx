@@ -22,8 +22,8 @@ const HeroSection = () => {
       sx={{
         position: "relative",
         minHeight: "100vh",
-        mt: "-72px",       // bleed behind fixed navbar
-        pt: "72px",        // compensate so content stays centered — no visual shift, no scroll lift
+        mt: "-72px",
+        pt: "72px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -49,7 +49,7 @@ const HeroSection = () => {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
-          opacity: 0.35,
+          opacity: 0.3,
           // Hide broken video element if file not found
           "&:not([src]), &[src='']": { display: "none" },
         }}
@@ -86,6 +86,7 @@ const HeroSection = () => {
           gap: { xs: 3, md: 4 },
           px: { xs: 3, md: 6 },
           pt: { xs: 10, md: 0 },
+          pb: { xs: "120px", md: "80px" },
           maxWidth: 960,
         }}
       >
@@ -119,10 +120,6 @@ const HeroSection = () => {
               letterSpacing: { xs: 2, md: 6 },
               fontSize: { xs: "3.5rem", md: "6rem", lg: "7.5rem" },
               lineHeight: 0.95,
-              background: "linear-gradient(to bottom, #ffffff 50%, #666 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
               textTransform: "uppercase",
             }}
           >

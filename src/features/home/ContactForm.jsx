@@ -6,34 +6,16 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SectionContainer from "../../components/SectionContainer";
+
 
 const MotionBox = motion(Box);
 
 const contactInfo = [
-  {
-    icon: LocationOnIcon,
-    label: "Studio Location",
-    value: "Porto, Portugal",
-    link: "https://maps.google.com",
-  },
-  {
-    icon: PhoneIcon,
-    label: "Phone",
-    value: "+351 910 848 391",
-    link: "tel:+351910848391",
-  },
-  {
-    icon: EmailIcon,
-    label: "Email",
-    value: "wagnotattoo@gmail.com",
-    link: "mailto:wagnotattoo@gmail.com",
-  },
-  {
-    icon: InstagramIcon,
-    label: "Instagram",
-    value: "@wagnotattoo",
-    link: "https://instagram.com/wagnotattoo",
-  },
+  { icon: LocationOnIcon, label: "Studio Location", value: "Porto, Portugal", link: "https://maps.google.com" },
+  { icon: PhoneIcon, label: "Phone", value: "+351 910 848 391", link: "tel:+351910848391" },
+  { icon: EmailIcon, label: "Email", value: "wagnotattoo@gmail.com", link: "mailto:wagnotattoo@gmail.com" },
+  { icon: InstagramIcon, label: "Instagram", value: "@wagnotattoo", link: "https://instagram.com/wagnotattoo" },
 ];
 
 const studioHours = [
@@ -42,510 +24,188 @@ const studioHours = [
   { day: "Sunday", hours: "Closed" },
 ];
 
-const ContactSection = () => {
-  return (
-    <Box
+const textFieldSx = {
+  "& .MuiOutlinedInput-root": {
+    color: "white",
+    "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+    "&:hover fieldset": { borderColor: "rgba(198,40,40,0.3)" },
+    "&.Mui-focused fieldset": { borderColor: "primary.main" },
+  },
+  "& .MuiInputLabel-root": { color: "text.secondary" },
+};
+
+const ContactSection = () => (
+  <SectionContainer>
+    {/* Header — mirrored from FeaturedWork: description bottom-left, title right */}
+    <MotionBox
+      initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }} viewport={{ once: true }}
       sx={{
-        py: { xs: 12, md: 16 },
-        px: { xs: 2, md: 6 },
-        position: "relative",
         display: "flex",
-        flexDirection: "column",
-        gap: { xs: 8, md: 12 }, 
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: { xs: "flex-start", md: "flex-end" },
+        justifyContent: "space-between",
+        gap: { xs: 3, md: 4 },
       }}
     >
-      {/* Section Header */}
-      <MotionBox
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          textAlign: "center",
-          gap: 2,
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: { xs: 12, md: 13 },
-            fontWeight: 600,
-            letterSpacing: 3,
-            color: "primary.main",
-            textTransform: "uppercase",
-            maxWidth: 700,
-          }}
-        >
+      {/* Description — bottom-left */}
+      <Typography sx={{ color: "text.secondary", fontSize: { xs: "0.9rem", md: "1rem" }, lineHeight: 1.7, maxWidth: 340, pb: { md: 0.5 } }}>
+        Ready to bring your vision to life? Reach out to discuss your next tattoo.
+      </Typography>
+
+      {/* Title block — right */}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: { xs: "flex-start", md: "flex-end" }, textAlign: { xs: "left", md: "right" } }}>
+        <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "primary.main", textTransform: "uppercase" }}>
           Get in Touch
         </Typography>
-
-        <Typography
-          variant="h2"
-          sx={{
-            fontWeight: 900,
-            fontSize: { xs: "2rem", md: "3rem" },
-            background: "linear-gradient(to bottom, #ffffff 60%, #999 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            maxWidth: 700,
-          }}
-        >
-          Let's Create Something Amazing
+        <Typography variant="h2" sx={{ fontWeight: 900, fontSize: { xs: "2rem", md: "3rem" }, lineHeight: 1.1 }}>
+          Let's Create<br />Something Amazing
         </Typography>
+      </Box>
+    </MotionBox>
 
-        <Typography
-          sx={{
-            color: "text.secondary",
-            fontSize: { xs: "0.95rem", md: "1.1rem" },
-            lineHeight: 1.7,
-            maxWidth: 700,
-          }}
-        >
-          Ready to bring your vision to life? Reach out to discuss your next
-          tattoo.
-        </Typography>
-      </MotionBox>
+    {/* Main Content Grid */}
+    <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" }, gap: { xs: 4, md: 6 } }}>
 
-      {/* Main Content Grid */}
-      <Box
-        sx={{
-          maxWidth: 1200,
-          width: "100%",
-          alignSelf: "center",
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
-          gap: { xs: 4, md: 6 },
-        }}
+      {/* Left — Contact Info + Hours */}
+      <MotionBox
+        initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }} viewport={{ once: true }}
+        sx={{ display: "flex", flexDirection: "column", gap: 4 }}
       >
-        {/* Left Side - Contact Info */}
-        <MotionBox
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-          }}
-        >
-          {/* Contact Cards */}
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            {contactInfo.map((info, index) => {
-              const Icon = info.icon;
-              return (
-                <MotionBox
-                  key={info.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  component="a"
-                  href={info.link}
-                  target={info.link.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    info.link.startsWith("http")
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 2.5,
-                    p: 3,
-                    borderRadius: 3,
-                    background: "rgba(26,26,26,0.6)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255,255,255,0.05)",
-                    textDecoration: "none",
-                    transition: "all 0.3s ease",
-
-                    "&:hover": {
-                      borderColor: "rgba(198,40,40,0.3)",
-                      transform: "translateX(8px)",
-                      background: "rgba(26,26,26,0.8)",
-                    },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      width: 50,
-                      height: 50,
-                      borderRadius: 2,
-                      background:
-                        "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))",
-                      border: "1px solid rgba(198,40,40,0.3)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Icon sx={{ color: "primary.main", fontSize: 24 }} />
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 0.5,
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: 12,
-                        color: "text.secondary",
-                        fontWeight: 500,
-                        letterSpacing: 1,
-                      }}
-                    >
-                      {info.label}
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: 16,
-                        color: "white",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {info.value}
-                    </Typography>
-                  </Box>
-                </MotionBox>
-              );
-            })}
-          </Box>
-
-          {/* Studio Hours */}
-          <MotionBox
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            viewport={{ once: true }}
-            sx={{
-              p: 4,
-              borderRadius: 3,
-              background: "rgba(26,26,26,0.6)",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255,255,255,0.05)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 3,
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-              <AccessTimeIcon sx={{ color: "primary.main", fontSize: 24 }} />
-              <Typography
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          {contactInfo.map((info, index) => {
+            const Icon = info.icon;
+            return (
+              <MotionBox
+                key={info.label}
+                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }} viewport={{ once: true }}
+                component="a"
+                href={info.link}
+                target={info.link.startsWith("http") ? "_blank" : undefined}
+                rel={info.link.startsWith("http") ? "noopener noreferrer" : undefined}
                 sx={{
-                  fontSize: 18,
-                  fontWeight: 700,
-                  color: "white",
-                  letterSpacing: 0.5,
+                  display: "flex", alignItems: "center", gap: 2.5, p: 3,
+                  borderRadius: 3, background: "rgba(26,26,26,0.6)", backdropFilter: "blur(10px)",
+                  border: "1px solid rgba(255,255,255,0.05)", textDecoration: "none", transition: "all 0.3s ease",
+                  "&:hover": { borderColor: "rgba(198,40,40,0.3)", transform: "translateX(8px)", background: "rgba(26,26,26,0.8)" },
                 }}
               >
-                Studio Hours
-              </Typography>
-            </Box>
-
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              {studioHours.map((schedule, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    pb: index !== studioHours.length - 1 ? 2 : 0,
-                    borderBottom:
-                      index !== studioHours.length - 1
-                        ? "1px solid rgba(255,255,255,0.05)"
-                        : "none",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: 14,
-                      color: "text.secondary",
-                      fontWeight: 500,
-                    }}
-                  >
-                    {schedule.day}
+                <Box sx={{ width: 50, height: 50, borderRadius: 2, background: "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))", border: "1px solid rgba(198,40,40,0.3)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <Icon sx={{ color: "primary.main", fontSize: 24 }} />
+                </Box>
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
+                  <Typography sx={{ fontSize: 12, color: "text.secondary", fontWeight: 500, letterSpacing: 1 }}>
+                    {info.label}
                   </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: 14,
-                      color: "white",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {schedule.hours}
+                  <Typography sx={{ fontSize: 16, color: "white", fontWeight: 600 }}>
+                    {info.value}
                   </Typography>
                 </Box>
-              ))}
-            </Box>
-          </MotionBox>
-        </MotionBox>
+              </MotionBox>
+            );
+          })}
+        </Box>
 
-        {/* Right Side - Contact Form */}
+        {/* Studio Hours */}
         <MotionBox
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          sx={{
-            p: { xs: 4, md: 5 },
-            borderRadius: 3,
-            background: "rgba(26,26,26,0.6)",
-            backdropFilter: "blur(10px)",
-            border: "1px solid rgba(255,255,255,0.05)",
-            display: "flex",
-            flexDirection: "column",
-            gap: 4,
-          }}
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }} viewport={{ once: true }}
+          sx={{ p: 4, borderRadius: 3, background: "rgba(26,26,26,0.6)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", gap: 3 }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-            }}
-          >
-            <Typography
-              variant="h5"
-              sx={{
-                fontWeight: 700,
-                color: "white",
-              }}
-            >
-              Send us a Message
-            </Typography>
-
-            <Typography
-              sx={{
-                color: "text.secondary",
-                fontSize: 14,
-              }}
-            >
-              Fill out the form below and we'll get back to you within 24 hours.
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+            <AccessTimeIcon sx={{ color: "primary.main", fontSize: 24 }} />
+            <Typography sx={{ fontSize: 18, fontWeight: 700, color: "white", letterSpacing: 0.5 }}>
+              Studio Hours
             </Typography>
           </Box>
-
-          <Box
-            component="form"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 3,
-            }}
-          >
-            <TextField
-              fullWidth
-              label="Your Name"
-              variant="outlined"
-              required
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  color: "white",
-                  "& fieldset": {
-                    borderColor: "rgba(255,255,255,0.1)",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "rgba(198,40,40,0.3)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "primary.main",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "text.secondary",
-                },
-              }}
-            />
-
-            <TextField
-              fullWidth
-              label="Email Address"
-              variant="outlined"
-              type="email"
-              required
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  color: "white",
-                  "& fieldset": {
-                    borderColor: "rgba(255,255,255,0.1)",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "rgba(198,40,40,0.3)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "primary.main",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "text.secondary",
-                },
-              }}
-            />
-
-            <TextField
-              fullWidth
-              label="Phone Number (Optional)"
-              variant="outlined"
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  color: "white",
-                  "& fieldset": {
-                    borderColor: "rgba(255,255,255,0.1)",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "rgba(198,40,40,0.3)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "primary.main",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "text.secondary",
-                },
-              }}
-            />
-
-            <TextField
-              fullWidth
-              label="Tell us about your tattoo idea"
-              variant="outlined"
-              multiline
-              rows={5}
-              required
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  color: "white",
-                  "& fieldset": {
-                    borderColor: "rgba(255,255,255,0.1)",
-                  },
-                  "&:hover fieldset": {
-                    borderColor: "rgba(198,40,40,0.3)",
-                  },
-                  "&.Mui-focused fieldset": {
-                    borderColor: "primary.main",
-                  },
-                },
-                "& .MuiInputLabel-root": {
-                  color: "text.secondary",
-                },
-              }}
-            />
-
-            <Button
-              variant="contained"
-              size="large"
-              endIcon={<ArrowForwardIcon />}
-              sx={{
-                pt: 1.5,
-                py: 1.5,
-                borderRadius: 999,
-                background:
-                  "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))",
-                border: "1px solid rgba(198,40,40,0.4)",
-                color: "white",
-                fontWeight: 600,
-                letterSpacing: 1,
-                textTransform: "none",
-                fontSize: 15,
-                transition: "all 0.3s ease",
-
-                "&:hover": {
-                  background:
-                    "linear-gradient(135deg, rgba(198,40,40,0.3), rgba(142,0,0,0.3))",
-                  borderColor: "rgba(198,40,40,0.6)",
-                  transform: "translateY(-2px)",
-                  boxShadow: "0 10px 30px rgba(198,40,40,0.3)",
-                },
-              }}
-            >
-              Send Message
-            </Button>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {studioHours.map((schedule, index) => (
+              <Box key={schedule.day} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pb: index !== studioHours.length - 1 ? 2 : 0, borderBottom: index !== studioHours.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none" }}>
+                <Typography sx={{ fontSize: 14, color: "text.secondary", fontWeight: 500 }}>
+                  {schedule.day}
+                </Typography>
+                <Typography sx={{ fontSize: 14, color: "white", fontWeight: 600 }}>
+                  {schedule.hours}
+                </Typography>
+              </Box>
+            ))}
           </Box>
         </MotionBox>
-      </Box>
+      </MotionBox>
 
-      {/* WhatsApp CTA */}
+      {/* Right — Form */}
       <MotionBox
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        viewport={{ once: true }}
-        sx={{
-          maxWidth: 1200,
-          width: "100%",
-          alignSelf: "center",
-          p: 4,
-          borderRadius: 3,
-          background:
-            "linear-gradient(135deg, rgba(37,211,102,0.1), rgba(37,211,102,0.05))",
-          border: "1px solid rgba(37,211,102,0.2)",
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: "center",
-          justifyContent: "space-between",
-          gap: 3,
-        }}
+        initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }} viewport={{ once: true }}
+        sx={{ p: { xs: 4, md: 5 }, borderRadius: 3, background: "rgba(26,26,26,0.6)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.05)", display: "flex", flexDirection: "column", gap: 4 }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 1,
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: 20,
-              fontWeight: 700,
-              color: "white",
-            }}
-          >
-            Prefer WhatsApp?
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
+            Send us a Message
           </Typography>
           <Typography sx={{ color: "text.secondary", fontSize: 14 }}>
-            Chat with us directly for faster responses and instant booking.
+            Fill out the form below and we'll get back to you within 24 hours.
           </Typography>
         </Box>
 
-        <Button
-          variant="contained"
-          size="large"
-          component="a"
-          href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{
-            py: 1.5,
-            px: 4,
-            borderRadius: 999,
-            background: "#25D366",
-            color: "white",
-            fontWeight: 600,
-            letterSpacing: 0.5,
-            textTransform: "none",
-            fontSize: 15,
-            whiteSpace: "nowrap",
+        <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+          <TextField fullWidth label="Your Name" variant="outlined" required sx={textFieldSx} />
+          <TextField fullWidth label="Email Address" variant="outlined" type="email" required sx={textFieldSx} />
+          <TextField fullWidth label="Phone Number (Optional)" variant="outlined" sx={textFieldSx} />
+          <TextField fullWidth label="Tell us about your tattoo idea" variant="outlined" multiline rows={5} required sx={textFieldSx} />
 
-            "&:hover": {
-              background: "#20BA5A",
-              transform: "scale(1.05)",
-            },
-          }}
-        >
-          Open WhatsApp
-        </Button>
+          <Button
+            variant="contained"
+            size="large"
+            endIcon={<ArrowForwardIcon />}
+            sx={{
+              py: 1.5, borderRadius: 999,
+              background: "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))",
+              border: "1px solid rgba(198,40,40,0.4)", color: "white", fontWeight: 600,
+              letterSpacing: 1, textTransform: "none", fontSize: 15, transition: "all 0.3s ease",
+              "&:hover": { background: "linear-gradient(135deg, rgba(198,40,40,0.3), rgba(142,0,0,0.3))", borderColor: "rgba(198,40,40,0.6)", transform: "translateY(-2px)", boxShadow: "0 10px 30px rgba(198,40,40,0.3)" },
+            }}
+          >
+            Send Message
+          </Button>
+        </Box>
       </MotionBox>
     </Box>
-  );
-};
+
+    {/* WhatsApp CTA */}
+    <MotionBox
+      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.3 }} viewport={{ once: true }}
+      sx={{
+        p: 4, borderRadius: 3,
+        background: "linear-gradient(135deg, rgba(37,211,102,0.1), rgba(37,211,102,0.05))",
+        border: "1px solid rgba(37,211,102,0.2)",
+        display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: "center", justifyContent: "space-between", gap: 3,
+      }}
+    >
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+        <Typography sx={{ fontSize: 20, fontWeight: 700, color: "white" }}>
+          Prefer WhatsApp?
+        </Typography>
+        <Typography sx={{ color: "text.secondary", fontSize: 14 }}>
+          Chat with us directly for faster responses and instant booking.
+        </Typography>
+      </Box>
+      <Button
+        variant="contained"
+        size="large"
+        component="a"
+        href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+        target="_blank"
+        rel="noopener noreferrer"
+        sx={{ py: 1.5, px: 4, borderRadius: 999, background: "#25D366", color: "white", fontWeight: 600, letterSpacing: 0.5, textTransform: "none", fontSize: 15, whiteSpace: "nowrap", "&:hover": { background: "#20BA5A", transform: "scale(1.05)" } }}
+      >
+        Open WhatsApp
+      </Button>
+    </MotionBox>
+  </SectionContainer>
+);
 
 export default ContactSection;

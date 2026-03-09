@@ -49,9 +49,9 @@ const ContactSection = () => {
         py: { xs: 12, md: 16 },
         px: { xs: 2, md: 6 },
         position: "relative",
-        display: "flex", // 🔥 Flex container
+        display: "flex",
         flexDirection: "column",
-        gap: { xs: 8, md: 12 }, // 🔥 Gap between header, content, and WhatsApp CTA
+        gap: { xs: 8, md: 12 }, 
       }}
     >
       {/* Section Header */}
@@ -61,12 +61,12 @@ const ContactSection = () => {
         transition={{ duration: 0.8 }}
         viewport={{ once: true }}
         sx={{
-          width: "100%", // 🔥 Full width
+          width: "100%",
           display: "flex",
           flexDirection: "column",
-          alignItems: "center", // 🔥 Centers children
+          alignItems: "center",
           textAlign: "center",
-          gap: 2, // 🔥 Gap between elements
+          gap: 2,
         }}
       >
         <Typography
@@ -76,7 +76,7 @@ const ContactSection = () => {
             letterSpacing: 3,
             color: "primary.main",
             textTransform: "uppercase",
-            maxWidth: 700, // 🔥 Constraint on element
+            maxWidth: 700,
           }}
         >
           Get in Touch
@@ -91,7 +91,7 @@ const ContactSection = () => {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            maxWidth: 700, // 🔥 Constraint on element
+            maxWidth: 700,
           }}
         >
           Let's Create Something Amazing
@@ -102,7 +102,7 @@ const ContactSection = () => {
             color: "text.secondary",
             fontSize: { xs: "0.95rem", md: "1.1rem" },
             lineHeight: 1.7,
-            maxWidth: 700, // 🔥 Constraint on element
+            maxWidth: 700,
           }}
         >
           Ready to bring your vision to life? Reach out to discuss your next
@@ -114,8 +114,8 @@ const ContactSection = () => {
       <Box
         sx={{
           maxWidth: 1200,
-          width: "100%", // 🔥 Full width
-          alignSelf: "center", // 🔥 Center the grid
+          width: "100%",
+          alignSelf: "center",
           display: "grid",
           gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
           gap: { xs: 4, md: 6 },
@@ -190,9 +190,9 @@ const ContactSection = () => {
 
                   <Box
                     sx={{
-                      display: "flex", // 🔥 Flex for spacing
+                      display: "flex",
                       flexDirection: "column",
-                      gap: 0.5, // 🔥 Gap between label and value
+                      gap: 0.5,
                     }}
                   >
                     <Typography
@@ -232,9 +232,9 @@ const ContactSection = () => {
               background: "rgba(26,26,26,0.6)",
               backdropFilter: "blur(10px)",
               border: "1px solid rgba(255,255,255,0.05)",
-              display: "flex", // 🔥 Flex container
+              display: "flex",
               flexDirection: "column",
-              gap: 3, // 🔥 Gap between header and schedule
+              gap: 3,
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
@@ -302,16 +302,16 @@ const ContactSection = () => {
             background: "rgba(26,26,26,0.6)",
             backdropFilter: "blur(10px)",
             border: "1px solid rgba(255,255,255,0.05)",
-            display: "flex", // 🔥 Flex container
+            display: "flex",
             flexDirection: "column",
-            gap: 4, // 🔥 Gap between title, description, and form
+            gap: 4,
           }}
         >
           <Box
             sx={{
-              display: "flex", // 🔥 Flex for header spacing
+              display: "flex",
               flexDirection: "column",
-              gap: 1, // 🔥 Gap between title and description
+              gap: 1,
             }}
           >
             <Typography
@@ -339,7 +339,7 @@ const ContactSection = () => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: 3, // 🔥 Gap between form fields
+              gap: 3,
             }}
           >
             <TextField
@@ -445,7 +445,7 @@ const ContactSection = () => {
               size="large"
               endIcon={<ArrowForwardIcon />}
               sx={{
-                pt: 1.5, // 🔥 Padding-top instead of margin-top
+                pt: 1.5,
                 py: 1.5,
                 borderRadius: 999,
                 background:
@@ -481,8 +481,8 @@ const ContactSection = () => {
         viewport={{ once: true }}
         sx={{
           maxWidth: 1200,
-          width: "100%", // 🔥 Full width
-          alignSelf: "center", // 🔥 Center it
+          width: "100%",
+          alignSelf: "center",
           p: 4,
           borderRadius: 3,
           background:
@@ -497,9 +497,9 @@ const ContactSection = () => {
       >
         <Box
           sx={{
-            display: "flex", // 🔥 Flex for spacing
+            display: "flex",
             flexDirection: "column",
-            gap: 1, // 🔥 Gap between title and description
+            gap: 1,
           }}
         >
           <Typography

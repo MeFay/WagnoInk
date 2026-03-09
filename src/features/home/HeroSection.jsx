@@ -1,10 +1,18 @@
-import CustomButton from "../../components/UI/Button";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import CustomButton from "../../components/UI/Button";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
+
+// Drop your video file in /public/hero-reel.mp4 — if absent, falls back to glow
+const VIDEO_SRC = "/public/video/hero-video.mp4";
+const stats = [
+  { value: "8+", label: "Years Experience" },
+  { value: "500+", label: "Satisfied Clients" },
+  { value: "100%", label: "Custom Designs" },
+];
 
 const HeroSection = () => {
   const navigate = useNavigate();
@@ -13,129 +21,149 @@ const HeroSection = () => {
     <Box
       sx={{
         position: "relative",
-        minHeight: { xs: "85vh", md: "90vh" },
+        minHeight: "100vh",
+        mt: "-72px",       // bleed behind fixed navbar
+        pt: "72px",        // compensate so content stays centered — no visual shift, no scroll lift
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        textAlign: "center",
-        px: { xs: 3, md: 6 },
-        pt: { xs: 12, md: 16 },
-        pb: { xs: 8, md: 12 },
         overflow: "hidden",
+        "@keyframes scroll-pulse": {
+          "0%, 100%": { height: "40px", opacity: 0.4 },
+          "50%": { height: "60px", opacity: 1 },
+        },
       }}
     >
-      {/* Floating accent glows - BEFORE content */}
+      {/* ── Video background ─────────────────────────────────── */}
       <Box
+        component="video"
+        src={VIDEO_SRC}
+        autoPlay
+        muted
+        loop
+        playsInline
         sx={{
           position: "absolute",
-          top: "15%",
-          right: "5%",
-          width: { xs: 150, md: 250 },
-          height: { xs: 150, md: 250 },
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(255,111,0,0.12), transparent 70%)",
-          filter: "blur(60px)",
-          animation: "float 8s ease-in-out infinite",
-          pointerEvents: "none",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
           zIndex: 0,
-
-          "@keyframes float": {
-            "0%, 100%": { transform: "translateY(0px)" },
-            "50%": { transform: "translateY(-30px)" },
-          },
+          opacity: 0.35,
+          // Hide broken video element if file not found
+          "&:not([src]), &[src='']": { display: "none" },
         }}
       />
 
+      {/* ── Single overlay — light top for navbar, clear middle, fade bottom ── */}
       <Box
         sx={{
           position: "absolute",
-          bottom: "20%",
-          left: "8%",
-          width: { xs: 120, md: 200 },
-          height: { xs: 120, md: 200 },
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(198,40,40,0.15), transparent 70%)",
-          filter: "blur(50px)",
-          animation: "float 6s ease-in-out infinite 1s",
+          inset: 0,
+          background: `linear-gradient(to bottom,
+            rgba(10,10,10,0.4) 0%,
+            transparent 15%,
+            transparent 70%,
+            #0a0a0a 100%
+          )`,
+          zIndex: 1,
           pointerEvents: "none",
-          zIndex: 0,
         }}
       />
 
-      {/* Main content */}
+      {/* ── Main content ──────────────────────────────────────── */}
       <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 0.8 }}
         sx={{
+          position: "relative",
+          zIndex: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: { xs: 2.5, md: 3 },
-          maxWidth: 900,
-          position: "relative",
-          zIndex: 1,
+          textAlign: "center",
+          gap: { xs: 3, md: 4 },
+          px: { xs: 3, md: 6 },
+          pt: { xs: 10, md: 0 },
+          maxWidth: 960,
         }}
       >
-        {/* Overline text */}
+        {/* Overline */}
         <MotionTypography
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           sx={{
-            fontSize: { xs: 13, md: 14 },
-            fontWeight: 500,
-            letterSpacing: 3,
+            fontSize: { xs: 11, md: 12 },
+            fontWeight: 600,
+            letterSpacing: 4,
             color: "primary.main",
             textTransform: "uppercase",
           }}
         >
-          Premium Tattoo Artistry
+          Porto, Portugal · Est. 2016
         </MotionTypography>
 
-        {/* Main heading */}
-        <MotionTypography
-          variant="h1"
-          initial={{ opacity: 0, y: 30 }}
+        {/* Main heading — large contrast */}
+        <MotionBox
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          sx={{
-            fontWeight: 900,
-            letterSpacing: { xs: 1, md: 2 },
-            fontSize: { xs: "2.5rem", md: "4rem", lg: "5rem" },
-            lineHeight: 1.1,
-            background: "linear-gradient(to bottom, #ffffff 60%, #999 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-          }}
+          sx={{ display: "flex", flexDirection: "column", gap: 0 }}
         >
-          WAGNO INK
-        </MotionTypography>
+          <Typography
+            component="h1"
+            sx={{
+              fontWeight: 900,
+              letterSpacing: { xs: 2, md: 6 },
+              fontSize: { xs: "3.5rem", md: "6rem", lg: "7.5rem" },
+              lineHeight: 0.95,
+              background: "linear-gradient(to bottom, #ffffff 50%, #666 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              textTransform: "uppercase",
+            }}
+          >
+            Wagno
+          </Typography>
+          {/* Second line — thinner weight for contrast */}
+          <Typography
+            component="span"
+            sx={{
+              fontWeight: 300,
+              letterSpacing: { xs: 8, md: 18 },
+              fontSize: { xs: "1.4rem", md: "2.2rem", lg: "2.6rem" },
+              color: "rgba(255,255,255,0.45)",
+              textTransform: "uppercase",
+              pl: { xs: "8px", md: "18px" }, // optical offset for letterSpacing
+            }}
+          >
+            Tattoo Artist
+          </Typography>
+        </MotionBox>
 
-        {/* Subtitle */}
+        {/* Tagline — specific, not generic */}
         <MotionTypography
-          variant="h6"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           sx={{
             color: "text.secondary",
-            maxWidth: 600,
-            fontSize: { xs: "1rem", md: "1.25rem" },
+            maxWidth: 480,
+            fontSize: { xs: "0.95rem", md: "1.1rem" },
             fontWeight: 400,
-            lineHeight: 1.6,
+            lineHeight: 1.7,
           }}
         >
-          Precision-driven tattoo work with a contemporary edge. Where art meets
-          skin.
+          Based in Porto. Every piece is drawn from scratch —
+          no flash, no templates, no compromises.
         </MotionTypography>
 
-        {/* CTA Buttons */}
+        {/* CTAs */}
         <MotionBox
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7 }}
           sx={{
@@ -146,16 +174,15 @@ const HeroSection = () => {
           }}
         >
           <CustomButton onClick={() => navigate("/gallery")} size="large">
-            View Gallery
+            See the Work
           </CustomButton>
-
           <CustomButton
             href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
             target="_blank"
             rel="noopener noreferrer"
             size="large"
           >
-            Book Consultation
+            Book a Consultation
           </CustomButton>
         </MotionBox>
 
@@ -166,122 +193,81 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 1 }}
           sx={{
             display: "flex",
-            gap: { xs: 4, md: 8 },
-            pt: { xs: 4, md: 5 },
+            gap: { xs: 5, md: 10 },
+            pt: { xs: 5, md: 6 },
             flexWrap: "wrap",
             justifyContent: "center",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 0.5,
-              alignItems: "center",
-            }}
-          >
-            <Typography
+          {stats.map(({ value, label }) => (
+            <Box
+              key={label}
               sx={{
-                fontSize: { xs: "2rem", md: "2.5rem" },
-                fontWeight: 800,
-                color: "primary.main",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 0.5,
               }}
             >
-              8+
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: 12, md: 14 },
-                color: "text.secondary",
-                letterSpacing: 1,
-              }}
-            >
-              YEARS EXPERIENCE
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 0.5,
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: { xs: "2rem", md: "2.5rem" },
-                fontWeight: 800,
-                color: "primary.main",
-              }}
-            >
-              500+
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: 12, md: 14 },
-                color: "text.secondary",
-                letterSpacing: 1,
-              }}
-            >
-              SATISFIED CLIENTS
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 0.5,
-              alignItems: "center",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: { xs: "2rem", md: "2.5rem" },
-                fontWeight: 800,
-                color: "primary.main",
-              }}
-            >
-              100%
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { xs: 12, md: 14 },
-                color: "text.secondary",
-                letterSpacing: 1,
-              }}
-            >
-              CUSTOM DESIGNS
-            </Typography>
-          </Box>
+              <Typography
+                sx={{
+                  fontSize: { xs: "2rem", md: "2.5rem" },
+                  fontWeight: 800,
+                  color: "primary.main",
+                  lineHeight: 1,
+                }}
+              >
+                {value}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: { xs: 11, md: 12 },
+                  color: "text.secondary",
+                  letterSpacing: 2,
+                  textTransform: "uppercase",
+                }}
+              >
+                {label}
+              </Typography>
+            </Box>
+          ))}
         </MotionBox>
       </MotionBox>
 
-      {/* Scroll Indicator */}
+      {/* ── Scroll indicator ─────────────────────────────────── */}
       <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
         sx={{
           position: "absolute",
-          bottom: 40,
+          bottom: 36,
           left: "50%",
           transform: "translateX(-50%)",
-          zIndex: 1,
+          zIndex: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 1,
         }}
       >
+        <Typography
+          sx={{
+            fontSize: 10,
+            letterSpacing: 3,
+            color: "rgba(255,255,255,0.3)",
+            textTransform: "uppercase",
+          }}
+        >
+          Scroll
+        </Typography>
         <Box
           sx={{
-            width: 2,
+            width: 1.5,
             height: 40,
             bgcolor: "rgba(198,40,40,0.5)",
             borderRadius: 1,
-            animation: "scroll 2s ease-in-out infinite",
-            "@keyframes scroll": {
-              "0%, 100%": { height: "40px", opacity: 0.5 },
-              "50%": { height: "60px", opacity: 1 },
-            },
+            animation: "scroll-pulse 2s ease-in-out infinite",
           }}
         />
       </MotionBox>

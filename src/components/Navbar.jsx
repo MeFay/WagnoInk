@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
@@ -27,7 +27,6 @@ import {
   MenuItem,
 } from "@mui/material";
 
-// --- Data ---
 const NAV_ITEMS = [
   { path: "/", label: "Home", icon: HomeIcon },
   { path: "/about", label: "About", icon: PersonIcon },
@@ -42,7 +41,6 @@ const LANGUAGES = [
   { code: "ES", label: "Español" },
 ];
 
-// --- NavLinkItem component (desktop or mobile) ---
 const NavLinkItem = ({
   item,
   isMobile = false,
@@ -100,7 +98,6 @@ const NavLinkItem = ({
   );
 };
 
-// --- Navbar ---
 const Navbar = () => {
   const theme = useTheme();
   const location = useLocation();
@@ -109,6 +106,14 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [languageAnchor, setLanguageAnchor] = useState(null);
   const [currentLanguage, setCurrentLanguage] = useState("EN");
+  const [scrolled, setScrolled] = useState(false);
+
+  // Fade in navbar background after scrolling 80px
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const hoverBg = alpha(theme.palette.secondary.main, 0.1);
   const activeBg = alpha(theme.palette.primary.main, 0.2);
@@ -131,26 +136,25 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Top Navbar */}
       <Box
         component="nav"
         sx={{
           height: nav.height,
           display: "flex",
           alignItems: "center",
-          position: "sticky",
+          position: "fixed",
           top: 0,
+          left: 0,
+          right: 0,
           zIndex: 1100,
-          // 🔥 Only blur, NO background color
-          backdropFilter: "blur(16px)",
+          backdropFilter: scrolled ? "blur(16px)" : "none",
+          backgroundColor: "transparent",
+          borderBottom: "none",
+          transition: "backdrop-filter 0.4s ease",
         }}
       >
         <Container maxWidth="lg">
-          <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
+          <Box display="flex" alignItems="center" justifyContent="space-between">
             {/* Logo */}
             <Typography
               component={Link}
@@ -174,12 +178,12 @@ const Navbar = () => {
                 gap: 0.5,
                 p: 0.5,
                 borderRadius: nav.borderRadius,
-                bgcolor: containerBg,
+                bgcolor: scrolled ? containerBg : "transparent",
               }}
             >
               {NAV_ITEMS.map((item) => {
                 const showDividerAfter =
-                  item.path === "/" || item.path === "/info"; // dividers
+                  item.path === "/" || item.path === "/info";
                 return (
                   <React.Fragment key={item.path}>
                     <NavLinkItem
@@ -191,11 +195,7 @@ const Navbar = () => {
                     />
                     {showDividerAfter && (
                       <Box
-                        sx={{
-                          width: "1px",
-                          height: 20,
-                          bgcolor: dividerColor,
-                        }}
+                        sx={{ width: "1px", height: 20, bgcolor: dividerColor }}
                       />
                     )}
                   </React.Fragment>
@@ -212,9 +212,7 @@ const Navbar = () => {
                 sx={{
                   ...navItemBase,
                   cursor: "pointer",
-                  "&:hover": {
-                    bgcolor: hoverBg,
-                  },
+                  "&:hover": { bgcolor: hoverBg },
                 }}
               >
                 <LanguageIcon sx={{ fontSize: "1rem" }} />
@@ -325,7 +323,6 @@ const Navbar = () => {
           ))}
         </List>
 
-        {/* Mobile Book Now */}
         <Box mt={4}>
           <CustomButton
             size="medium"

@@ -1,6 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 const MotionBox = motion(Box);
 
@@ -19,66 +21,241 @@ const featuredProjects = [
   },
 ];
 
-const FeaturedWork = () => {
-  return (
+// Overlay gradient shared across both cards
+const cardOverlay = `linear-gradient(
+  to top,
+  rgba(0,0,0,0.9) 0%,
+  rgba(0,0,0,0.3) 45%,
+  transparent 100%
+)`;
+
+const cardOverlayHover = `linear-gradient(
+  to top,
+  rgba(198,40,40,0.45) 0%,
+  rgba(0,0,0,0.35) 35%,
+  transparent 100%
+)`;
+
+const FeaturedCard = ({ project, tall = false, index = 0 }) => (
+  <MotionBox
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, delay: index * 0.2 }}
+    viewport={{ once: true }}
+    component="a"
+    href={project.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    sx={{
+      flex: tall ? "1.4" : "1",
+      height: { xs: "72vw", sm: "60vw", md: tall ? 680 : 500 },
+      minHeight: { md: tall ? 680 : 500 },
+      borderRadius: 3,
+      overflow: "hidden",
+      position: "relative",
+      textDecoration: "none",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "flex-end",
+      backgroundImage: `url(${project.image})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      border: "1px solid rgba(255,255,255,0.07)",
+      boxShadow: "0 24px 60px rgba(0,0,0,0.6)",
+      transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+
+      "&::before": {
+        content: '""',
+        position: "absolute",
+        inset: 0,
+        background: cardOverlay,
+        transition: "background 0.5s ease",
+        zIndex: 1,
+      },
+
+      "&:hover": {
+        transform: "translateY(-6px) scale(1.015)",
+        boxShadow: "0 36px 80px rgba(0,0,0,0.75)",
+        borderColor: "rgba(198,40,40,0.35)",
+      },
+
+      "&:hover::before": {
+        background: cardOverlayHover,
+      },
+
+      "&:hover .card-arrow": {
+        transform: "translate(4px, -4px)",
+        opacity: 1,
+      },
+
+      "&:hover .card-label": {
+        borderColor: "rgba(198,40,40,0.6)",
+        background: "rgba(198,40,40,0.2)",
+      },
+    }}
+  >
     <Box
       sx={{
-        width: "100%",
-        px: { xs: 2, md: 6 },
-        py: { xs: 12, md: 16 },
         position: "relative",
+        zIndex: 2,
+        p: { xs: 3, md: 4 },
         display: "flex",
         flexDirection: "column",
-        gap: { xs: 6, md: 10 },
-        overflow: "hidden",
+        gap: 1.5,
       }}
     >
-      {/* Secondary accent glow */}
+      {/* Category pill */}
       <Box
+        className="card-label"
         sx={{
-          position: "absolute",
-          top: "-20%",
-          right: "-10%",
-          width: "700px",
-          height: "700px",
-          background:
-            "radial-gradient(circle, rgba(255,111,0,0.12), transparent 70%)",
-          pointerEvents: "none",
-          zIndex: 0,
-          filter: "blur(100px)",
-        }}
-      />
-
-      {/* Section Header */}
-      <MotionBox
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
+          display: "inline-flex",
           alignItems: "center",
-          textAlign: "center",
-          gap: 2,
-          position: "relative",
-          zIndex: 1,
+          gap: 0.75,
+          px: 2,
+          py: 0.5,
+          alignSelf: "flex-start",
+          borderRadius: 999,
+          border: "1px solid rgba(198,40,40,0.3)",
+          background: "rgba(198,40,40,0.1)",
+          backdropFilter: "blur(10px)",
+          transition: "all 0.3s ease",
         }}
       >
         <Typography
           sx={{
-            fontSize: { xs: 12, md: 13 },
+            fontSize: { xs: 10, md: 11 },
+            fontWeight: 700,
+            letterSpacing: 2,
+            color: "primary.light",
+            textTransform: "uppercase",
+          }}
+        >
+          {project.category}
+        </Typography>
+      </Box>
+
+      {/* Title + arrow */}
+      <Box
+        sx={{ display: "flex", alignItems: "flex-end", gap: 1.5, flexWrap: "wrap" }}
+      >
+        <Typography
+          sx={{
+            color: "white",
+            fontWeight: 800,
+            fontSize: { xs: "1.5rem", md: tall ? "2.25rem" : "1.875rem" },
+            lineHeight: 1.15,
+            letterSpacing: 0.3,
+          }}
+        >
+          {project.title}
+        </Typography>
+        <OpenInNewIcon
+          className="card-arrow"
+          sx={{
+            color: "primary.main",
+            fontSize: { xs: 20, md: 24 },
+            opacity: 0.5,
+            mb: "3px",
+            transition: "all 0.3s ease",
+          }}
+        />
+      </Box>
+
+      <Typography
+        sx={{
+          fontSize: { xs: 12, md: 13 },
+          color: "rgba(255,255,255,0.5)",
+          fontWeight: 500,
+          letterSpacing: 0.5,
+        }}
+      >
+        View on Instagram
+      </Typography>
+    </Box>
+  </MotionBox>
+);
+
+const FeaturedWork = () => (
+  <Box
+    sx={{
+      width: "100%",
+      px: { xs: 2, md: 6 },
+      py: { xs: 12, md: 16 },
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      gap: { xs: 6, md: 10 },
+      overflow: "hidden",
+    }}
+  >
+    {/* Top fade — blends with hero bottom */}
+    <Box
+      sx={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 200,
+        background:
+          "linear-gradient(to bottom, #0a0a0a 0%, transparent 100%)",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+
+    {/* Watermark */}
+    <Typography
+      aria-hidden
+      sx={{
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -55%)",
+        fontSize: { xs: "22vw", md: "15vw" },
+        fontWeight: 900,
+        letterSpacing: { xs: 2, md: 12 },
+        color: "rgba(255,255,255,0.02)",
+        textTransform: "uppercase",
+        whiteSpace: "nowrap",
+        pointerEvents: "none",
+        userSelect: "none",
+        zIndex: 0,
+      }}
+    >
+      Work
+    </Typography>
+
+    {/* Header — left-aligned, splits from the centered pattern of other sections */}
+    <MotionBox
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: { xs: "flex-start", md: "flex-end" },
+        justifyContent: "space-between",
+        gap: { xs: 3, md: 4 },
+        maxWidth: 1400,
+        mx: "auto",
+        width: "100%",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <Typography
+          sx={{
+            fontSize: { xs: 11, md: 12 },
             fontWeight: 600,
-            letterSpacing: 3,
+            letterSpacing: 4,
             color: "primary.main",
             textTransform: "uppercase",
-            maxWidth: 700,
           }}
         >
           Featured Work
         </Typography>
-
         <Typography
           variant="h2"
           sx={{
@@ -88,239 +265,99 @@ const FeaturedWork = () => {
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            maxWidth: 700,
+            lineHeight: 1.1,
           }}
         >
-          Recent Masterpieces
+          Recent<br />Masterpieces
         </Typography>
+      </Box>
 
-        <Typography
-          sx={{
-            color: "text.secondary",
-            fontSize: { xs: "0.95rem", md: "1.1rem" },
-            lineHeight: 1.7,
-            maxWidth: 700,
-          }}
-        >
-          Explore our latest custom tattoo creations, each piece telling a
-          unique story.
-        </Typography>
-      </MotionBox>
-
-      {/* Projects Grid */}
-      <MotionBox
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
+      {/* Description pushed to bottom-right on desktop */}
+      <Typography
         sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          gap: { xs: 3, md: 4 },
-          position: "relative",
-          zIndex: 1,
+          color: "text.secondary",
+          fontSize: { xs: "0.9rem", md: "1rem" },
+          lineHeight: 1.7,
+          maxWidth: 340,
+          textAlign: { xs: "left", md: "right" },
+          pb: { md: 0.5 },
         }}
       >
-        {featuredProjects.map((project, index) => (
-          <MotionBox
-            key={project.title}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: index * 0.2 }}
-            viewport={{ once: true }}
-            component="a"
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{
-              flex: 1,
-              height: { xs: "75vh", md: 600 },
-              borderRadius: 3,
-              overflow: "hidden",
-              position: "relative",
-              textDecoration: "none",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-end",
+        Every piece is drawn from scratch. Explore the latest work —
+        or see the full collection in the gallery.
+      </Typography>
+    </MotionBox>
 
-              backgroundImage: `url(${project.image})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
+    {/* Asymmetric card grid — first card is taller */}
+    <MotionBox
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      viewport={{ once: true }}
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: { md: "flex-end" },
+        gap: { xs: 3, md: 4 },
+        maxWidth: 1400,
+        mx: "auto",
+        width: "100%",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
+      {featuredProjects.map((project, index) => (
+        <FeaturedCard
+          key={project.title}
+          project={project}
+          tall={index === 0}
+          index={index}
+        />
+      ))}
+    </MotionBox>
 
-              border: "1px solid rgba(255,255,255,0.08)",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
-
-              transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-
-              "&::before": {
-                content: '""',
-                position: "absolute",
-                inset: 0,
-                background: `
-                  linear-gradient(
-                    to top,
-                    rgba(0,0,0,0.85) 0%,
-                    rgba(0,0,0,0.3) 40%,
-                    rgba(0,0,0,0.1) 70%,
-                    transparent 100%
-                  )
-                `,
-                transition: "background 0.5s ease",
-                zIndex: 1,
-              },
-
-              "&::after": {
-                content: '""',
-                position: "absolute",
-                inset: -2,
-                borderRadius: 3,
-                background:
-                  "linear-gradient(135deg, rgba(198,40,40,0.4), rgba(229,57,53,0.4))",
-                opacity: 0,
-                transition: "opacity 0.5s ease",
-                zIndex: 0,
-              },
-
-              "&:hover": {
-                transform: "translateY(-8px) scale(1.02)",
-                boxShadow: "0 30px 70px rgba(0,0,0,0.7)",
-                borderColor: "rgba(198,40,40,0.4)",
-              },
-
-              "&:hover::before": {
-                background: `
-                  linear-gradient(
-                    to top,
-                    rgba(198,40,40,0.4) 0%,
-                    rgba(0,0,0,0.4) 30%,
-                    rgba(0,0,0,0.1) 60%,
-                    transparent 100%
-                  )
-                `,
-              },
-
-              "&:hover::after": {
-                opacity: 1,
-              },
-
-              "&:hover .arrow": {
-                transform: "translate(4px, -4px)",
-                opacity: 1,
-              },
-            }}
-          >
-            <Box
-              sx={{
-                position: "relative",
-                zIndex: 2,
-                p: { xs: 3, md: 4 },
-                display: "flex",
-                flexDirection: "column",
-                gap: 1,
-              }}
-            >
-              <Box
-                sx={{
-                  display: "inline-block",
-                  px: 2,
-                  py: 0.5,
-                  alignSelf: "flex-start",
-                  borderRadius: 999,
-                  border: "1px solid rgba(198,40,40,0.4)",
-                  background: "rgba(198,40,40,0.15)",
-                  backdropFilter: "blur(10px)",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: { xs: 11, md: 12 },
-                    fontWeight: 600,
-                    letterSpacing: 1.5,
-                    color: "primary.light",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {project.category}
-                </Typography>
-              </Box>
-
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Typography
-                  sx={{
-                    color: "white",
-                    fontWeight: 800,
-                    fontSize: { xs: 26, md: 34 },
-                    letterSpacing: 0.5,
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {project.title}
-                </Typography>
-
-                <ArrowForwardIcon
-                  className="arrow"
-                  sx={{
-                    color: "primary.main",
-                    fontSize: 28,
-                    opacity: 0.7,
-                    transition: "all 0.3s ease",
-                  }}
-                />
-              </Box>
-
-              <Typography
-                sx={{
-                  fontSize: { xs: 13, md: 14 },
-                  color: "rgba(255,255,255,0.6)",
-                  fontWeight: 500,
-                  letterSpacing: 0.5,
-                }}
-              >
-                View on Instagram →
-              </Typography>
-            </Box>
-          </MotionBox>
-        ))}
-      </MotionBox>
-
-      {/* View All Link */}
-      <MotionBox
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        viewport={{ once: true }}
+    {/* View all */}
+    <MotionBox
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.5 }}
+      viewport={{ once: true }}
+      sx={{
+        display: "flex",
+        justifyContent: { xs: "center", md: "flex-start" },
+        maxWidth: 1400,
+        mx: "auto",
+        width: "100%",
+        position: "relative",
+        zIndex: 1,
+      }}
+    >
+      <Box
+        component={Link}
+        to="/gallery"
         sx={{
-          textAlign: "center",
-          position: "relative",
-          zIndex: 1,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 1,
+          color: "primary.main",
+          textDecoration: "none",
+          fontSize: { xs: 13, md: 14 },
+          fontWeight: 700,
+          letterSpacing: 2,
+          textTransform: "uppercase",
+          transition: "all 0.3s ease",
+
+          "&:hover": {
+            gap: 1.5,
+            color: "primary.light",
+          },
         }}
       >
-        <Box
-          component="a"
-          href="/gallery"
-          sx={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 1,
-            color: "primary.main",
-            textDecoration: "none",
-            fontSize: { xs: 14, md: 16 },
-            fontWeight: 600,
-            letterSpacing: 1,
-            transition: "all 0.3s ease",
-
-            "&:hover": {
-              gap: 1.5,
-              color: "primary.light",
-            },
-          }}
-        >
-          EXPLORE FULL GALLERY
-          <ArrowForwardIcon sx={{ fontSize: 20 }} />
-        </Box>
-      </MotionBox>
-    </Box>
-  );
-};
+        Explore Full Gallery
+        <ArrowForwardIcon sx={{ fontSize: 18 }} />
+      </Box>
+    </MotionBox>
+  </Box>
+);
 
 export default FeaturedWork;

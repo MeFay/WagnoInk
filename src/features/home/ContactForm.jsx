@@ -1,4 +1,4 @@
-import { Box, Typography, TextField, Button } from "@mui/material";
+import { Box, Typography, TextField } from "@mui/material";
 import { motion } from "framer-motion";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -6,7 +6,9 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import SectionContainer from "../../components/SectionContainer";
+import CustomButton from "../../components/UI/Button";
 
 
 const MotionBox = motion(Box);
@@ -156,20 +158,10 @@ const ContactSection = () => (
           <TextField fullWidth label="Phone Number (Optional)" variant="outlined" sx={textFieldSx} />
           <TextField fullWidth label="Tell us about your tattoo idea" variant="outlined" multiline rows={5} required sx={textFieldSx} />
 
-          <Button
-            variant="contained"
-            size="large"
-            endIcon={<ArrowForwardIcon />}
-            sx={{
-              py: 1.5, borderRadius: 999,
-              background: "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))",
-              border: "1px solid rgba(198,40,40,0.4)", color: "white", fontWeight: 600,
-              letterSpacing: 1, textTransform: "none", fontSize: 15, transition: "all 0.3s ease",
-              "&:hover": { background: "linear-gradient(135deg, rgba(198,40,40,0.3), rgba(142,0,0,0.3))", borderColor: "rgba(198,40,40,0.6)", transform: "translateY(-2px)", boxShadow: "0 10px 30px rgba(198,40,40,0.3)" },
-            }}
-          >
+          <CustomButton size="large" fullWidth>
             Send Message
-          </Button>
+            <ArrowForwardIcon sx={{ fontSize: 18 }} />
+          </CustomButton>
         </Box>
       </MotionBox>
     </Box>
@@ -193,17 +185,16 @@ const ContactSection = () => (
           Chat with us directly for faster responses and instant booking.
         </Typography>
       </Box>
-      <Button
-        variant="contained"
-        size="large"
-        component="a"
-        href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={{ py: 1.5, px: 4, borderRadius: 999, background: "#25D366", color: "white", fontWeight: 600, letterSpacing: 0.5, textTransform: "none", fontSize: 15, whiteSpace: "nowrap", "&:hover": { background: "#20BA5A", transform: "scale(1.05)" } }}
-      >
-        Open WhatsApp
-      </Button>
+        <CustomButton
+          variant="whatsapp"
+          size="large"
+          href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <WhatsAppIcon sx={{ fontSize: 20 }} />
+          Open WhatsApp
+        </CustomButton>
     </MotionBox>
   </SectionContainer>
 );

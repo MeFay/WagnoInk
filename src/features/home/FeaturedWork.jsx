@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SectionContainer from "../../components/SectionContainer";
-
 const MotionBox = motion(Box);
 
 const featuredProjects = [
@@ -122,7 +121,7 @@ const FeaturedWork = () => (
       transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: true }}
       sx={{ display: "flex", justifyContent: { xs: "center", md: "flex-start" } }}
     >
-      <Box component={Link} to="/gallery" sx={{ display: "inline-flex", alignItems: "center", gap: 1, color: "primary.main", textDecoration: "none", fontSize: { xs: 13, md: 14 }, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", transition: "all 0.3s ease", "&:hover": { gap: 1.5, color: "primary.light" } }}>
+      <Box component={Link} to="/gallery" sx={{ display: "inline-flex", alignItems: "center", gap: 1, color: "accent.main", textDecoration: "none", fontSize: { xs: 13, md: 14 }, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", transition: "all 0.3s ease", "&:hover": { gap: 1.5, color: "accent.light" } }}>
         Explore Full Gallery
         <ArrowForwardIcon sx={{ fontSize: 18 }} />
       </Box>

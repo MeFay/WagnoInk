@@ -1,8 +1,8 @@
-import HeroSection from "../home/HeroSection.jsx";
-import FeaturedWork from "../home/FeaturedWork.jsx";
+import HeroSection from "./HeroSection.jsx";
+import FeaturedWork from "./FeaturedWork.jsx";
 import ProcessSection from "./ProcessSection.jsx";
-import BlogSection from "../home/BlogSection.jsx";
-import ContactSection from "../home/ContactForm.jsx";
+import BlogSection from "./BlogSection.jsx";
+import ContactSection from "./ContactForm.jsx";
 
 const Home = () => (
   <>

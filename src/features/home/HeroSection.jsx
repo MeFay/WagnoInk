@@ -7,7 +7,8 @@ const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 
 // Drop your video file in /public/hero-reel.mp4 — if absent, falls back to glow
-const VIDEO_SRC = "/public/video/hero-video.mp4";
+const VIDEO_SRC = "/hero-reel.mp4";
+
 const stats = [
   { value: "8+", label: "Years Experience" },
   { value: "500+", label: "Satisfied Clients" },
@@ -22,8 +23,8 @@ const HeroSection = () => {
       sx={{
         position: "relative",
         minHeight: "100vh",
-        mt: "-72px",
-        pt: "72px",
+        mt: "-72px",       // bleed behind fixed navbar
+        pt: "72px",        // compensate so content stays centered — no visual shift, no scroll lift
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -49,7 +50,7 @@ const HeroSection = () => {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
-          opacity: 0.3,
+          opacity: 0.5,
           // Hide broken video element if file not found
           "&:not([src]), &[src='']": { display: "none" },
         }}
@@ -210,7 +211,7 @@ const HeroSection = () => {
                 sx={{
                   fontSize: { xs: "2rem", md: "2.5rem" },
                   fontWeight: 800,
-                  color: "primary.main",
+                  color: "accent.main",
                   lineHeight: 1,
                 }}
               >
@@ -262,7 +263,7 @@ const HeroSection = () => {
           sx={{
             width: 1.5,
             height: 40,
-            bgcolor: "rgba(198,40,40,0.5)",
+            bgcolor: "accent.main",
             borderRadius: 1,
             animation: "scroll-pulse 2s ease-in-out infinite",
           }}

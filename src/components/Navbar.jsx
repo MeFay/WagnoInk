@@ -145,7 +145,7 @@ const Navbar = () => {
           >
             {NAV_ITEMS.map((item, i) => {
               const isActive = location.pathname === item.path;
-              const showDivider = i === 0 || i === NAV_ITEMS.length - 2;
+              const showDividerAfter = i === 0 || i === NAV_ITEMS.length - 1;
               return (
                 <React.Fragment key={item.path}>
                   <Box
@@ -159,22 +159,30 @@ const Navbar = () => {
                   >
                     {item.label}
                   </Box>
-                  {showDivider && (
+                  {showDividerAfter && (
                     <Box sx={{ width: "1px", height: 20, bgcolor: dividerColor }} />
                   )}
                 </React.Fragment>
               );
             })}
 
-            {/* Language selector */}
+            {/* Language selector — fixed width prevents layout shift */}
             <Box
               role="button"
               tabIndex={0}
               onClick={(e) => setLanguageAnchor(e.currentTarget)}
-              sx={{ ...navItemBase, "&:hover": { bgcolor: hoverBg }, cursor: "pointer" }}
+              sx={{
+                ...navItemBase,
+                width: 72,
+                justifyContent: "center",
+                "&:hover": { bgcolor: hoverBg },
+                cursor: "pointer",
+              }}
             >
-              <LanguageIcon sx={{ fontSize: "1rem" }} />
-              {currentLanguage}
+              <LanguageIcon sx={{ fontSize: "1rem", flexShrink: 0 }} />
+              <Box component="span" sx={{ width: 24, textAlign: "center" }}>
+                {currentLanguage}
+              </Box>
             </Box>
           </Box>
 
@@ -182,7 +190,6 @@ const Navbar = () => {
           <Box sx={{ display: { xs: "none", lg: "flex" } }}>
             <CustomButton
               size="medium"
-              component="a"
               href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
               target="_blank"
               rel="noopener noreferrer"
@@ -217,12 +224,19 @@ const Navbar = () => {
         anchorEl={languageAnchor}
         open={Boolean(languageAnchor)}
         onClose={() => setLanguageAnchor(null)}
+        disableScrollLock
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
         slotProps={{
           paper: {
             sx: {
-              bgcolor: theme.palette.background.elevated,
-              border: `1px solid ${dividerColor}`,
+              mt: 1,
+              bgcolor: "#111111",
+              border: `1px solid rgba(198,40,40,0.2)`,
               borderRadius: 2,
+              boxShadow: "0 16px 40px rgba(0,0,0,0.6)",
+              minWidth: 140,
+              overflow: "hidden",
             },
           },
         }}
@@ -231,9 +245,26 @@ const Navbar = () => {
           <MenuItem
             key={lang.code}
             onClick={() => { setCurrentLanguage(lang.code); setLanguageAnchor(null); }}
-            sx={{ fontSize: nav.fontSize, "&:hover": { bgcolor: hoverBg } }}
+            selected={currentLanguage === lang.code}
+            sx={{
+              fontSize: 13,
+              fontWeight: currentLanguage === lang.code ? 700 : 400,
+              color: currentLanguage === lang.code ? "primary.main" : "rgba(255,255,255,0.7)",
+              letterSpacing: 1,
+              py: 1.5,
+              px: 2.5,
+              transition: "all 0.2s ease",
+              "&:hover": { bgcolor: "rgba(198,40,40,0.1)", color: "white" },
+              "&.Mui-selected": { bgcolor: "rgba(198,40,40,0.08)" },
+              "&.Mui-selected:hover": { bgcolor: "rgba(198,40,40,0.15)" },
+            }}
           >
-            {lang.label}
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", gap: 2 }}>
+              {lang.label}
+              <Typography component="span" sx={{ fontSize: 11, letterSpacing: 2, color: "inherit", opacity: 0.6 }}>
+                {lang.code}
+              </Typography>
+            </Box>
           </MenuItem>
         ))}
       </Menu>

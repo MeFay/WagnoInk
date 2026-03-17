@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SectionContainer from "../../components/SectionContainer";
 import Card from "../../components/UI/Card";
+import CustomButton from "../../components/UI/Button";
 
 const MotionBox = motion(Box);
 
@@ -14,7 +14,7 @@ const blogPosts = [
     date: "March 03, 2026",
     readTime: "5 min read",
     category: "Aftercare",
-    image: "public/artist-images/aftercare.png",
+    image: "/artist-images/aftercare.png",
     link: "/blog/aftercare",
   },
   {
@@ -23,7 +23,7 @@ const blogPosts = [
     date: "March 01, 2026",
     readTime: "7 min read",
     category: "Guide",
-    image: "public/artist-images/first.png",
+    image: "/artist-images/first.png",
     link: "/blog/first-tattoo",
   },
   {
@@ -32,7 +32,7 @@ const blogPosts = [
     date: "February 28, 2026",
     readTime: "6 min read",
     category: "Art & Culture",
-    image: "public/artist-images/history.png",
+    image: "/artist-images/history.png",
     link: "/blog/tattoo-styles",
   },
 ];
@@ -64,36 +64,16 @@ const BlogSection = () => (
     </Box>
 
     {/* View All */}
-    <MotionBox
-      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: true }}
-      sx={{ display: "flex", justifyContent: "center" }}
-    >
-      <Box
-        component={Link}
-        to="/blog"
-        sx={{
-          display: "inline-flex",
-          alignItems: "center",
-          gap: 1,
-          px: 4,
-          py: 1.5,
-          borderRadius: 999,
-          background: "rgba(198,40,40,0.1)",
-          border: "1px solid rgba(198,40,40,0.3)",
-          color: "primary.main",
-          textDecoration: "none",
-          fontSize: 14,
-          fontWeight: 600,
-          letterSpacing: 1,
-          transition: "all 0.3s ease",
-          "&:hover": { background: "rgba(198,40,40,0.2)", borderColor: "rgba(198,40,40,0.5)", transform: "translateY(-2px)", gap: 1.5 },
-        }}
+      <MotionBox
+        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: true }}
+        sx={{ display: "flex", justifyContent: "center" }}
       >
-        VIEW ALL POSTS
-        <ArrowForwardIcon sx={{ fontSize: 18 }} />
-      </Box>
-    </MotionBox>
+        <CustomButton variant="secondary" size="medium" href="/blog">
+          View All Posts
+          <ArrowForwardIcon sx={{ fontSize: 16 }} />
+        </CustomButton>
+      </MotionBox>
   </SectionContainer>
 );
 

@@ -1,4 +1,3 @@
-import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 
@@ -13,7 +12,6 @@ import Info from './features/info/Info';
 function App() {
   return (
     <BrowserRouter>
-        <CssBaseline />
         <Layout>
           <Routes>
             <Route path="/" element={<Home />} />

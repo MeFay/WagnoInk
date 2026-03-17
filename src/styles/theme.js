@@ -1,5 +1,7 @@
 import { createTheme, alpha } from "@mui/material/styles";
 
+const AMBER = "#c8923a";
+
 const theme = createTheme({
   breakpoints: {
     values: { xs: 0, sm: 768, md: 1024, lg: 1440, xl: 1820 },
@@ -26,6 +28,19 @@ const theme = createTheme({
       contrastText: "#ffffff",
     },
 
+    // Amber — third accent for awards, highlights, warmth
+    accent: {
+      main: AMBER,
+      light: "#daa95a",
+      dark: "#a0721f",
+      contrastText: "#ffffff",
+    },
+
+    // WhatsApp green — kept for the specific social link only
+    whatsapp: {
+      main: "#25D366",
+    },
+
     secondary: {
       main: "#aaaaaa",
       contrastText: "#ffffff",
@@ -48,14 +63,14 @@ const theme = createTheme({
 
   typography: {
     fontFamily: "Geist, Roboto, Helvetica, Arial, sans-serif",
-    h1: { fontSize: "4rem",   fontWeight: 900, lineHeight: 1.1,  color: "#ffffff" },
-    h2: { fontSize: "3rem",   fontWeight: 800, lineHeight: 1.15, color: "#ffffff" },
-    h3: { fontSize: "2.25rem",fontWeight: 700, lineHeight: 1.2,  color: "#ffffff" },
+    h1: { fontSize: "4rem",    fontWeight: 900, lineHeight: 1.1,  color: "#ffffff" },
+    h2: { fontSize: "3rem",    fontWeight: 800, lineHeight: 1.15, color: "#ffffff" },
+    h3: { fontSize: "2.25rem", fontWeight: 700, lineHeight: 1.2,  color: "#ffffff" },
     h4: { fontWeight: 700, color: "#ffffff" },
     h5: { fontWeight: 700, color: "#ffffff" },
     h6: { fontWeight: 700, color: "#ffffff" },
-    body1: { fontSize: "1rem",       lineHeight: 1.6 },
-    body2: { fontSize: "0.875rem",   lineHeight: 1.6 },
+    body1: { fontSize: "1rem",      lineHeight: 1.6 },
+    body2: { fontSize: "0.875rem",  lineHeight: 1.6 },
     button: { textTransform: "none", fontWeight: 500 },
   },
 
@@ -93,7 +108,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          "&:hover": { backgroundColor: alpha("#ff6f00", 0.08) },
+          "&:hover": { backgroundColor: alpha(AMBER, 0.08) },
         },
       },
     },

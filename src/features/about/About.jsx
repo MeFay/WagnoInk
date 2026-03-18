@@ -6,6 +6,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import CustomButton from "../../components/UI/Button";
+import { SECTIONS, workExperience, training, contests, prizeImages, socialLinks as socialData } from "./about.data";
 
 const MotionBox = motion(Box);
 
@@ -13,57 +14,9 @@ const AMBER = "#c8923a";
 const GREEN = "#25D366";
 const PINK  = "#E4405F";
 
-const socialLinks = [
-  { icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com/wagno.ink/", hoverColor: PINK  },
-  { icon: WhatsAppIcon,  label: "WhatsApp",  href: "https://wa.me/351910848391",           hoverColor: GREEN },
-  { icon: EmailIcon,     label: "Email",     href: "mailto:Wagno.ink@icloud.com",           hoverColor: AMBER },
-];
-
-const workExperience = [
-  {
-    studio: "Independent / Wagno Ink",
-    role: "Tattoo Artist & Studio Owner",
-    period: "2016 – Present",
-    location: "Porto, Portugal",
-    highlights: [
-      "Built a private studio with a fully custom-only policy — no flash, no templates.",
-      "Specialised in realism, blackwork, and illustrative styles.",
-      "Grew a client base across Portugal, Spain, and the UK entirely through word of mouth and Instagram.",
-    ],
-  },
-  {
-    studio: "Tattoo Studio Name",
-    role: "Guest Artist",
-    period: "2014 – 2016",
-    location: "Porto, Portugal",
-    highlights: [
-      "Completed apprenticeship under senior artists, mastering line work and shading techniques.",
-      "Developed signature approach to custom portrait tattoos.",
-    ],
-  },
-];
-
-const studies = [
-  {
-    institution: "Fine Arts School",
-    degree: "Drawing & Visual Arts",
-    period: "2010 – 2014",
-    location: "Porto, Portugal",
-  },
-];
-
-const contests = [
-  { name: "Best Realism — Porto Tattoo Convention",    year: "2023", result: "1st Place" },
-  { name: "Best Black & Grey — Lisboa Tattoo Expo",    year: "2022", result: "2nd Place" },
-  { name: "Best Overall — Porto Tattoo Convention",    year: "2021", result: "Nominated" },
-];
-
-const SECTIONS = [
-  { id: "introduction",    label: "Introduction"    },
-  { id: "work-experience", label: "Work Experience" },
-  { id: "studies",         label: "Studies"         },
-  { id: "contests",        label: "Contests"        },
-];
+// Map icon components onto the data (icons can't be serialised in a .js data file)
+const ICON_MAP = { Instagram: InstagramIcon, WhatsApp: WhatsAppIcon, Email: EmailIcon };
+const socialLinks = socialData.map((s) => ({ ...s, icon: ICON_MAP[s.label] }));
 
 // ── Sidebar ──────────────────────────────────────────────────────────
 const SidebarNav = ({ activeSection }) => (
@@ -186,7 +139,7 @@ const About = () => {
 
                   <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
                     <LocationOnIcon sx={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }} />
-                    <Typography sx={{ fontSize: 12, color: "rgba(255,255,255,0.4)", letterSpacing: 0.5 }}>
+                    <Typography sx={{ fontSize: 12, color: "text.disabled", letterSpacing: 0.5 }}>
                       Porto, Portugal
                     </Typography>
                   </Box>
@@ -198,7 +151,7 @@ const About = () => {
                     <Typography variant="h1" sx={{ fontSize: { xs: "3rem", sm: "3.5rem", md: "4.5rem" }, fontWeight: 900, letterSpacing: -1, lineHeight: 1 }}>
                       Wagno
                     </Typography>
-                    <Typography sx={{ fontSize: { xs: "1rem", md: "1.15rem" }, color: "rgba(255,255,255,0.55)", fontWeight: 400, letterSpacing: 0.3 }}>
+                    <Typography sx={{ fontSize: { xs: "1rem", md: "1.15rem" }, color: "text.secondary", fontWeight: 400, letterSpacing: 0.3 }}>
                       Tattoo Artist · Est. 2016
                     </Typography>
                   </Box>
@@ -236,12 +189,12 @@ const About = () => {
               <MotionBox
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
               >
-                <Typography sx={{ fontSize: { xs: "0.95rem", md: "1.05rem" }, color: "rgba(255,255,255,0.62)", lineHeight: 1.95 }}>
-                  Wagno is a Porto-based tattoo artist with over 8 years of experience working exclusively with custom
-                  designs. Every piece starts as a blank page — drawn from scratch to fit the person, the placement, and the idea.
-                  No flash, no templates, no compromises. His work spans realism, blackwork, and illustrative styles,
-                  with a particular focus on portraits and nature-inspired compositions. He has exhibited at tattoo
-                  conventions across Portugal and Spain, taking home multiple awards for realism and black & grey.
+                <Typography sx={{ fontSize: { xs: "0.95rem", md: "1.05rem" }, color: "text.secondary", lineHeight: 1.95 }}>
+                  Originally from São Luís, Brazil, Wagno started tattooing in late 2017 after moving to Goiânia,
+                  where he completed his first apprenticeship. He returned to São Luís in 2018, opened his own studio,
+                  and spent years refining his craft — winning four convention awards along the way. In 2024 he made
+                  the move to Europe, working first in Spain before settling in Porto in early 2025 as resident artist
+                  at Katsu Tattoo Studio. Every piece is drawn from scratch — no flash, no templates, no compromises.
                 </Typography>
               </MotionBox>
             </MotionBox>
@@ -253,50 +206,89 @@ const About = () => {
           <TrackedSection id="work-experience">
             <SectionLabel>Work Experience</SectionLabel>
 
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {/* Timeline wrapper — vertical line on the left */}
+            <Box sx={{ position: "relative", display: "flex", flexDirection: "column", gap: 0 }}>
+
+              {/* The continuous vertical line */}
+              <Box sx={{
+                position: "absolute",
+                left: { xs: 6, sm: 7 },
+                top: 12,
+                bottom: 12,
+                width: "1.5px",
+                bgcolor: "rgba(255,255,255,0.08)",
+                zIndex: 0,
+              }} />
+
               {workExperience.map((job, i) => (
                 <MotionBox
                   key={job.studio}
-                  initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.1 }} viewport={{ once: true }}
-                  sx={{ display: "flex", flexDirection: "column", gap: 3 }}
+                  sx={{ display: "flex", gap: { xs: 4, sm: 5 }, pb: i < workExperience.length - 1 ? { xs: 4, md: 6 } : 0 }}
                 >
-                  {/* Header row */}
-                  <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, justifyContent: "space-between", alignItems: { sm: "flex-end" }, gap: 1 }}>
+                  {/* Left — dot + line */}
+                  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, zIndex: 1 }}>
+                    {/* Dot — red for current, white outline for past */}
+                    <Box sx={{
+                      width: { xs: 13, sm: 15 },
+                      height: { xs: 13, sm: 15 },
+                      borderRadius: "50%",
+                      mt: "3px",
+                      flexShrink: 0,
+                      border: job.current ? "2px solid #c62828" : "1.5px solid rgba(255,255,255,0.25)",
+                      bgcolor: job.current ? "rgba(198,40,40,0.2)" : "transparent",
+                      boxShadow: job.current ? "0 0 8px rgba(198,40,40,0.4)" : "none",
+                      transition: "all 0.3s ease",
+                    }} />
+                  </Box>
+
+                  {/* Right — content */}
+                  <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5, flex: 1, minWidth: 0 }}>
+
+                    {/* Period + location — above the title */}
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
+                      <Typography sx={{ fontSize: 12, color: job.current ? "primary.main" : "text.disabled", fontWeight: 600, letterSpacing: 0.5 }}>
+                        {job.period}
+                      </Typography>
+                      {job.current && (
+                        <Box sx={{
+                          px: 1.2, py: 0.2, borderRadius: 999,
+                          bgcolor: "rgba(198,40,40,0.12)",
+                          border: "1px solid rgba(198,40,40,0.3)",
+                        }}>
+                          <Typography sx={{ fontSize: 10, fontWeight: 700, color: "primary.main", letterSpacing: 1, textTransform: "uppercase" }}>
+                            Current
+                          </Typography>
+                        </Box>
+                      )}
+                      <Typography sx={{ fontSize: 11, color: "text.disabled", letterSpacing: 0.3 }}>
+                        · {job.location}
+                      </Typography>
+                    </Box>
+
+                    {/* Studio + role */}
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-                      <Typography sx={{ fontWeight: 800, fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "white", letterSpacing: 0.2 }}>
+                      <Typography sx={{ fontWeight: 800, fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "white", letterSpacing: 0.2, lineHeight: 1.2 }}>
                         {job.studio}
                       </Typography>
                       <Typography sx={{ fontSize: 14, color: AMBER, fontWeight: 600, letterSpacing: 0.3 }}>
                         {job.role}
                       </Typography>
                     </Box>
-                    <Box sx={{ textAlign: { sm: "right" }, flexShrink: 0, pb: { sm: 0.3 } }}>
-                      <Typography sx={{ fontSize: 13, color: "rgba(255,255,255,0.5)", fontWeight: 500 }}>
-                        {job.period}
-                      </Typography>
-                      <Typography sx={{ fontSize: 11, color: "rgba(255,255,255,0.28)", mt: 0.2, letterSpacing: 0.5 }}>
-                        {job.location}
-                      </Typography>
+
+                    {/* Highlights */}
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                      {job.highlights.map((h) => (
+                        <Box key={h} sx={{ display: "flex", gap: 2, alignItems: "flex-start" }}>
+                          <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: "rgba(255,255,255,0.2)", flexShrink: 0, mt: "9px" }} />
+                          <Typography sx={{ fontSize: 14, color: "text.secondary", lineHeight: 1.8 }}>
+                            {h}
+                          </Typography>
+                        </Box>
+                      ))}
                     </Box>
                   </Box>
-
-                  {/* Highlights */}
-                  <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
-                    {job.highlights.map((h) => (
-                      <Box key={h} sx={{ display: "flex", gap: 2, alignItems: "flex-start" }}>
-                        <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: `${AMBER}70`, flexShrink: 0, mt: "8px" }} />
-                        <Typography sx={{ fontSize: 14, color: "rgba(255,255,255,0.58)", lineHeight: 1.8 }}>
-                          {h}
-                        </Typography>
-                      </Box>
-                    ))}
-                  </Box>
-
-                  {/* Bottom rule */}
-                  {i < workExperience.length - 1 && (
-                    <Box sx={{ width: "100%", height: "1px", bgcolor: "rgba(255,255,255,0.04)", mt: 1 }} />
-                  )}
                 </MotionBox>
               ))}
             </Box>
@@ -304,42 +296,56 @@ const About = () => {
 
           <Divider />
 
-          {/* ── STUDIES ──────────────────────────────────────── */}
-          <TrackedSection id="studies">
-            <SectionLabel>Studies</SectionLabel>
+          {/* ── TRAINING ─────────────────────────────────────── */}
+          <TrackedSection id="training">
+            <SectionLabel>Training</SectionLabel>
 
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              {studies.map((s, i) => (
+            {/* Same timeline layout as Work Experience */}
+            <Box sx={{ position: "relative", display: "flex", flexDirection: "column", gap: 0 }}>
+              <Box sx={{
+                position: "absolute",
+                left: { xs: 6, sm: 7 },
+                top: 12, bottom: 12,
+                width: "1.5px",
+                bgcolor: "rgba(255,255,255,0.08)",
+                zIndex: 0,
+              }} />
+
+              {training.map((t, i) => (
                 <MotionBox
-                  key={s.institution}
-                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+                  key={t.mentor}
+                  initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.1 }} viewport={{ once: true }}
-                  sx={{
-                    display: "flex", flexDirection: { xs: "column", sm: "row" },
-                    justifyContent: "space-between", alignItems: { sm: "center" },
-                    gap: 2, p: { xs: 3, md: 4 },
-                    borderRadius: 3,
-                    border: "1px solid rgba(255,255,255,0.06)",
-                    background: "rgba(255,255,255,0.02)",
-                    backdropFilter: "blur(10px)",
-                    transition: "border-color 0.3s ease",
-                    "&:hover": { borderColor: `${AMBER}30` },
-                  }}
+                  sx={{ display: "flex", gap: { xs: 4, sm: 5 }, pb: i < training.length - 1 ? { xs: 4, md: 5 } : 0 }}
                 >
-                  <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
-                    <Typography sx={{ fontWeight: 700, fontSize: "1rem", color: "white" }}>
-                      {s.institution}
-                    </Typography>
-                    <Typography sx={{ fontSize: 14, color: AMBER, fontWeight: 500 }}>
-                      {s.degree}
-                    </Typography>
-                    <Typography sx={{ fontSize: 12, color: "rgba(255,255,255,0.28)", mt: 0.2, letterSpacing: 0.3 }}>
-                      {s.location}
+                  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", flexShrink: 0, zIndex: 1 }}>
+                    <Box sx={{
+                      width: { xs: 13, sm: 15 }, height: { xs: 13, sm: 15 },
+                      borderRadius: "50%", mt: "3px", flexShrink: 0,
+                      border: "1.5px solid rgba(255,255,255,0.25)",
+                      bgcolor: "transparent",
+                    }} />
+                  </Box>
+
+                  <Box sx={{ display: "flex", flexDirection: "column", gap: 1, flex: 1, minWidth: 0 }}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
+                      <Typography sx={{ fontSize: 12, color: "text.disabled", fontWeight: 600, letterSpacing: 0.5 }}>
+                        {t.period}
+                      </Typography>
+                      <Typography sx={{ fontSize: 11, color: "text.disabled" }}>· {t.location}</Typography>
+                    </Box>
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 0.3 }}>
+                      <Typography sx={{ fontWeight: 800, fontSize: { xs: "1rem", md: "1.1rem" }, color: "white", lineHeight: 1.2 }}>
+                        {t.mentor}
+                      </Typography>
+                      <Typography sx={{ fontSize: 13, color: AMBER, fontWeight: 600 }}>
+                        {t.focus}
+                      </Typography>
+                    </Box>
+                    <Typography sx={{ fontSize: 14, color: "text.secondary", lineHeight: 1.8 }}>
+                      {t.description}
                     </Typography>
                   </Box>
-                  <Typography sx={{ fontSize: 13, color: "rgba(255,255,255,0.45)", fontWeight: 500, flexShrink: 0 }}>
-                    {s.period}
-                  </Typography>
                 </MotionBox>
               ))}
             </Box>
@@ -351,65 +357,113 @@ const About = () => {
           <TrackedSection id="contests">
             <SectionLabel>Contests & Awards</SectionLabel>
 
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {contests.map((c, i) => {
-                const dotColor = c.result === "1st Place" ? "#c62828" : c.result === "2nd Place" ? AMBER : "rgba(255,255,255,0.25)";
-                const resultColor = c.result === "1st Place" ? "#c62828" : c.result === "2nd Place" ? AMBER : "rgba(255,255,255,0.4)";
+                const isGold   = c.place === 1;
+                const isBronze = c.place === 3;
+                const medalColor  = isGold ? AMBER : isBronze ? "#cd7f32" : "rgba(255,255,255,0.4)";
+                const medalBg     = isGold ? `${AMBER}18` : isBronze ? "rgba(205,127,50,0.12)" : "rgba(255,255,255,0.05)";
+                const medalBorder = isGold ? `${AMBER}50` : isBronze ? "rgba(205,127,50,0.35)" : "rgba(255,255,255,0.12)";
+                const medal = isGold ? "🥇" : isBronze ? "🥉" : "·";
                 return (
                   <MotionBox
-                    key={c.name}
-                    initial={{ opacity: 0, x: -16 }} whileInView={{ opacity: 1, x: 0 }}
+                    key={`${c.name}-${c.year}`}
+                    initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: i * 0.08 }} viewport={{ once: true }}
                     sx={{
                       display: "flex", alignItems: "center", justifyContent: "space-between",
-                      gap: 3, py: 2.5, px: 3, borderRadius: 2,
-                      border: "1px solid rgba(255,255,255,0.05)",
-                      background: "rgba(255,255,255,0.02)",
-                      transition: "border-color 0.3s ease, background 0.3s ease",
-                      "&:hover": { borderColor: `${AMBER}25`, background: `${AMBER}06` },
+                      gap: 3, py: 2, px: 3, borderRadius: 2,
+                      border: `1px solid ${medalBorder}`,
+                      background: medalBg,
+                      transition: "all 0.3s ease",
+                      "&:hover": { transform: "translateX(4px)" },
                     }}
                   >
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 2.5, minWidth: 0 }}>
-                      <Box sx={{ width: 7, height: 7, borderRadius: "50%", bgcolor: dotColor, flexShrink: 0 }} />
-                      <Typography sx={{ fontSize: 14, color: "rgba(255,255,255,0.82)", fontWeight: 500, lineHeight: 1.4 }}>
-                        {c.name}
-                      </Typography>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2, minWidth: 0 }}>
+                      <Typography sx={{ fontSize: 18, lineHeight: 1, flexShrink: 0 }}>{medal}</Typography>
+                      <Box sx={{ minWidth: 0 }}>
+                        <Typography sx={{ fontSize: 14, color: "white", fontWeight: 700, lineHeight: 1.3 }}>
+                          {c.name}
+                        </Typography>
+                        <Typography sx={{ fontSize: 12, color: "text.disabled", mt: 0.3 }}>
+                          {c.event}
+                        </Typography>
+                      </Box>
                     </Box>
-                    <Box sx={{ display: "flex", alignItems: "center", gap: 3, flexShrink: 0 }}>
-                      <Typography sx={{ fontSize: 13, color: resultColor, fontWeight: 700 }}>
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end", flexShrink: 0, gap: 0.3 }}>
+                      <Typography sx={{ fontSize: 13, color: medalColor, fontWeight: 800, letterSpacing: 0.3 }}>
                         {c.result}
                       </Typography>
-                      <Typography sx={{ fontSize: 12, color: "rgba(255,255,255,0.28)" }}>
-                        {c.year}
-                      </Typography>
+                      <Typography sx={{ fontSize: 11, color: "text.disabled" }}>{c.year}</Typography>
                     </Box>
                   </MotionBox>
                 );
               })}
             </Box>
 
-            {/* Prize photos */}
-            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(3, 1fr)" }, gap: 2, mt: 2 }}>
-              {[1, 2, 3].map((n, i) => (
+            {/* ── Prize photos — asymmetric grid ── */}
+            <Box sx={{ mt: 2 }}>
+              {/* Label */}
+              <Typography sx={{ fontSize: 11, fontWeight: 600, letterSpacing: 3, color: "text.disabled", textTransform: "uppercase", mb: 2 }}>
+                From the conventions
+              </Typography>
+
+              {/* Grid: large left + two stacked right */}
+              <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1.6fr 1fr" }, gridTemplateRows: { sm: "1fr 1fr" }, gap: 2, height: { sm: 480 }, isolation: "isolate" }}>
+
+                {/* Large featured image */}
                 <MotionBox
-                  key={n}
-                  initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }} viewport={{ once: true }}
+                  initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.7 }} viewport={{ once: true }}
                   sx={{
-                    aspectRatio: "4/3", borderRadius: 3, overflow: "hidden",
-                    position: "relative",
-                    border: `1px solid rgba(255,255,255,0.07)`,
-                    backgroundImage: `url(/artist-images/prize-${n}.jpg)`,
+                    gridRow: { sm: "1 / 3" },
+                    borderRadius: 3, overflow: "hidden", position: "relative", transform: "translateZ(0)", boxShadow: "inset 0 0 0 1px #0a0a0a",
+                    height: { xs: 280, sm: "100%" },
+                    backgroundImage: `url(${prizeImages[0].src})`,
                     backgroundSize: "cover", backgroundPosition: "center",
                     bgcolor: "rgba(26,26,26,0.6)",
-                    transition: "transform 0.4s ease, box-shadow 0.4s ease",
-                    "&:hover": { transform: "scale(1.02)", boxShadow: `0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px ${AMBER}35` },
+                    cursor: "default",
+                    transition: "transform 0.5s ease",
+                    "&:hover": { transform: "scale(1.01)" },
+                    "&:hover .prize-label": { opacity: 1, transform: "translateY(0)" },
                   }}
                 >
-                  <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)", pointerEvents: "none" }} />
+                  <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 40%, transparent 70%)", pointerEvents: "none" }} />
+                  <Box className="prize-label" sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 3, opacity: { xs: 1, md: 0 }, transform: { xs: "none", md: "translateY(8px)" }, transition: "all 0.35s ease" }}>
+                    <Typography sx={{ fontSize: 11, color: AMBER, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>{prizeImages[0].result}</Typography>
+                    <Typography sx={{ fontSize: 16, fontWeight: 800, color: "white" }}>{prizeImages[0].award}</Typography>
+                    <Typography sx={{ fontSize: 12, color: "text.disabled" }}>{prizeImages[0].year}</Typography>
+                  </Box>
                 </MotionBox>
-              ))}
+
+                {/* Two smaller images stacked */}
+                {prizeImages.slice(1).map((img, i) => (
+                  <MotionBox
+                    key={img.src}
+                    initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: i * 0.12 }} viewport={{ once: true }}
+                    sx={{
+                      borderRadius: 3, overflow: "hidden", position: "relative", transform: "translateZ(0)", boxShadow: "inset 0 0 0 1px #0a0a0a",
+                      height: { xs: 200, sm: "100%" },
+                      backgroundImage: `url(${img.src})`,
+                      backgroundSize: "cover", backgroundPosition: "center",
+                      bgcolor: "rgba(26,26,26,0.6)",
+                      transition: "transform 0.5s ease",
+                      "&:hover": { transform: "scale(1.02)" },
+                      "&:hover .prize-label": { opacity: 1, transform: "translateY(0)" },
+                    }}
+                  >
+                    <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 40%, transparent 70%)", pointerEvents: "none" }} />
+                    <Box className="prize-label" sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 2, opacity: { xs: 1, md: 0 }, transform: { xs: "none", md: "translateY(8px)" }, transition: "all 0.35s ease" }}>
+                      <Typography sx={{ fontSize: 10, color: AMBER, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>{img.result}</Typography>
+                      <Typography sx={{ fontSize: 14, fontWeight: 800, color: "white" }}>{img.award}</Typography>
+                      <Typography sx={{ fontSize: 11, color: "text.disabled" }}>{img.year}</Typography>
+                    </Box>
+                  </MotionBox>
+                ))}
+              </Box>
             </Box>
+
           </TrackedSection>
 
         </Box>

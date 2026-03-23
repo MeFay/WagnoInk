@@ -9,13 +9,13 @@ const featuredProjects = [
   {
     title: "Character Sleeve",
     category: "Forearm Tattoo",
-    image: "/artist-images/1.png",
+    image: "/artist-images/Tattoos/12.webp",
     link: "https://www.instagram.com/p/DOVu30vDBoR/?img_index=1",
   },
   {
     title: "Realistic Profile",
     category: "Leg Tattoo",
-    image: "/artist-images/2.png",
+    image: "/artist-images/Tattoos/6.webp",
     link: "https://www.instagram.com/p/C_TIlKOpS77/",
   },
 ];

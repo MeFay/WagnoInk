@@ -1,4 +1,5 @@
-import { Box, Typography, TextField } from "@mui/material";
+import { Box, Typography, TextField, CircularProgress } from "@mui/material";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -36,7 +37,48 @@ const textFieldSx = {
   "& .MuiInputLabel-root": { color: "text.secondary" },
 };
 
-const ContactSection = () => (
+const WHATSAPP_URL = "https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem.";
+
+const INITIAL_FORM = { name: "", email: "", phone: "", message: "" };
+
+const ContactSection = () => {
+  const [form, setForm] = useState(INITIAL_FORM);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle"); // "idle" | "loading" | "success" | "error"
+
+  const validate = () => {
+    const next = {};
+    if (!form.name.trim()) next.name = "Name is required.";
+    if (!form.email.trim()) next.email = "Email is required.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "Enter a valid email.";
+    if (!form.message.trim()) next.message = "Please describe your tattoo idea.";
+    return next;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const next = validate();
+    if (Object.keys(next).length > 0) { setErrors(next); return; }
+
+    setStatus("loading");
+    try {
+      // Replace this with your actual form submission endpoint.
+      // Example: await fetch("/api/contact", { method: "POST", body: JSON.stringify(form) });
+      await new Promise((res) => setTimeout(res, 1200)); // simulated delay
+      setStatus("success");
+      setForm(INITIAL_FORM);
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  return (
   <SectionContainer>
     {/* Header — mirrored from FeaturedWork: description bottom-left, title right */}
     <MotionBox
@@ -152,17 +194,54 @@ const ContactSection = () => (
           </Typography>
         </Box>
 
-        <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-          <TextField fullWidth label="Your Name" variant="outlined" required sx={textFieldSx} />
-          <TextField fullWidth label="Email Address" variant="outlined" type="email" required sx={textFieldSx} />
-          <TextField fullWidth label="Phone Number (Optional)" variant="outlined" sx={textFieldSx} />
-          <TextField fullWidth label="Tell us about your tattoo idea" variant="outlined" multiline rows={5} required sx={textFieldSx} />
+        {status === "success" ? (
+          <Box sx={{ py: 6, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, textAlign: "center" }}>
+            <Typography sx={{ fontSize: 40 }}>✓</Typography>
+            <Typography sx={{ fontWeight: 700, color: "white", fontSize: 18 }}>Message sent!</Typography>
+            <Typography sx={{ color: "text.secondary", fontSize: 14 }}>
+              We'll get back to you within 24 hours.
+            </Typography>
+            <CustomButton variant="secondary" size="small" onClick={() => setStatus("idle")}>
+              Send another
+            </CustomButton>
+          </Box>
+        ) : (
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            <TextField
+              fullWidth label="Your Name" variant="outlined" required
+              name="name" value={form.name} onChange={handleChange}
+              error={!!errors.name} helperText={errors.name}
+              sx={textFieldSx}
+            />
+            <TextField
+              fullWidth label="Email Address" variant="outlined" type="email" required
+              name="email" value={form.email} onChange={handleChange}
+              error={!!errors.email} helperText={errors.email}
+              sx={textFieldSx}
+            />
+            <TextField
+              fullWidth label="Phone Number (Optional)" variant="outlined"
+              name="phone" value={form.phone} onChange={handleChange}
+              sx={textFieldSx}
+            />
+            <TextField
+              fullWidth label="Tell us about your tattoo idea" variant="outlined" multiline rows={5} required
+              name="message" value={form.message} onChange={handleChange}
+              error={!!errors.message} helperText={errors.message}
+              sx={textFieldSx}
+            />
 
-          <CustomButton size="large" fullWidth>
-            Send Message
-            <ArrowForwardIcon sx={{ fontSize: 18 }} />
-          </CustomButton>
-        </Box>
+            {status === "error" && (
+              <Typography sx={{ fontSize: 13, color: "error.main" }}>
+                Something went wrong. Please try again or contact us via WhatsApp.
+              </Typography>
+            )}
+
+            <CustomButton size="large" fullWidth>
+              {status === "loading" ? <CircularProgress size={18} sx={{ color: "white" }} /> : <>Send Message <ArrowForwardIcon sx={{ fontSize: 18 }} /></>}
+            </CustomButton>
+          </Box>
+        )}
       </MotionBox>
     </Box>
 
@@ -188,7 +267,7 @@ const ContactSection = () => (
         <CustomButton
           variant="whatsapp"
           size="large"
-          href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+          href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -197,6 +276,7 @@ const ContactSection = () => (
         </CustomButton>
     </MotionBox>
   </SectionContainer>
-);
+  );
+};
 
 export default ContactSection;

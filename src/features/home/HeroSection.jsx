@@ -6,8 +6,7 @@ import CustomButton from "../../components/UI/Button";
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 
-// Drop your video file in /public/hero-reel.mp4 — if absent, falls back to glow
-const VIDEO_SRC = "/hero-reel.mp4";
+const VIDEO_SRC = "/video/hero-video.mp4";
 
 const stats = [
   { value: "8+", label: "Years Experience" },

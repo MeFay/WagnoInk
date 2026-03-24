@@ -6,6 +6,7 @@ import React from "react";
  *
  * variant="primary"   — red glow, shimmer, gradient border on hover (default)
  * variant="secondary" — subtle, neutral border, no red — for social links, ghost CTAs
+ * variant="whatsapp"  — green tinted, for WhatsApp CTAs
  *
  * size: "small" | "medium" | "large"
  */
@@ -99,6 +100,37 @@ const CustomButton = React.forwardRef(
       },
     };
 
+    const whatsappStyles = {
+      background: "rgba(37,211,102,0.12)",
+      backdropFilter: "blur(12px)",
+      border: "1px solid rgba(37,211,102,0.3)",
+      color: "#ffffff",
+      boxShadow: "none",
+
+      "&::before": { display: "none" },
+      "&::after": { display: "none" },
+
+      "&:hover": {
+        background: "rgba(37,211,102,0.22)",
+        borderColor: "rgba(37,211,102,0.5)",
+        transform: "translateY(-2px)",
+        boxShadow: "0 8px 24px rgba(37,211,102,0.2)",
+      },
+
+      "&:active": { transform: "translateY(0px)" },
+
+      "&:focus-visible": {
+        outline: "2px solid rgba(37,211,102,0.5)",
+        outlineOffset: "3px",
+      },
+    };
+
+    const variantStyles = {
+      primary: primaryStyles,
+      secondary: secondaryStyles,
+      whatsapp: whatsappStyles,
+    };
+
     return (
       <Box
         ref={ref}
@@ -127,7 +159,7 @@ const CustomButton = React.forwardRef(
           borderRadius: 999,
           transition: "all 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
           ...sizes[size],
-          ...(variant === "secondary" ? secondaryStyles : primaryStyles),
+          ...(variantStyles[variant] ?? primaryStyles),
         }}
       >
         {children}

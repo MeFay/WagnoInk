@@ -5,7 +5,7 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { getPostBySlug, blogPosts } from "./Blog.data";
 
-const MotionBox = motion.create(Box);
+const MotionBox = motion(Box);
 
 // ── Content block renderer ────────────────────────────────────────────
 const ContentBlock = ({ block, index }) => {

@@ -24,7 +24,7 @@ export const blogPosts = [
     category: "Aftercare",
     excerpt:
       "Everything you need to know about caring for your new tattoo to ensure it heals perfectly and stays vibrant for years.",
-    coverImage: "/artist-images/Blog/aftercare.png",
+    coverImage: "/artist-images/Blog/aftercare.webp",
     content: [
       {
         type: "paragraph",
@@ -72,7 +72,7 @@ export const blogPosts = [
     category: "Guide",
     excerpt:
       "A beginner's guide to making the right choice for your first piece of permanent art.",
-    coverImage: "/artist-images/Blog/first.png",
+    coverImage: "/artist-images/Blog/first.webp",
     content: [
       {
         type: "paragraph",
@@ -125,7 +125,7 @@ export const blogPosts = [
     category: "Art & Culture",
     excerpt:
       "From traditional to contemporary — explore how tattoo art has transformed over the decades.",
-    coverImage: "/artist-images/Blog/history.png",
+    coverImage: "/artist-images/Blog/history.webp",
     content: [
       {
         type: "paragraph",

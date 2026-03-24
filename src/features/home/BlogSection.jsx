@@ -14,7 +14,7 @@ const blogPosts = [
     date: "March 03, 2026",
     readTime: "5 min read",
     category: "Aftercare",
-    image: "/artist-images/Blog/aftercare.png",
+    image: "/artist-images/Blog/aftercare.webp",
     link: "/blog/aftercare",
   },
   {
@@ -23,7 +23,7 @@ const blogPosts = [
     date: "March 01, 2026",
     readTime: "7 min read",
     category: "Guide",
-    image: "/artist-images/Blog/first.png",
+    image: "/artist-images/Blog/first.webp",
     link: "/blog/first-tattoo",
   },
   {
@@ -32,7 +32,7 @@ const blogPosts = [
     date: "February 28, 2026",
     readTime: "6 min read",
     category: "Art & Culture",
-    image: "/artist-images/Blog/history.png",
+    image: "/artist-images/Blog/history.webp",
     link: "/blog/tattoo-styles",
   },
 ];

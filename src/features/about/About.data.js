@@ -134,19 +134,19 @@ export const contests = [
 
 export const prizeImages = [
   {
-    src: "/Prizes/Prize1.jpeg",
+    src: "/Prizes/Prize1.webp",
     award: "Anime",
     result: "1st Place",
     year: "2022",
   },
   {
-    src: "/Prizes/Prize2.jpeg",
+    src: "/Prizes/Prize2.webp",
     award: "Whipshading",
     result: "1st Place",
     year: "2022",
   },
   {
-    src: "/Prizes/Prize3.jpeg",
+    src: "/Prizes/Prize3.webp",
     award: "Fine Line",
     result: "1st Place",
     year: "2021",

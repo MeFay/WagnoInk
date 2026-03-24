@@ -5,17 +5,19 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { getPostBySlug, blogPosts } from "./Blog.data";
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 // ── Content block renderer ────────────────────────────────────────────
 const ContentBlock = ({ block, index }) => {
   const baseDelay = 0.3 + index * 0.06;
 
   if (block.type === "heading") return (
-    <MotionBox initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: baseDelay }}>
+    <MotionBox initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: baseDelay }}
+      sx={{ mt: index === 0 ? 0 : 5, mb: 0.5 }}
+    >
       <Typography
         variant="h3"
-        sx={{ fontSize: { xs: "1.3rem", md: "1.5rem" }, fontWeight: 800, color: "white", mt: 1, mb: 0.5, lineHeight: 1.25 }}
+        sx={{ fontSize: { xs: "1.3rem", md: "1.5rem" }, fontWeight: 800, color: "white", lineHeight: 1.25 }}
       >
         {block.text}
       </Typography>
@@ -23,7 +25,9 @@ const ContentBlock = ({ block, index }) => {
   );
 
   if (block.type === "paragraph") return (
-    <MotionBox initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: baseDelay }}>
+    <MotionBox initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: baseDelay }}
+      sx={{ mt: 1.5 }}
+    >
       <Typography sx={{ fontSize: { xs: "0.97rem", md: "1.05rem" }, color: "text.secondary", lineHeight: 1.9 }}>
         {block.text}
       </Typography>
@@ -34,8 +38,9 @@ const ContentBlock = ({ block, index }) => {
     <MotionBox
       initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: baseDelay }}
       sx={{
+        mt: 4, mb: 2,
         borderLeft: "3px solid", borderColor: "primary.main",
-        pl: 3, py: 1, my: 1,
+        pl: 3, py: 1.5,
         background: "rgba(198,40,40,0.05)",
         borderRadius: "0 8px 8px 0",
       }}
@@ -52,12 +57,14 @@ const ContentBlock = ({ block, index }) => {
   );
 
   if (block.type === "image") return (
-    <MotionBox initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: baseDelay }}>
-      <Box sx={{ borderRadius: 3, overflow: "hidden", my: 1 }}>
+    <MotionBox initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: baseDelay }}
+      sx={{ mt: 4, mb: 2 }}
+    >
+      <Box sx={{ borderRadius: 3, overflow: "hidden" }}>
         <Box component="img" src={block.src} alt={block.caption || ""} sx={{ width: "100%", display: "block" }} />
       </Box>
       {block.caption && (
-        <Typography sx={{ fontSize: 12, color: "text.disabled", textAlign: "center", mt: 1, letterSpacing: 0.3 }}>
+        <Typography sx={{ fontSize: 12, color: "text.disabled", textAlign: "center", mt: 1.5, letterSpacing: 0.3 }}>
           {block.caption}
         </Typography>
       )}
@@ -113,10 +120,10 @@ const BlogPost = () => {
                 {post.category}
               </Typography>
             </Box>
-            <Typography sx={{ fontSize: 13, color: "text.disabled" }}>{post.date}</Typography>
+            <Typography sx={{ fontSize: 13, color: "text.secondary" }}>{post.date}</Typography>
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              <AccessTimeIcon sx={{ fontSize: 14, color: "text.disabled" }} />
-              <Typography sx={{ fontSize: 13, color: "text.disabled" }}>{post.readTime}</Typography>
+              <AccessTimeIcon sx={{ fontSize: 14, color: "text.secondary" }} />
+              <Typography sx={{ fontSize: 13, color: "text.secondary" }}>{post.readTime}</Typography>
             </Box>
           </Box>
 
@@ -145,7 +152,7 @@ const BlogPost = () => {
         </MotionBox>
 
         {/* Content */}
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
           {post.content.map((block, i) => (
             <ContentBlock key={i} block={block} index={i} />
           ))}

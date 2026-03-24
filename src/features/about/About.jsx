@@ -113,7 +113,7 @@ const About = () => {
                         height: "100%",
                         borderRadius: "50%",
                         overflow: "hidden",
-                        backgroundImage: "url(/artist-images/About/Wagno.jpg)",
+                        backgroundImage: "url(/artist-images/About/Wagno.webp)",
                         backgroundSize: "cover",
                         backgroundPosition: "center top",
                         bgcolor: "rgba(26,26,26,0.8)",

@@ -1,94 +1,175 @@
 import { Box, Typography } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
+
+const AMBER = "#c8923a";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ShuffleIcon from "@mui/icons-material/Shuffle";
 
 const MotionBox = motion(Box);
 
 // ── Data ─────────────────────────────────────────────────────────────
 const images = [
   {
-    src: "/artist-images/Tattoos/7.webp", 
+    src: "/artist-images/Tattoos/7.webp",
     category: "Realism",
-    span: "tall",
     title: "Character Sleeve",
   },
   {
-    src: "/artist-images/Tattoos/16.webp", 
+    src: "/artist-images/Tattoos/16.webp",
     category: "Realism",
-    span: "normal",
     title: "Portrait",
   },
   {
-    src: "/artist-images/Tattoos/34.webp", 
+    src: "/artist-images/Tattoos/34.webp",
     category: "Blackwork",
-    span: "normal",
     title: "Geometric Piece",
   },
   {
-    src: "/artist-images/Tattoos/33.webp", 
+    src: "/artist-images/Tattoos/33.webp",
     category: "Fine Line",
-    span: "tall",
     title: "Fine Line Floral",
   },
   {
-    src: "/artist-images/Tattoos/17.webp", 
+    src: "/artist-images/Tattoos/17.webp",
     category: "Blackwork",
-    span: "normal",
     title: "Dark Sleeve",
   },
   {
-    src: "/artist-images/Tattoos/18.webp", 
+    src: "/artist-images/Tattoos/18.webp",
     category: "Realism",
-    span: "normal",
     title: "Realistic Bear",
   },
   {
-    src: "/artist-images/Tattoos/29.webp", 
+    src: "/artist-images/Tattoos/29.webp",
     category: "Fine Line",
-    span: "normal",
     title: "Minimal Line Work",
   },
   {
-    src: "/artist-images/Tattoos/26.webp", 
+    src: "/artist-images/Tattoos/26.webp",
     category: "Realism",
-    span: "tall",
     title: "Full Back Piece",
   },
   {
-    src: "/artist-images/Tattoos/31.webp", 
+    src: "/artist-images/Tattoos/31.webp",
     category: "Blackwork",
-    span: "tall",
     title: "Tribal Design",
   },
   {
-    src: "/artist-images/Tattoos/32.webp", 
+    src: "/artist-images/Tattoos/32.webp",
     category: "Fine Line",
-    span: "normal",
     title: "Script Tattoo",
   },
   {
-    src: "/artist-images/Tattoos/21.webp", 
+    src: "/artist-images/Tattoos/21.webp",
     category: "Realism",
-    span: "normal",
     title: "Animal Portrait",
   },
   {
-    src: "/artist-images/Tattoos/2.webp", 
+    src: "/artist-images/Tattoos/2.webp",
     category: "Blackwork",
-    span: "tall",
+    title: "Dark Illustration",
+  },
+   {
+    src: "/artist-images/Tattoos/6.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+   {
+    src: "/artist-images/Tattoos/3.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+   {
+    src: "/artist-images/Tattoos/8.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+   {
+    src: "/artist-images/Tattoos/9.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+   {
+    src: "/artist-images/Tattoos/10.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+   {
+    src: "/artist-images/Tattoos/12.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/25.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/28.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/30.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/14.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/23.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/27.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+      {
+    src: "/artist-images/Tattoos/4.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/5.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/11.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+       {
+    src: "/artist-images/Tattoos/20.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/24.webp",
+    category: "Blackwork",
+    title: "Dark Illustration",
+  },
+     {
+    src: "/artist-images/Tattoos/13.webp",
+    category: "Blackwork",
     title: "Dark Illustration",
   },
 ];
 
-const CATEGORIES = ["All", "Realism", "Blackwork", "Fine Line"];
-
 // ── Lightbox ─────────────────────────────────────────────────────────
 const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
   const img = images[index];
-  return (
+  return createPortal(
     <AnimatePresence>
       <MotionBox
         key="lightbox"
@@ -126,7 +207,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
             justifyContent: "center",
             cursor: "pointer",
             color: "white",
-            zIndex: 1,
+            zIndex: 10,
             transition: "all 0.2s",
             "&:hover": { background: "rgba(255,255,255,0.15)" },
           }}
@@ -137,10 +218,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         {/* Prev */}
         <Box
           component="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onPrev();
-          }}
+          onClick={(e) => { e.stopPropagation(); onPrev(); }}
           sx={{
             position: "absolute",
             left: { xs: 12, md: 32 },
@@ -156,7 +234,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
             justifyContent: "center",
             cursor: "pointer",
             color: "white",
-            zIndex: 1,
+            zIndex: 10,
             transition: "all 0.2s",
             "&:hover": { background: "rgba(255,255,255,0.15)" },
           }}
@@ -167,10 +245,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         {/* Next */}
         <Box
           component="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onNext();
-          }}
+          onClick={(e) => { e.stopPropagation(); onNext(); }}
           sx={{
             position: "absolute",
             right: { xs: 12, md: 32 },
@@ -186,7 +261,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
             justifyContent: "center",
             cursor: "pointer",
             color: "white",
-            zIndex: 1,
+            zIndex: 10,
             transition: "all 0.2s",
             "&:hover": { background: "rgba(255,255,255,0.15)" },
           }}
@@ -209,6 +284,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
             flexDirection: "column",
             alignItems: "center",
             gap: 2,
+            zIndex: 0,
           }}
         >
           <Box
@@ -223,46 +299,90 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
               boxShadow: "0 32px 80px rgba(0,0,0,0.8)",
             }}
           />
-          <Box sx={{ textAlign: "center" }}>
-            <Typography sx={{ fontSize: 16, fontWeight: 700, color: "white" }}>
-              {img.title}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: 12,
-                color: "text.disabled",
-                mt: 0.3,
-                letterSpacing: 1,
-                textTransform: "uppercase",
-              }}
-            >
-              {img.category}
-            </Typography>
-          </Box>
-          <Typography sx={{ fontSize: 12, color: "text.disabled" }}>
-            {index + 1} / {images.length}
-          </Typography>
         </MotionBox>
       </MotionBox>
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 };
 
 // ── Gallery ───────────────────────────────────────────────────────────
 const Gallery = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [shuffledOrder, setShuffledOrder] = useState(() => images.map((_, i) => i));
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  const filtered =
-    activeCategory === "All"
-      ? images
-      : images.filter((img) => img.category === activeCategory);
+  const handleShuffle = () => {
+    setShuffledOrder((prev) => {
+      const next = [...prev];
+      for (let i = next.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [next[i], next[j]] = [next[j], next[i]];
+      }
+      return next;
+    });
+  };
+
+  const displayed = shuffledOrder.map((i) => images[i]);
 
   const openLightbox = (i) => setLightboxIndex(i);
   const closeLightbox = () => setLightboxIndex(null);
   const prevImage = () =>
-    setLightboxIndex((i) => (i - 1 + filtered.length) % filtered.length);
-  const nextImage = () => setLightboxIndex((i) => (i + 1) % filtered.length);
+    setLightboxIndex((i) => (i - 1 + displayed.length) % displayed.length);
+  const nextImage = () =>
+    setLightboxIndex((i) => (i + 1) % displayed.length);
+
+  const renderCard = (img, globalIndex, rowI, ci, heights) => (
+    <MotionBox
+      key={img.src}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: globalIndex * 0.05 }}
+      onClick={() => openLightbox(globalIndex)}
+      sx={{
+        height: (rowI + ci) % 2 === 0 ? heights.short : heights.tall,
+        borderRadius: 3,
+        overflow: "hidden",
+        position: "relative",
+        cursor: "zoom-in",
+        flexShrink: 0,
+        boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
+        transition: "transform 0.35s ease, box-shadow 0.35s ease",
+        "&:hover": {
+          transform: "translateY(-6px) scale(1.02)",
+          boxShadow: "0 20px 50px rgba(0,0,0,0.7)",
+        },
+        "& img": {
+          display: "block",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
+        },
+        "&:hover img": { transform: "scale(1.04)" },
+        "&:hover .gallery-overlay": { opacity: 1 },
+      }}
+    >
+      <Box component="img" src={img.src} alt={img.title} loading="lazy" />
+      <Box
+        className="gallery-overlay"
+        sx={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%)",
+          opacity: 0,
+          transition: "opacity 0.4s ease",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          p: 2.5,
+        }}
+      >
+        <Typography sx={{ fontSize: 15, fontWeight: 800, color: "white", lineHeight: 1.2 }}>
+          {img.title}
+        </Typography>
+      </Box>
+    </MotionBox>
+  );
 
   return (
     <Box
@@ -274,174 +394,146 @@ const Gallery = () => {
       }}
     >
       {/* ── Header ── */}
-      <Box
-        sx={{
-          maxWidth: 1400,
-          mx: "auto",
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          alignItems: { md: "flex-end" },
-          justifyContent: "space-between",
-          gap: 3,
-          mb: { xs: 6, md: 8 },
-          px: { xs: 1, sm: 2 },
-        }}
-      >
-        <Box>
-          <Typography
+      <Box sx={{ maxWidth: 1400, mx: "auto", display: "flex", alignItems: "center", gap: { md: 6 }, pt: { xs: 6, md: 8 }, mb: { xs: 5, md: 7 }, px: { xs: 1, sm: 2 } }}>
+
+        {/* Left: text + shuffle */}
+        <Box sx={{ flex: 1 }}>
+          <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
+            <Typography sx={{ fontSize: 11, fontWeight: 700, letterSpacing: 4, color: AMBER, textTransform: "uppercase", mb: 1 }}>
+              Portfolio
+            </Typography>
+            <Typography variant="h2" sx={{ fontSize: { xs: "2rem", md: "3rem" }, fontWeight: 900, lineHeight: 1.05 }}>
+              The Work
+            </Typography>
+            <Typography sx={{ color: "text.secondary", fontSize: { xs: "0.9rem", md: "1rem" }, lineHeight: 1.7, mt: 1.5, mb: 3, maxWidth: 480 }}>
+              Every piece drawn from scratch — no flash, no templates, no compromises. {images.length} works in the portfolio.
+            </Typography>
+          </MotionBox>
+
+          {/* Shuffle button */}
+          <Box
+            component="button"
+            onClick={handleShuffle}
             sx={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: 4,
-              color: "primary.main",
-              textTransform: "uppercase",
-              mb: 1,
-            }}
-          >
-            Portfolio
-          </Typography>
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: "2rem", md: "3rem" },
-              fontWeight: 900,
-              lineHeight: 1.05,
-            }}
-          >
-            The Work
-          </Typography>
+              background: alpha(AMBER, 0.07),
+              border: `1px solid ${alpha(AMBER, 0.22)}`,
+              color: "text.primary",
+              borderRadius: 2,
+              px: 2.5,
+              py: 1,
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: 1,
+              cursor: "pointer",
+              fontFamily: "inherit",
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              transition: "all 0.2s ease",
+              alignSelf: { xs: "flex-start", md: "auto" },
+            "&:hover": {
+              borderColor: alpha(AMBER, 0.38),
+              background: alpha(AMBER, 0.12),
+            },
+          }}
+        >
+          <ShuffleIcon sx={{ fontSize: 16 }} /> Shuffle
+          </Box>
         </Box>
 
-        {/* Category filter */}
-        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-          {CATEGORIES.map((cat) => {
-            const isActive = activeCategory === cat;
-            return (
+        {/* Right: floating photo frames */}
+        <MotionBox
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          sx={{ flex: 1, display: { xs: "none", md: "flex" }, alignItems: "center", justifyContent: "center", height: 240, position: "relative" }}
+        >
+          {[
+            { w: 140, h: 170, rotate: -9,  x: -70, y: 10,  dur: 4.8, delay: 0,   border: alpha(AMBER, 0.44),             src: images[0].src,  rotateAnim: [-9, -7, -9]  },
+            { w: 115, h: 145, rotate:  3,  x:   5, y: -15, dur: 5.5, delay: 0.6, border: "rgba(255,255,255,0.35)", src: images[5].src,  rotateAnim: [3, 5, 3]     },
+            { w: 125, h: 155, rotate: 13,  x:  70, y: 5,   dur: 4.2, delay: 1.1, border: "rgba(200,146,58,0.45)",  src: images[10].src, rotateAnim: [13, 11, 13]  },
+          ].map((f, i) => (
+            <MotionBox
+              key={i}
+              animate={{ y: [f.y, f.y - 10, f.y], rotate: f.rotateAnim, opacity: [0.85, 1, 0.85] }}
+              transition={{ duration: f.dur, repeat: Infinity, delay: f.delay, ease: "easeInOut" }}
+              sx={{
+                position: "absolute",
+                width: f.w,
+                height: f.h,
+                border: `1.5px solid ${f.border}`,
+                borderRadius: 2,
+                overflow: "hidden",
+                transform: `translateX(${f.x}px)`,
+                boxShadow: i === 0
+                  ? `0 8px 32px rgba(200,146,58,0.2)`
+                  : `0 8px 24px rgba(0,0,0,0.35)`,
+              }}
+            >
               <Box
-                key={cat}
-                component="button"
-                onClick={() => setActiveCategory(cat)}
-                sx={{
-                  background: isActive
-                    ? "rgba(198,40,40,0.15)"
-                    : "rgba(255,255,255,0.04)",
-                  border: isActive
-                    ? "1px solid rgba(198,40,40,0.4)"
-                    : "1px solid rgba(255,255,255,0.1)",
-                  color: isActive ? "primary.main" : "text.secondary",
-                  borderRadius: 999,
-                  px: 2.5,
-                  py: 0.9,
-                  fontSize: 13,
-                  fontWeight: isActive ? 600 : 400,
-                  letterSpacing: 0.5,
-                  cursor: "pointer",
-                  fontFamily: "inherit",
-                  transition: "all 0.25s ease",
-                  "&:hover": {
-                    borderColor: "rgba(198,40,40,0.3)",
-                    color: "white",
-                    background: "rgba(198,40,40,0.08)",
-                  },
-                }}
-              >
-                {cat}
-              </Box>
-            );
-          })}
-        </Box>
+                component="img"
+                src={f.src}
+                alt=""
+                sx={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+            </MotionBox>
+          ))}
+        </MotionBox>
       </Box>
 
-      {/* ── Masonry grid ── */}
+      {/* ── Masonry ── */}
       <Box sx={{ maxWidth: 1400, mx: "auto" }}>
         <AnimatePresence mode="wait">
           <MotionBox
-            key={activeCategory}
+            key={shuffledOrder.join(",")}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            sx={{
-              columns: { xs: 1, sm: 2, lg: 3 },
-              columnGap: { xs: 2, md: 3 },
-            }}
           >
-            {filtered.map((img, i) => (
-              <MotionBox
-                key={img.src}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
-                onClick={() => openLightbox(i)}
-                sx={{
-                  breakInside: "avoid",
-                  mb: { xs: 2, md: 3 },
-                  borderRadius: 3,
-                  overflow: "hidden",
-                  position: "relative",
-                  cursor: "zoom-in",
-                  display: "block",
-                  transform: "translateZ(0)",
-                  boxShadow: "inset 0 0 0 1px #0a0a0a",
-                  // Tall items are ~2x height via paddingTop trick
-                  "& img": {
-                    display: "block",
-                    width: "100%",
-                    height: "auto",
-                    transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
-                  },
-                  "&:hover img": { transform: "scale(1.04)" },
-                  "&:hover .gallery-overlay": { opacity: 1 },
-                }}
-              >
+            {/* Desktop: 3 staggered columns */}
+            <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
+              {[0, 1, 2].map((ci) => (
                 <Box
-                  component="img"
-                  src={img.src}
-                  alt={img.title}
-                  loading="lazy"
-                />
-
-                {/* Hover overlay */}
-                <Box
-                  className="gallery-overlay"
+                  key={ci}
                   sx={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%)",
-                    opacity: 0,
-                    transition: "opacity 0.4s ease",
+                    flex: 1,
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "flex-end",
-                    p: 3,
+                    gap: 2,
+                    pt: ["0px", "72px", "36px"][ci],
                   }}
                 >
-                  <Typography
-                    sx={{
-                      fontSize: 10,
-                      fontWeight: 700,
-                      letterSpacing: 3,
-                      color: "primary.main",
-                      textTransform: "uppercase",
-                      mb: 0.5,
-                    }}
-                  >
-                    {img.category}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: 16,
-                      fontWeight: 800,
-                      color: "white",
-                      lineHeight: 1.2,
-                    }}
-                  >
-                    {img.title}
-                  </Typography>
+                  {displayed
+                    .filter((_, i) => i % 3 === ci)
+                    .map((img, rowI) =>
+                      renderCard(img, rowI * 3 + ci, rowI, ci, { tall: 620, short: 480 })
+                    )}
                 </Box>
-              </MotionBox>
-            ))}
+              ))}
+            </Box>
+
+            {/* Mobile: 2 staggered columns */}
+            <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1.5 }}>
+              {[0, 1].map((ci) => (
+                <Box
+                  key={ci}
+                  sx={{
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1.5,
+                    pt: ci === 1 ? "52px" : "0px",
+                  }}
+                >
+                  {displayed
+                    .filter((_, i) => i % 2 === ci)
+                    .map((img, rowI) =>
+                      renderCard(img, rowI * 2 + ci, rowI, ci, { tall: 360, short: 280 })
+                    )}
+                </Box>
+              ))}
+            </Box>
           </MotionBox>
         </AnimatePresence>
       </Box>
@@ -449,7 +541,7 @@ const Gallery = () => {
       {/* Lightbox */}
       {lightboxIndex !== null && (
         <Lightbox
-          images={filtered}
+          images={displayed}
           index={lightboxIndex}
           onClose={closeLightbox}
           onPrev={prevImage}

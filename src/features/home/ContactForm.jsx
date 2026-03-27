@@ -99,7 +99,7 @@ const ContactSection = () => {
 
       {/* Title block — right */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: { xs: "flex-start", md: "flex-end" }, textAlign: { xs: "left", md: "right" } }}>
-        <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "primary.main", textTransform: "uppercase" }}>
+        <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "#c8923a", textTransform: "uppercase" }}>
           Get in Touch
         </Typography>
         <Typography variant="h2" sx={{ fontWeight: 900, fontSize: { xs: "2rem", md: "3rem" }, lineHeight: 1.1 }}>

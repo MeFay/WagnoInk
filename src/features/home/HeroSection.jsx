@@ -42,6 +42,7 @@ const HeroSection = () => {
         muted
         loop
         playsInline
+        preload="none"
         sx={{
           position: "absolute",
           inset: 0,
@@ -99,7 +100,7 @@ const HeroSection = () => {
             fontSize: { xs: 11, md: 12 },
             fontWeight: 600,
             letterSpacing: 4,
-            color: "primary.main",
+            color: "#c8923a",
             textTransform: "uppercase",
           }}
         >
@@ -132,7 +133,7 @@ const HeroSection = () => {
               fontWeight: 300,
               letterSpacing: { xs: 8, md: 18 },
               fontSize: { xs: "1.4rem", md: "2.2rem", lg: "2.6rem" },
-              color: "rgba(255,255,255,0.45)",
+              color: "text.secondary",
               textTransform: "uppercase",
               pl: { xs: "8px", md: "18px" }, // optical offset for letterSpacing
             }}
@@ -252,7 +253,7 @@ const HeroSection = () => {
           sx={{
             fontSize: 10,
             letterSpacing: 3,
-            color: "rgba(255,255,255,0.3)",
+            color: "text.disabled",
             textTransform: "uppercase",
           }}
         >

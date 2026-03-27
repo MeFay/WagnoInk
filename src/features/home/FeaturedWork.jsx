@@ -56,7 +56,7 @@ const FeaturedCard = ({ project, tall = false, index = 0 }) => (
   >
     <Box className="card-img" sx={{ position: "absolute", inset: 0, backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "center", transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)", zIndex: 0 }} />
     <Box sx={{ position: "relative", zIndex: 2, p: { xs: 3, md: 4 }, display: "flex", flexDirection: "column", gap: 1 }}>
-      <Typography sx={{ fontSize: { xs: 10, md: 11 }, fontWeight: 700, letterSpacing: 3, color: "rgba(255,255,255,0.5)", textTransform: "uppercase" }}>
+      <Typography sx={{ fontSize: { xs: 10, md: 11 }, fontWeight: 700, letterSpacing: 3, color: "text.secondary", textTransform: "uppercase" }}>
         {project.category}
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
@@ -92,7 +92,7 @@ const FeaturedWork = () => (
       sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: { xs: "flex-start", md: "flex-end" }, justifyContent: "space-between", gap: { xs: 3, md: 4 } }}
     >
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "primary.main", textTransform: "uppercase" }}>
+        <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "#c8923a", textTransform: "uppercase" }}>
           Featured Work
         </Typography>
         <Typography variant="h2" sx={{ fontWeight: 900, fontSize: { xs: "2rem", md: "3rem" }, lineHeight: 1.1 }}>

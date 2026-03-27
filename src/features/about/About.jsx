@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -11,6 +12,7 @@ import { SECTIONS, workExperience, training, contests, prizeImages, socialLinks 
 const MotionBox = motion(Box);
 
 const AMBER = "#c8923a";
+const RED   = "#c62828";
 const GREEN = "#25D366";
 const PINK  = "#E4405F";
 
@@ -25,9 +27,9 @@ const SidebarNav = ({ activeSection }) => (
       const isActive = activeSection === s.id;
       return (
         <Box key={s.id} component="a" href={`#${s.id}`}
-          sx={{ display: "flex", alignItems: "center", gap: 2, textDecoration: "none", color: isActive ? "white" : "rgba(255,255,255,0.28)", fontSize: 13, fontWeight: isActive ? 600 : 400, letterSpacing: 0.5, transition: "all 0.25s ease", py: 0.5, "&:hover": { color: "rgba(255,255,255,0.65)" } }}
+          sx={{ display: "flex", alignItems: "center", gap: 2, textDecoration: "none", color: isActive ? "white" : "text.disabled", fontSize: 13, fontWeight: isActive ? 600 : 400, letterSpacing: 0.5, transition: "all 0.25s ease", py: 0.5, "&:hover": { color: "text.secondary" } }}
         >
-          <Box sx={{ width: isActive ? 28 : 12, height: "1.5px", bgcolor: isActive ? "primary.main" : "rgba(255,255,255,0.18)", transition: "all 0.3s ease", flexShrink: 0 }} />
+          <Box sx={{ width: isActive ? 28 : 12, height: "1.5px", bgcolor: isActive ? AMBER : "rgba(255,255,255,0.18)", transition: "all 0.3s ease", flexShrink: 0 }} />
           {s.label}
         </Box>
       );
@@ -44,8 +46,8 @@ const TrackedSection = ({ id, children }) => (
 // Section label — red line + red cap text (matches home sections)
 const SectionLabel = ({ children }) => (
   <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
-    <Box sx={{ width: 32, height: "1.5px", bgcolor: "primary.main", flexShrink: 0 }} />
-    <Typography sx={{ fontSize: 11, fontWeight: 700, letterSpacing: 4, color: "primary.main", textTransform: "uppercase" }}>
+    <Box sx={{ width: 32, height: "1.5px", bgcolor: AMBER, flexShrink: 0 }} />
+    <Typography sx={{ fontSize: 11, fontWeight: 700, letterSpacing: 4, color: AMBER, textTransform: "uppercase" }}>
       {children}
     </Typography>
   </Box>
@@ -75,11 +77,11 @@ const About = () => {
 
   return (
     <Box sx={{ minHeight: "100vh", pt: { xs: "88px", md: "96px" }, pb: { xs: 12, md: 16 }, px: { xs: 3, sm: 5, md: 8, lg: 10 } }}>
-      <Box sx={{ maxWidth: 1400, mx: "auto", display: "flex", gap: { lg: 14 }, alignItems: "flex-start" }}>
+      <Box sx={{ maxWidth: 1400, mx: "auto", display: "flex", gap: { lg: 14 }, alignItems: "flex-start", pt: { xs: 8, md: 10 } }}>
 
         <SidebarNav activeSection={activeSection} />
 
-        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 10, minWidth: 0 }}>
+        <Box sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 7, minWidth: 0 }}>
 
           {/* ── INTRODUCTION ─────────────────────────────────── */}
           <TrackedSection id="introduction">
@@ -132,14 +134,13 @@ const About = () => {
                       height: 14,
                       borderRadius: "50%",
                       bgcolor: AMBER,
-                      border: "2px solid #0a0a0a",
                       zIndex: 2,
                     }} />
                   </Box>
 
                   <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-                    <LocationOnIcon sx={{ fontSize: 12, color: "rgba(255,255,255,0.4)" }} />
-                    <Typography sx={{ fontSize: 12, color: "text.disabled", letterSpacing: 0.5 }}>
+                    <LocationOnIcon sx={{ fontSize: 12, color: "text.secondary" }} />
+                    <Typography sx={{ fontSize: 12, color: "text.secondary", letterSpacing: 0.5 }}>
                       Porto, Portugal
                     </Typography>
                   </Box>
@@ -236,9 +237,9 @@ const About = () => {
                       borderRadius: "50%",
                       mt: "3px",
                       flexShrink: 0,
-                      border: job.current ? "2px solid #c62828" : "1.5px solid rgba(255,255,255,0.25)",
-                      bgcolor: job.current ? "rgba(198,40,40,0.2)" : "transparent",
-                      boxShadow: job.current ? "0 0 8px rgba(198,40,40,0.4)" : "none",
+                      border: job.current ? `2px solid ${AMBER}` : "1.5px solid rgba(255,255,255,0.25)",
+                      bgcolor: job.current ? alpha(AMBER, 0.12) : "transparent",
+                      boxShadow: job.current ? `0 0 8px ${alpha(AMBER, 0.38)}` : "none",
                       transition: "all 0.3s ease",
                     }} />
                   </Box>
@@ -248,16 +249,16 @@ const About = () => {
 
                     {/* Period + location — above the title */}
                     <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flexWrap: "wrap" }}>
-                      <Typography sx={{ fontSize: 12, color: job.current ? "primary.main" : "text.disabled", fontWeight: 600, letterSpacing: 0.5 }}>
+                      <Typography sx={{ fontSize: 12, color: job.current ? AMBER : "text.disabled", fontWeight: 600, letterSpacing: 0.5 }}>
                         {job.period}
                       </Typography>
                       {job.current && (
                         <Box sx={{
                           px: 1.2, py: 0.2, borderRadius: 999,
-                          bgcolor: "rgba(198,40,40,0.12)",
-                          border: "1px solid rgba(198,40,40,0.3)",
+                          bgcolor: alpha(AMBER, 0.08),
+                          border: `1px solid ${alpha(AMBER, 0.31)}`,
                         }}>
-                          <Typography sx={{ fontSize: 10, fontWeight: 700, color: "primary.main", letterSpacing: 1, textTransform: "uppercase" }}>
+                          <Typography sx={{ fontSize: 10, fontWeight: 700, color: AMBER, letterSpacing: 1, textTransform: "uppercase" }}>
                             Current
                           </Typography>
                         </Box>
@@ -272,7 +273,7 @@ const About = () => {
                       <Typography sx={{ fontWeight: 800, fontSize: { xs: "1.1rem", md: "1.2rem" }, color: "white", letterSpacing: 0.2, lineHeight: 1.2 }}>
                         {job.studio}
                       </Typography>
-                      <Typography sx={{ fontSize: 14, color: AMBER, fontWeight: 600, letterSpacing: 0.3 }}>
+                      <Typography sx={{ fontSize: 14, color: RED, fontWeight: 600, letterSpacing: 0.3 }}>
                         {job.role}
                       </Typography>
                     </Box>
@@ -281,7 +282,7 @@ const About = () => {
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
                       {job.highlights.map((h) => (
                         <Box key={h} sx={{ display: "flex", gap: 2, alignItems: "flex-start" }}>
-                          <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: "rgba(255,255,255,0.2)", flexShrink: 0, mt: "9px" }} />
+                          <Box sx={{ width: 4, height: 4, borderRadius: "50%", bgcolor: alpha(AMBER, 0.38), flexShrink: 0, mt: "9px" }} />
                           <Typography sx={{ fontSize: 14, color: "text.secondary", lineHeight: 1.8 }}>
                             {h}
                           </Typography>
@@ -338,7 +339,7 @@ const About = () => {
                       <Typography sx={{ fontWeight: 800, fontSize: { xs: "1rem", md: "1.1rem" }, color: "white", lineHeight: 1.2 }}>
                         {t.mentor}
                       </Typography>
-                      <Typography sx={{ fontSize: 13, color: AMBER, fontWeight: 600 }}>
+                      <Typography sx={{ fontSize: 13, color: RED, fontWeight: 600 }}>
                         {t.focus}
                       </Typography>
                     </Box>
@@ -362,8 +363,8 @@ const About = () => {
                 const isGold   = c.place === 1;
                 const isBronze = c.place === 3;
                 const medalColor  = isGold ? AMBER : isBronze ? "#cd7f32" : "rgba(255,255,255,0.4)";
-                const medalBg     = isGold ? `${AMBER}18` : isBronze ? "rgba(205,127,50,0.12)" : "rgba(255,255,255,0.05)";
-                const medalBorder = isGold ? `${AMBER}50` : isBronze ? "rgba(205,127,50,0.35)" : "rgba(255,255,255,0.12)";
+                const medalBg     = isGold ? alpha(AMBER, 0.09) : isBronze ? "rgba(205,127,50,0.12)" : "rgba(255,255,255,0.05)";
+                const medalBorder = isGold ? alpha(AMBER, 0.31) : isBronze ? "rgba(205,127,50,0.35)" : "rgba(255,255,255,0.12)";
                 const medal = isGold ? "🥇" : isBronze ? "🥉" : "·";
                 return (
                   <MotionBox
@@ -428,7 +429,7 @@ const About = () => {
                     "&:hover .prize-label": { opacity: 1, transform: "translateY(0)" },
                   }}
                 >
-                  <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 40%, transparent 70%)", pointerEvents: "none" }} />
+                  <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 35%, transparent 65%)", pointerEvents: "none" }} />
                   <Box className="prize-label" sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 3, opacity: { xs: 1, md: 0 }, transform: { xs: "none", md: "translateY(8px)" }, transition: "all 0.35s ease" }}>
                     <Typography sx={{ fontSize: 11, color: AMBER, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>{prizeImages[0].result}</Typography>
                     <Typography sx={{ fontSize: 16, fontWeight: 800, color: "white" }}>{prizeImages[0].award}</Typography>
@@ -453,7 +454,7 @@ const About = () => {
                       "&:hover .prize-label": { opacity: 1, transform: "translateY(0)" },
                     }}
                   >
-                    <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 40%, transparent 70%)", pointerEvents: "none" }} />
+                    <Box sx={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 35%, transparent 65%)", pointerEvents: "none" }} />
                     <Box className="prize-label" sx={{ position: "absolute", bottom: 0, left: 0, right: 0, p: 2, opacity: { xs: 1, md: 0 }, transform: { xs: "none", md: "translateY(8px)" }, transition: "all 0.35s ease" }}>
                       <Typography sx={{ fontSize: 10, color: AMBER, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>{img.result}</Typography>
                       <Typography sx={{ fontSize: 14, fontWeight: 800, color: "white" }}>{img.award}</Typography>

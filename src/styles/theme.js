@@ -2,6 +2,9 @@ import { createTheme, alpha } from "@mui/material/styles";
 
 const AMBER = "#c8923a";
 
+// Soft off-white — not pure #fff, warmer and easier on the eyes
+const SOFT_WHITE = "#e8e4df";
+
 const theme = createTheme({
   breakpoints: {
     values: { xs: 0, sm: 768, md: 1024, lg: 1440, xl: 1820 },
@@ -25,7 +28,7 @@ const theme = createTheme({
       main: "#c62828",
       light: "#e53935",
       dark: "#8e0000",
-      contrastText: "#ffffff",
+      contrastText: SOFT_WHITE,
     },
 
     // Amber — third accent for awards, highlights, warmth
@@ -33,7 +36,7 @@ const theme = createTheme({
       main: AMBER,
       light: "#daa95a",
       dark: "#a0721f",
-      contrastText: "#ffffff",
+      contrastText: SOFT_WHITE,
     },
 
     // WhatsApp green — kept for the specific social link only
@@ -43,19 +46,19 @@ const theme = createTheme({
 
     secondary: {
       main: "#aaaaaa",
-      contrastText: "#ffffff",
+      contrastText: SOFT_WHITE,
     },
 
     background: {
-      default: "#0a0a0a",
+      default: "#111111",
       paper: "#1a1a1a",
       elevated: "#222222",
     },
 
     text: {
-      primary: "#ffffff",
-      secondary: "#e0e0e0",
-      disabled: "#999999",
+      primary: SOFT_WHITE,
+      secondary: "#d8d4cf",
+      disabled: "#a8a4a0",
     },
 
     divider: alpha("#c62828", 0.25),
@@ -63,12 +66,12 @@ const theme = createTheme({
 
   typography: {
     fontFamily: "Geist, Roboto, Helvetica, Arial, sans-serif",
-    h1: { fontSize: "4rem",    fontWeight: 900, lineHeight: 1.1,  color: "#ffffff" },
-    h2: { fontSize: "3rem",    fontWeight: 800, lineHeight: 1.15, color: "#ffffff" },
-    h3: { fontSize: "2.25rem", fontWeight: 700, lineHeight: 1.2,  color: "#ffffff" },
-    h4: { fontWeight: 700, color: "#ffffff" },
-    h5: { fontWeight: 700, color: "#ffffff" },
-    h6: { fontWeight: 700, color: "#ffffff" },
+    h1: { fontSize: "4rem",    fontWeight: 900, lineHeight: 1.1,  color: SOFT_WHITE },
+    h2: { fontSize: "3rem",    fontWeight: 800, lineHeight: 1.15, color: SOFT_WHITE },
+    h3: { fontSize: "2.25rem", fontWeight: 700, lineHeight: 1.2,  color: SOFT_WHITE },
+    h4: { fontWeight: 700, color: SOFT_WHITE },
+    h5: { fontWeight: 700, color: SOFT_WHITE },
+    h6: { fontWeight: 700, color: SOFT_WHITE },
     body1: { fontSize: "1rem",      lineHeight: 1.6 },
     body2: { fontSize: "0.875rem",  lineHeight: 1.6 },
     button: { textTransform: "none", fontWeight: 500 },
@@ -77,7 +80,7 @@ const theme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        body: { backgroundColor: "#0a0a0a", color: "#ffffff" },
+        body: { backgroundColor: "#111111", color: SOFT_WHITE },
       },
     },
 
@@ -94,13 +97,13 @@ const theme = createTheme({
 
     MuiIconButton: {
       styleOverrides: {
-        root: { "&:hover": { backgroundColor: alpha("#ffffff", 0.05) } },
+        root: { "&:hover": { backgroundColor: alpha(SOFT_WHITE, 0.05) } },
       },
     },
 
     MuiDrawer: {
       styleOverrides: {
-        paper: { backgroundColor: "#111111" },
+        paper: { backgroundColor: "#0a0a0a" },
       },
     },
 

@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import LanguageIcon from "@mui/icons-material/Language";
+import HomeIcon from "@mui/icons-material/Home";
+import PersonIcon from "@mui/icons-material/Person";
+import CollectionsIcon from "@mui/icons-material/Collections";
+import ArticleIcon from "@mui/icons-material/Article";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import CustomButton from "../components/UI/Button";
 import {
   Box,
@@ -10,17 +15,18 @@ import {
   alpha,
   Menu,
   MenuItem,
+  Tooltip,
 } from "@mui/material";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 
 const NAV_ITEMS = [
-  { path: "/", label: "Home" },
-  { path: "/about", label: "About" },
-  { path: "/gallery", label: "Gallery" },
-  { path: "/blog", label: "Blog" },
-  { path: "/info", label: "Info" },
+  { path: "/", label: "Home", icon: HomeIcon },
+  { path: "/about", label: "About", icon: PersonIcon },
+  { path: "/gallery", label: "Gallery", icon: CollectionsIcon },
+  { path: "/blog", label: "Blog", icon: ArticleIcon },
+  { path: "/info", label: "Info", icon: InfoOutlinedIcon },
 ];
 
 const LANGUAGES = [
@@ -29,36 +35,11 @@ const LANGUAGES = [
   { code: "ES", label: "Español" },
 ];
 
-// ── Hamburger icon — three lines that animate to X ──────────────────
-const HamburgerIcon = ({ open }) => (
-  <Box sx={{ width: 24, height: 16, position: "relative", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-    <Box
-      component={motion.span}
-      animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      sx={{ display: "block", height: "1.5px", bgcolor: "white", borderRadius: 1, transformOrigin: "center" }}
-    />
-    <Box
-      component={motion.span}
-      animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-      transition={{ duration: 0.2 }}
-      sx={{ display: "block", height: "1.5px", bgcolor: "white", borderRadius: 1 }}
-    />
-    <Box
-      component={motion.span}
-      animate={open ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      sx={{ display: "block", height: "1.5px", bgcolor: "white", borderRadius: 1, transformOrigin: "center" }}
-    />
-  </Box>
-);
-
 const Navbar = () => {
   const theme = useTheme();
   const location = useLocation();
   const nav = theme.navigation;
 
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [languageAnchor, setLanguageAnchor] = useState(null);
   const [currentLanguage, setCurrentLanguage] = useState("EN");
   const [scrolled, setScrolled] = useState(false);
@@ -69,17 +50,10 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
-
-
   const hoverBg = alpha(theme.palette.secondary.main, 0.1);
   const activeBg = alpha(theme.palette.primary.main, 0.2);
   const containerBg = alpha(theme.palette.text.primary, 0.05);
-  const dividerColor = alpha(theme.palette.primary.main, 0.3);
+  const dividerColor = alpha("#c8923a", 0.45);
 
   const navItemBase = {
     display: "flex",
@@ -95,9 +69,22 @@ const Navbar = () => {
     textDecoration: "none",
   };
 
+  const mobileIconBtn = {
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 38,
+    height: 38,
+    borderRadius: nav.borderRadius,
+    transition: "all 0.2s ease",
+    textDecoration: "none",
+    cursor: "pointer",
+  };
+
   return (
     <>
-      {/* ── Fixed navbar bar ──────────────────────────────────────── */}
+      {/* ── Fixed top navbar ──────────────────────────────────────── */}
       <Box
         component="nav"
         sx={{
@@ -146,6 +133,7 @@ const Navbar = () => {
             {NAV_ITEMS.map((item, i) => {
               const isActive = location.pathname === item.path;
               const showDividerAfter = i === 0 || i === NAV_ITEMS.length - 1;
+              const Icon = item.icon;
               return (
                 <React.Fragment key={item.path}>
                   <Box
@@ -157,6 +145,7 @@ const Navbar = () => {
                       "&:hover": { bgcolor: hoverBg },
                     }}
                   >
+                    <Icon sx={{ fontSize: "1rem", flexShrink: 0 }} />
                     {item.label}
                   </Box>
                   {showDividerAfter && (
@@ -166,7 +155,7 @@ const Navbar = () => {
               );
             })}
 
-            {/* Language selector — fixed width prevents layout shift */}
+            {/* Language selector */}
             <Box
               role="button"
               tabIndex={0}
@@ -197,25 +186,6 @@ const Navbar = () => {
               Book Now <ArrowForwardIcon sx={{ fontSize: 18 }} />
             </CustomButton>
           </Box>
-
-          {/* Mobile hamburger — just an icon button, no background */}
-          <Box
-            component="button"
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            sx={{
-              display: { lg: "none" },
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              p: 1,
-              ml: 1,
-              zIndex: 1200,
-              position: "relative",
-            }}
-          >
-            <HamburgerIcon open={mobileOpen} />
-          </Box>
         </Box>
       </Box>
 
@@ -225,12 +195,12 @@ const Navbar = () => {
         open={Boolean(languageAnchor)}
         onClose={() => setLanguageAnchor(null)}
         disableScrollLock
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        transformOrigin={{ vertical: "bottom", horizontal: "center" }}
         slotProps={{
           paper: {
             sx: {
-              mt: 1,
+              mb: 1,
               bgcolor: "#111111",
               border: `1px solid rgba(198,40,40,0.2)`,
               borderRadius: 2,
@@ -249,7 +219,7 @@ const Navbar = () => {
             sx={{
               fontSize: 13,
               fontWeight: currentLanguage === lang.code ? 700 : 400,
-              color: currentLanguage === lang.code ? "primary.main" : "rgba(255,255,255,0.7)",
+              color: currentLanguage === lang.code ? "primary.main" : "text.secondary",
               letterSpacing: 1,
               py: 1.5,
               px: 2.5,
@@ -261,7 +231,7 @@ const Navbar = () => {
           >
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", gap: 2 }}>
               {lang.label}
-              <Typography component="span" sx={{ fontSize: 11, letterSpacing: 2, color: "inherit", opacity: 0.6 }}>
+              <Typography component="span" sx={{ fontSize: 11, letterSpacing: 2, color: "text.disabled" }}>
                 {lang.code}
               </Typography>
             </Box>
@@ -269,134 +239,93 @@ const Navbar = () => {
         ))}
       </Menu>
 
-      {/* ── Mobile full-screen overlay menu ──────────────────────── */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <MotionBox
-            key="mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            sx={{
-              position: "fixed",
-              inset: 0,
-              zIndex: 1099,
-              background: `radial-gradient(ellipse 800px 500px at 50% 0%, rgba(198,40,40,0.15) 0%, transparent 60%), #0a0a0a`,
-              display: "flex",
-              flexDirection: "column",
-              px: 6,
-              pt: `calc(${nav.height}px + 32px)`,
-              pb: 6,
-            }}
-          >
-            {/* Nav links — large editorial style */}
-            <Box
-              sx={{
-                flex: 1,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                gap: 1,
-              }}
-            >
-              {NAV_ITEMS.map((item, i) => {
-                const isActive = location.pathname === item.path;
-                return (
-                  <MotionBox
-                    key={item.path}
-                    initial={{ opacity: 0, x: -24 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.4, delay: i * 0.07 }}
-                  >
-                    <Box
-                      component={Link}
-                      to={item.path}
-                      onClick={() => setMobileOpen(false)}
-                      sx={{
-                        display: "block",
-                        textDecoration: "none",
-                        py: 1.5,
-                        borderBottom: "1px solid rgba(255,255,255,0.06)",
-                        color: isActive ? "primary.main" : "white",
-                        transition: "color 0.2s ease, padding-left 0.2s ease",
-                        "&:hover": {
-                          color: "primary.main",
-                          pl: 1,
-                        },
-                      }}
-                    >
-                      <Typography
-                        sx={{
-                          fontSize: "2rem",
-                          fontWeight: 800,
-                          letterSpacing: 1,
-                          lineHeight: 1.2,
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        {item.label}
-                      </Typography>
-                    </Box>
-                  </MotionBox>
-                );
-              })}
-            </Box>
-
-            {/* Bottom section */}
-            <MotionBox
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              sx={{ display: "flex", flexDirection: "column", gap: 3 }}
-            >
-              {/* Language switcher */}
-              <Box sx={{ display: "flex", gap: 2 }}>
-                {LANGUAGES.map((lang) => (
+      {/* ── Mobile bottom pill nav ────────────────────────────────── */}
+      <Box
+        sx={{
+          display: { xs: "flex", lg: "none" },
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          justifyContent: "center",
+          pb: "20px",
+          zIndex: 1100,
+          pointerEvents: "none",
+        }}
+      >
+        <MotionBox
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          sx={{
+            pointerEvents: "auto",
+            display: "flex",
+            alignItems: "center",
+            gap: 0.5,
+            px: 1,
+            py: 1,
+            borderRadius: nav.borderRadius,
+            bgcolor: alpha(theme.palette.text.primary, 0.05),
+            backdropFilter: "blur(16px)",
+            border: `1px solid ${alpha("#ffffff", 0.07)}`,
+            boxShadow: "0 8px 40px rgba(0,0,0,0.7)",
+          }}
+        >
+          {NAV_ITEMS.map((item, i) => {
+            const isActive = location.pathname === item.path;
+            const Icon = item.icon;
+            return (
+              <React.Fragment key={item.path}>
+                <Tooltip title={item.label} placement="top" arrow>
                   <Box
-                    key={lang.code}
-                    component="button"
-                    onClick={() => setCurrentLanguage(lang.code)}
+                    component={Link}
+                    to={item.path}
                     sx={{
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      px: 0,
-                      py: 0.5,
-                      fontSize: 12,
-                      fontWeight: 600,
-                      letterSpacing: 2,
-                      color: currentLanguage === lang.code ? "primary.main" : "rgba(255,255,255,0.4)",
-                      fontFamily: "inherit",
-                      transition: "color 0.2s ease",
-                      "&:hover": { color: "white" },
+                      ...mobileIconBtn,
+                      color: "white",
+                      bgcolor: isActive ? activeBg : "transparent",
+                      "&:hover": { bgcolor: isActive ? activeBg : hoverBg },
                     }}
                   >
-                    {lang.code}
+                    <Icon sx={{ fontSize: 19 }} />
+                    {isActive && (
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          bottom: 4,
+                          width: 4,
+                          height: 4,
+                          borderRadius: "50%",
+                          bgcolor: theme.palette.primary.main,
+                        }}
+                      />
+                    )}
                   </Box>
-                ))}
-              </Box>
+                </Tooltip>
+                {(i === 0 || i === NAV_ITEMS.length - 1) && (
+                  <Box sx={{ width: "1px", height: 20, bgcolor: dividerColor, mx: 0.5 }} />
+                )}
+              </React.Fragment>
+            );
+          })}
 
-              {/* Book Now CTA */}
-              <CustomButton
-                size="large"
-                component="a"
-                href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
-                target="_blank"
-                rel="noopener noreferrer"
-                fullWidth
-              >
-                Book a Consultation <ArrowForwardIcon sx={{ fontSize: 18 }} />
-              </CustomButton>
-
-              {/* Footer note */}
-              <Typography sx={{ fontSize: 11, color: "rgba(255,255,255,0.25)", letterSpacing: 1 }}>
-                Porto, Portugal · Est. 2016
-              </Typography>
-            </MotionBox>
-          </MotionBox>
-        )}
-      </AnimatePresence>
+          {/* Language icon */}
+          <Tooltip title={currentLanguage} placement="top" arrow>
+            <Box
+              role="button"
+              tabIndex={0}
+              onClick={(e) => setLanguageAnchor(e.currentTarget)}
+              sx={{
+                ...mobileIconBtn,
+                color: "white",
+                "&:hover": { bgcolor: hoverBg },
+              }}
+            >
+              <LanguageIcon sx={{ fontSize: 19 }} />
+            </Box>
+          </Tooltip>
+        </MotionBox>
+      </Box>
     </>
   );
 };

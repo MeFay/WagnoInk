@@ -294,6 +294,8 @@ const Navbar = () => {
                         sx={{
                           position: "absolute",
                           bottom: 4,
+                          left: "50%",
+                          transform: "translateX(-50%)",
                           width: 4,
                           height: 4,
                           borderRadius: "50%",

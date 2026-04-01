@@ -74,7 +74,7 @@ const ProcessSection = () => {
         From Idea to Ink
       </Typography>
       <Typography sx={{ color: "text.secondary", fontSize: typeScale.body, lineHeight: 1.7, maxWidth: 560 }}>
-        A simple process built around your vision — from first conversation to finished piece.
+        A simple process built around your vision, from first conversation to finished piece.
       </Typography>
     </MotionBox>
 

@@ -17,10 +17,10 @@ import CustomButton from "../../components/UI/Button";
 const MotionBox = motion(Box);
 
 const contactInfo = [
-  { icon: LocationOnIcon, label: "Studio Location", value: "Porto, Portugal", link: "https://maps.google.com" },
+  { icon: LocationOnIcon, label: "Main Studio Location", value: "Porto, Portugal", link: "https://maps.google.com" },
   { icon: PhoneIcon, label: "Phone", value: "+351 910 848 391", link: "tel:+351910848391" },
-  { icon: EmailIcon, label: "Email", value: "wagnotattoo@gmail.com", link: "mailto:wagnotattoo@gmail.com" },
-  { icon: InstagramIcon, label: "Instagram", value: "@wagnotattoo", link: "https://instagram.com/wagnotattoo" },
+  { icon: EmailIcon, label: "Email", value: "Wagno.ink@icloud.com", link: "mailto:Wagno.ink@icloud.com" },
+  { icon: InstagramIcon, label: "Instagram", value: "@wagno.ink", link: "https://www.instagram.com/wagno.ink/" },
 ];
 
 const studioHours = [

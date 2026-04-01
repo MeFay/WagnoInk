@@ -4,7 +4,7 @@ const SectionContainer = ({ children, sx = {}, innerSx = {}, ...props }) => (
   <Box
     sx={{
       width: "100%",
-      py: { xs: 12, md: 16 },
+      py: { xs: 10, md: 12 },
       px: { xs: 3, sm: 5, md: 8, lg: 10 },
       position: "relative",
       ...sx,
@@ -18,7 +18,7 @@ const SectionContainer = ({ children, sx = {}, innerSx = {}, ...props }) => (
         mx: "auto",
         display: "flex",
         flexDirection: "column",
-        gap: { xs: 6, md: 10 },
+        gap: { xs: 3, md: 4 },
         ...innerSx,
       }}
     >

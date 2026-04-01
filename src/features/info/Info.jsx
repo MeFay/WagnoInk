@@ -889,7 +889,7 @@ const Info = () => {
       {/* ── Contact ─────────────────────────────────────────────────── */}
       <ContactSection
         id="info-contact"
-        sx={{ pt: { xs: 6, md: 8 }, px: 0 }}
+        sx={{ px: 0 }}
         innerSx={{ gap: { xs: 3, md: 4 } }}
       />
     </Box>

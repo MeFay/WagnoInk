@@ -38,8 +38,8 @@ const FeaturedCard = ({ project, tall = false, index = 0 }) => (
     rel="noopener noreferrer"
     sx={{
       flex: tall ? "1.4" : "1",
-      height: { xs: "72vw", sm: "60vw", md: tall ? 680 : 500 },
-      minHeight: { md: tall ? 680 : 500 },
+      height: { xs: "70vw", sm: "60vw", md: tall ? 680 : 500 },
+      minHeight: { xs: 300, md: tall ? 680 : 500 },
       borderRadius: 3,
       overflow: "hidden",
       position: "relative",
@@ -59,7 +59,7 @@ const FeaturedCard = ({ project, tall = false, index = 0 }) => (
   >
     <Box className="card-img" sx={{ position: "absolute", inset: 0, backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "center", transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)", zIndex: 0 }} />
     <Box sx={{ position: "relative", zIndex: 2, p: { xs: 3, md: 4 }, display: "flex", flexDirection: "column", gap: 1 }}>
-      <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, letterSpacing: 3, color: "text.secondary", textTransform: "uppercase" }}>
+      <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, letterSpacing: 3, color: "rgba(255,255,255,0.75)", textTransform: "uppercase" }}>
         {project.category}
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
@@ -84,8 +84,9 @@ const GhostCard = ({ index = 2 }) => {
       to="/gallery"
       sx={{
         flex: "0.7",
-        height: { xs: "72vw", sm: "60vw", md: 400 },
-        minHeight: { md: 400 },
+        height: { xs: "auto", sm: "40vw", md: 400 },
+        minHeight: { xs: 120, md: 400 },
+        py: { xs: 3, md: 0 },
         borderRadius: 3,
         overflow: "hidden",
         position: "relative",
@@ -94,7 +95,7 @@ const GhostCard = ({ index = 2 }) => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        gap: 3,
+        gap: { xs: 1, md: 3 },
         border: `1px dashed ${alpha(theme.palette.accent.main, 0.25)}`,
         background: `radial-gradient(ellipse at center, ${alpha(theme.palette.accent.main, 0.05)} 0%, transparent 70%)`,
         transition: "border-color 0.4s ease, background 0.4s ease",
@@ -105,7 +106,7 @@ const GhostCard = ({ index = 2 }) => {
         "&:hover .ghost-arrow": { transform: "translateX(5px)" },
       }}
     >
-      <Typography sx={{ fontSize: "3.5rem", fontWeight: 900, color: alpha(theme.palette.accent.main, 0.18), lineHeight: 1, userSelect: "none" }}>
+      <Typography sx={{ fontSize: { xs: "2rem", md: "3.5rem" }, fontWeight: 900, color: alpha(theme.palette.accent.main, 0.18), lineHeight: 1, userSelect: "none" }}>
         30+
       </Typography>
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>

@@ -1,8 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SectionContainer from "../../components/SectionContainer";
+import { typeScale } from "../../styles/theme";
+
 const MotionBox = motion(Box);
 
 const featuredProjects = [
@@ -56,7 +59,7 @@ const FeaturedCard = ({ project, tall = false, index = 0 }) => (
   >
     <Box className="card-img" sx={{ position: "absolute", inset: 0, backgroundImage: `url(${project.image})`, backgroundSize: "cover", backgroundPosition: "center", transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)", zIndex: 0 }} />
     <Box sx={{ position: "relative", zIndex: 2, p: { xs: 3, md: 4 }, display: "flex", flexDirection: "column", gap: 1 }}>
-      <Typography sx={{ fontSize: { xs: 10, md: 11 }, fontWeight: 700, letterSpacing: 3, color: "text.secondary", textTransform: "uppercase" }}>
+      <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, letterSpacing: 3, color: "text.secondary", textTransform: "uppercase" }}>
         {project.category}
       </Typography>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
@@ -69,10 +72,59 @@ const FeaturedCard = ({ project, tall = false, index = 0 }) => (
   </MotionBox>
 );
 
+const GhostCard = ({ index = 2 }) => {
+  const theme = useTheme();
+  return (
+    <MotionBox
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: index * 0.2 }}
+      viewport={{ once: true }}
+      component={Link}
+      to="/gallery"
+      sx={{
+        flex: "0.7",
+        height: { xs: "72vw", sm: "60vw", md: 400 },
+        minHeight: { md: 400 },
+        borderRadius: 3,
+        overflow: "hidden",
+        position: "relative",
+        textDecoration: "none",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 3,
+        border: `1px dashed ${alpha(theme.palette.accent.main, 0.25)}`,
+        background: `radial-gradient(ellipse at center, ${alpha(theme.palette.accent.main, 0.05)} 0%, transparent 70%)`,
+        transition: "border-color 0.4s ease, background 0.4s ease",
+        "&:hover": {
+          borderColor: alpha(theme.palette.accent.main, 0.5),
+          background: `radial-gradient(ellipse at center, ${alpha(theme.palette.accent.main, 0.1)} 0%, transparent 70%)`,
+        },
+        "&:hover .ghost-arrow": { transform: "translateX(5px)" },
+      }}
+    >
+      <Typography sx={{ fontSize: "3.5rem", fontWeight: 900, color: alpha(theme.palette.accent.main, 0.18), lineHeight: 1, userSelect: "none" }}>
+        30+
+      </Typography>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
+        <Typography sx={{ color: "text.primary", fontWeight: 700, fontSize: typeScale.heading, letterSpacing: 0.3 }}>
+          More work in the gallery
+        </Typography>
+        <Box sx={{ display: "inline-flex", alignItems: "center", gap: 0.75, color: "accent.main", fontSize: typeScale.caption, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>
+          View all
+          <ArrowForwardIcon className="ghost-arrow" sx={{ fontSize: 16, transition: "transform 0.3s ease" }} />
+        </Box>
+      </Box>
+    </MotionBox>
+  );
+};
+
 const FeaturedWork = () => (
   <SectionContainer
+    id="section-featured-work"
     sx={{
-      // Top fade blends with the hero bottom edge
       "&::before": {
         content: '""',
         position: "absolute",
@@ -85,22 +137,22 @@ const FeaturedWork = () => (
     }}
     innerSx={{ position: "relative", zIndex: 1 }}
   >
-    {/* Header — left aligned */}
+    {/* Header */}
     <MotionBox
       initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }} viewport={{ once: true }}
       sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: { xs: "flex-start", md: "flex-end" }, justifyContent: "space-between", gap: { xs: 3, md: 4 } }}
     >
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "#c8923a", textTransform: "uppercase" }}>
+        <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
           Featured Work
         </Typography>
-        <Typography variant="h2" sx={{ fontWeight: 900, fontSize: { xs: "2rem", md: "3rem" }, lineHeight: 1.1 }}>
-          Recent<br />Masterpieces
+        <Typography variant="h2" sx={{ fontWeight: 900, lineHeight: 1.1 }}>
+          Recent<br />pieces
         </Typography>
       </Box>
-      <Typography sx={{ color: "text.secondary", fontSize: { xs: "0.9rem", md: "1rem" }, lineHeight: 1.7, maxWidth: 340, textAlign: { xs: "left", md: "right" }, pb: { md: 0.5 } }}>
-        Every piece is drawn from scratch. Explore the latest work — or see the full collection in the gallery.
+      <Typography sx={{ color: "text.secondary", fontSize: typeScale.body, lineHeight: 1.7, maxWidth: 340, textAlign: { xs: "left", md: "right" }, pb: { md: 0.5 } }}>
+        A look at some recent tattoos. Want to see more? Head over to the full gallery.
       </Typography>
     </MotionBox>
 
@@ -113,19 +165,9 @@ const FeaturedWork = () => (
       {featuredProjects.map((project, index) => (
         <FeaturedCard key={project.title} project={project} tall={index === 0} index={index} />
       ))}
+      <GhostCard index={featuredProjects.length} />
     </MotionBox>
 
-    {/* View all */}
-    <MotionBox
-      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: true }}
-      sx={{ display: "flex", justifyContent: { xs: "center", md: "flex-start" } }}
-    >
-      <Box component={Link} to="/gallery" sx={{ display: "inline-flex", alignItems: "center", gap: 1, color: "accent.main", textDecoration: "none", fontSize: { xs: 13, md: 14 }, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", transition: "all 0.3s ease", "&:hover": { gap: 1.5, color: "accent.light" } }}>
-        Explore Full Gallery
-        <ArrowForwardIcon sx={{ fontSize: 18 }} />
-      </Box>
-    </MotionBox>
   </SectionContainer>
 );
 

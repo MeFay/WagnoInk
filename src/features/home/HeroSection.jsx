@@ -2,16 +2,17 @@ import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import CustomButton from "../../components/UI/Button";
+import { typeScale } from "../../styles/theme";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 
-const VIDEO_SRC = "/video/hero-video.mp4";
+const VIDEO_SRC = "/video/HeroVideoCropped.mp4";
 
 const stats = [
-  { value: "8+", label: "Years Experience" },
-  { value: "500+", label: "Satisfied Clients" },
-  { value: "100%", label: "Custom Designs" },
+  { value: "8+", label: "Years of experience" },
+  { value: "500+", label: "Tattoos done" },
+  { value: "100%", label: "Custom adapted to you" },
 ];
 
 const HeroSection = () => {
@@ -19,11 +20,12 @@ const HeroSection = () => {
 
   return (
     <Box
+      id="section-hero"
       sx={{
         position: "relative",
         minHeight: "100vh",
-        mt: "-72px",       // bleed behind fixed navbar
-        pt: "72px",        // compensate so content stays centered — no visual shift, no scroll lift
+        mt: "-72px",
+        pt: "72px",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -34,7 +36,7 @@ const HeroSection = () => {
         },
       }}
     >
-      {/* ── Video background ─────────────────────────────────── */}
+      {/* Video background */}
       <Box
         component="video"
         src={VIDEO_SRC}
@@ -51,12 +53,11 @@ const HeroSection = () => {
           objectFit: "cover",
           zIndex: 0,
           opacity: 0.5,
-          // Hide broken video element if file not found
           "&:not([src]), &[src='']": { display: "none" },
         }}
       />
 
-      {/* ── Single overlay — light top for navbar, clear middle, fade bottom ── */}
+      {/* Overlay */}
       <Box
         sx={{
           position: "absolute",
@@ -72,7 +73,7 @@ const HeroSection = () => {
         }}
       />
 
-      {/* ── Main content ──────────────────────────────────────── */}
+      {/* Main content */}
       <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -97,17 +98,17 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           sx={{
-            fontSize: { xs: 11, md: 12 },
+            fontSize: typeScale.label,
             fontWeight: 600,
             letterSpacing: 4,
-            color: "#c8923a",
+            color: "accent.main",
             textTransform: "uppercase",
           }}
         >
-          Porto, Portugal · Est. 2016
+          Porto, Portugal · Since 2016
         </MotionTypography>
 
-        {/* Main heading — large contrast */}
+        {/* Main heading */}
         <MotionBox
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -126,7 +127,6 @@ const HeroSection = () => {
           >
             Wagno
           </Typography>
-          {/* Second line — thinner weight for contrast */}
           <Typography
             component="span"
             sx={{
@@ -135,28 +135,28 @@ const HeroSection = () => {
               fontSize: { xs: "1.4rem", md: "2.2rem", lg: "2.6rem" },
               color: "text.secondary",
               textTransform: "uppercase",
-              pl: { xs: "8px", md: "18px" }, // optical offset for letterSpacing
+              pl: { xs: "8px", md: "18px" },
             }}
           >
             Tattoo Artist
           </Typography>
         </MotionBox>
 
-        {/* Tagline — specific, not generic */}
+        {/* Tagline */}
         <MotionTypography
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           sx={{
             color: "text.secondary",
-            maxWidth: 480,
-            fontSize: { xs: "0.95rem", md: "1.1rem" },
+            maxWidth: 520,
+            fontSize: typeScale.body,
             fontWeight: 400,
             lineHeight: 1.7,
           }}
         >
-          Based in Porto. Every piece is drawn from scratch —
-          no flash, no templates, no compromises.
+          Based mainly in Porto. Let's create something you'll love. Your idea,
+          my craft, together we make it happen.
         </MotionTypography>
 
         {/* CTAs */}
@@ -172,7 +172,7 @@ const HeroSection = () => {
           }}
         >
           <CustomButton onClick={() => navigate("/gallery")} size="large">
-            See the Work
+            See my work
           </CustomButton>
           <CustomButton
             href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
@@ -180,7 +180,7 @@ const HeroSection = () => {
             rel="noopener noreferrer"
             size="large"
           >
-            Book a Consultation
+            Book a consultation
           </CustomButton>
         </MotionBox>
 
@@ -219,7 +219,7 @@ const HeroSection = () => {
               </Typography>
               <Typography
                 sx={{
-                  fontSize: { xs: 11, md: 12 },
+                  fontSize: typeScale.label,
                   color: "text.secondary",
                   letterSpacing: 2,
                   textTransform: "uppercase",
@@ -232,7 +232,7 @@ const HeroSection = () => {
         </MotionBox>
       </MotionBox>
 
-      {/* ── Scroll indicator ─────────────────────────────────── */}
+      {/* Scroll indicator */}
       <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

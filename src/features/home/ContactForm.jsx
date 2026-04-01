@@ -1,4 +1,5 @@
-import { Box, Typography, TextField, CircularProgress } from "@mui/material";
+import { Box, Typography, TextField, CircularProgress, useTheme } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -7,6 +8,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { typeScale } from "../../styles/theme";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import SectionContainer from "../../components/SectionContainer";
 import CustomButton from "../../components/UI/Button";
@@ -27,24 +29,25 @@ const studioHours = [
   { day: "Sunday", hours: "Closed" },
 ];
 
-const textFieldSx = {
-  "& .MuiOutlinedInput-root": {
-    color: "white",
-    "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
-    "&:hover fieldset": { borderColor: "rgba(198,40,40,0.3)" },
-    "&.Mui-focused fieldset": { borderColor: "primary.main" },
-  },
-  "& .MuiInputLabel-root": { color: "text.secondary" },
-};
-
 const WHATSAPP_URL = "https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem.";
 
 const INITIAL_FORM = { name: "", email: "", phone: "", message: "" };
 
-const ContactSection = () => {
+const ContactSection = ({ sx, innerSx }) => {
+  const theme = useTheme();
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // "idle" | "loading" | "success" | "error"
+
+  const textFieldSx = {
+    "& .MuiOutlinedInput-root": {
+      color: "white",
+      "& fieldset": { borderColor: "rgba(255,255,255,0.1)" },
+      "&:hover fieldset": { borderColor: alpha(theme.palette.primary.main, 0.3) },
+      "&.Mui-focused fieldset": { borderColor: "primary.main" },
+    },
+    "& .MuiInputLabel-root": { color: "text.secondary" },
+  };
 
   const validate = () => {
     const next = {};
@@ -79,7 +82,7 @@ const ContactSection = () => {
   };
 
   return (
-  <SectionContainer>
+  <SectionContainer id="section-contact" sx={sx} innerSx={innerSx}>
     {/* Header — mirrored from FeaturedWork: description bottom-left, title right */}
     <MotionBox
       initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +102,7 @@ const ContactSection = () => {
 
       {/* Title block — right */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: { xs: "flex-start", md: "flex-end" }, textAlign: { xs: "left", md: "right" } }}>
-        <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "#c8923a", textTransform: "uppercase" }}>
+        <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
           Get in Touch
         </Typography>
         <Typography variant="h2" sx={{ fontWeight: 900, fontSize: { xs: "2rem", md: "3rem" }, lineHeight: 1.1 }}>
@@ -133,10 +136,10 @@ const ContactSection = () => {
                   display: "flex", alignItems: "center", gap: 2.5, p: 3,
                   borderRadius: 3, background: "rgba(26,26,26,0.6)", backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.05)", textDecoration: "none", transition: "all 0.3s ease",
-                  "&:hover": { borderColor: "rgba(198,40,40,0.3)", transform: "translateX(8px)", background: "rgba(26,26,26,0.8)" },
+                  "&:hover": { borderColor: alpha(theme.palette.primary.main, 0.3), transform: "translateX(8px)", background: "rgba(26,26,26,0.8)" },
                 }}
               >
-                <Box sx={{ width: 50, height: 50, borderRadius: 2, background: "linear-gradient(135deg, rgba(198,40,40,0.2), rgba(142,0,0,0.2))", border: "1px solid rgba(198,40,40,0.3)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                <Box sx={{ width: 50, height: 50, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.2)}, ${alpha(theme.palette.primary.dark, 0.2)})`, border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <Icon sx={{ color: "primary.main", fontSize: 24 }} />
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
@@ -251,8 +254,8 @@ const ContactSection = () => {
       transition={{ duration: 0.8, delay: 0.3 }} viewport={{ once: true }}
       sx={{
         p: 4, borderRadius: 3,
-        background: "linear-gradient(135deg, rgba(37,211,102,0.1), rgba(37,211,102,0.05))",
-        border: "1px solid rgba(37,211,102,0.2)",
+        background: `linear-gradient(135deg, ${alpha(theme.palette.whatsapp.main, 0.1)}, ${alpha(theme.palette.whatsapp.main, 0.05)})`,
+        border: `1px solid ${alpha(theme.palette.whatsapp.main, 0.2)}`,
         display: "flex", flexDirection: { xs: "column", md: "row" }, alignItems: "center", justifyContent: "space-between", gap: 3,
       }}
     >

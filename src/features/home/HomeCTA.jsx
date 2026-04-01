@@ -5,6 +5,7 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SectionContainer from "../../components/SectionContainer";
 import CustomButton from "../../components/UI/Button";
+import { typeScale } from "../../styles/theme";
 
 const MotionBox = motion(Box);
 
@@ -12,7 +13,7 @@ const WHATSAPP_URL =
   "https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem.";
 
 const HomeCTA = () => (
-  <SectionContainer>
+  <SectionContainer id="section-cta">
     <MotionBox
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -31,10 +32,10 @@ const HomeCTA = () => (
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Typography
           sx={{
-            fontSize: { xs: 11, md: 12 },
+            fontSize: typeScale.label,
             fontWeight: 600,
             letterSpacing: 4,
-            color: "#c8923a",
+            color: "accent.main",
             textTransform: "uppercase",
           }}
         >
@@ -43,11 +44,7 @@ const HomeCTA = () => (
 
         <Typography
           variant="h2"
-          sx={{
-            fontWeight: 900,
-            fontSize: { xs: "2rem", md: "3rem" },
-            lineHeight: 1.1,
-          }}
+          sx={{ fontWeight: 900, lineHeight: 1.1 }}
         >
           Every Tattoo Starts<br />with a Conversation.
         </Typography>
@@ -55,7 +52,7 @@ const HomeCTA = () => (
         <Typography
           sx={{
             color: "text.secondary",
-            fontSize: { xs: "0.95rem", md: "1.05rem" },
+            fontSize: typeScale.body,
             lineHeight: 1.7,
           }}
         >

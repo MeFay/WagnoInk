@@ -1,3 +1,5 @@
+import theme from "../../styles/theme";
+
 export const SECTIONS = [
   { id: "introduction", label: "Introduction" },
   { id: "work-experience", label: "Work Experience" },
@@ -9,17 +11,17 @@ export const socialLinks = [
   {
     label: "Instagram",
     href: "https://www.instagram.com/wagno.ink/",
-    hoverColor: "#E4405F",
+    hoverColor: theme.palette.instagram.main,
   },
   {
     label: "WhatsApp",
     href: "https://wa.me/351910848391",
-    hoverColor: "#25D366",
+    hoverColor: theme.palette.whatsapp.main,
   },
   {
     label: "Email",
     href: "mailto:Wagno.ink@icloud.com",
-    hoverColor: "#c8923a",
+    hoverColor: theme.palette.accent.main,
   },
 ];
 
@@ -42,7 +44,7 @@ export const workExperience = [
     location: "Spain",
     current: false,
     highlights: [
-      "First European guest appearances — laid the groundwork for the move to Portugal.",
+      "First European guest appearances, laid the groundwork for the move to Portugal.",
     ],
   },
   {
@@ -88,7 +90,7 @@ export const training = [
     period: "2019 – 2020",
     location: "Brazil",
     description:
-      "Intensive mentorship in realism — the foundation of Wagno's signature style. Tiago introduced the technical rigour that shaped everything that followed.",
+      "Intensive mentorship in realism, the foundation of my signature style. Tiago introduced the technical rigour that shaped everything that followed.",
   },
   {
     mentor: "Beatriz",
@@ -96,7 +98,7 @@ export const training = [
     period: "Late 2017",
     location: "Goiânia, Brazil",
     description:
-      "First steps in tattooing — line work, shading theory, and practice on artificial skin. Two months of daily training that started it all.",
+      "First steps in tattooing, line work, shading theory, and practice on artificial skin. Two months of daily training that started it all.",
   },
 ];
 

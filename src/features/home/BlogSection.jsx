@@ -4,6 +4,7 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SectionContainer from "../../components/SectionContainer";
 import Card from "../../components/UI/Card";
 import CustomButton from "../../components/UI/Button";
+import { typeScale } from "../../styles/theme";
 
 const MotionBox = motion(Box);
 
@@ -28,7 +29,7 @@ const blogPosts = [
   },
   {
     title: "The Evolution of Tattoo Styles",
-    excerpt: "From traditional to contemporary - explore how tattoo art has transformed over the decades.",
+    excerpt: "From traditional to contemporary, explore how tattoo art has transformed over the decades.",
     date: "February 28, 2026",
     readTime: "6 min read",
     category: "Art & Culture",
@@ -38,20 +39,20 @@ const blogPosts = [
 ];
 
 const BlogSection = () => (
-  <SectionContainer>
-    {/* Header — centered */}
+  <SectionContainer id="section-blog">
+    {/* Header */}
     <MotionBox
       initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }} viewport={{ once: true }}
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 2 }}
     >
-      <Typography sx={{ fontSize: { xs: 11, md: 12 }, fontWeight: 600, letterSpacing: 4, color: "#c8923a", textTransform: "uppercase" }}>
+      <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
         Insights & Stories
       </Typography>
-      <Typography variant="h2" sx={{ fontWeight: 900, fontSize: { xs: "2rem", md: "3rem" }, maxWidth: 700 }}>
+      <Typography variant="h2" sx={{ fontWeight: 900, maxWidth: 700 }}>
         Latest from the Blog
       </Typography>
-      <Typography sx={{ color: "text.secondary", fontSize: { xs: "0.95rem", md: "1.1rem" }, lineHeight: 1.7, maxWidth: 560 }}>
+      <Typography sx={{ color: "text.secondary", fontSize: typeScale.body, lineHeight: 1.7, maxWidth: 560 }}>
         Expert advice, tattoo care tips, and stories from the studio.
       </Typography>
     </MotionBox>
@@ -64,16 +65,16 @@ const BlogSection = () => (
     </Box>
 
     {/* View All */}
-      <MotionBox
-        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: true }}
-        sx={{ display: "flex", justifyContent: "center" }}
-      >
-        <CustomButton variant="secondary" size="medium" href="/blog">
-          View All Posts
-          <ArrowForwardIcon sx={{ fontSize: 16 }} />
-        </CustomButton>
-      </MotionBox>
+    <MotionBox
+      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: true }}
+      sx={{ display: "flex", justifyContent: "center" }}
+    >
+      <CustomButton variant="secondary" size="medium" href="/blog">
+        View All Posts
+        <ArrowForwardIcon sx={{ fontSize: 16 }} />
+      </CustomButton>
+    </MotionBox>
   </SectionContainer>
 );
 

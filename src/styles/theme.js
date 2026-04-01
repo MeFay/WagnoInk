@@ -1,11 +1,24 @@
 import { createTheme, alpha } from "@mui/material/styles";
 
 const AMBER = "#c8923a";
+const PRIMARY_RED = "#c62828";
+const PRIMARY_RED_DARK = "#8e0000";
 
 // Soft off-white — not pure #fff, warmer and easier on the eyes
 const SOFT_WHITE = "#e8e4df";
 
-const theme = createTheme({
+// ── Type scale ────────────────────────────────────────────────────────
+// Single source of truth for all font sizes across the app.
+// Import { typeScale } from "styles/theme" and use in sx={{ fontSize: typeScale.X }}
+export const typeScale = {
+  label:   "0.6875rem",               // overlines, badges, micro labels (11px)
+  caption: "0.75rem",                 // meta, dates, chips, links (12px)
+  body:    "0.9375rem",               // all body text: descriptions, paragraphs (15px)
+  heading: { xs: "1rem", md: "1.125rem" }, // card/entry headings
+};
+
+// ── Base theme ────────────────────────────────────────────────────────
+let theme = createTheme({
   breakpoints: {
     values: { xs: 0, sm: 768, md: 1024, lg: 1440, xl: 1820 },
   },
@@ -16,7 +29,7 @@ const theme = createTheme({
   navigation: {
     height: 72,
     itemHeight: 44,
-    fontSize: 14,
+    fontSize: 15,
     borderRadius: 999,
     mobileMenuButtonSize: 52,
   },
@@ -25,9 +38,9 @@ const theme = createTheme({
     mode: "dark",
 
     primary: {
-      main: "#c62828",
+      main: PRIMARY_RED,
       light: "#e53935",
-      dark: "#8e0000",
+      dark: PRIMARY_RED_DARK,
       contrastText: SOFT_WHITE,
     },
 
@@ -42,6 +55,11 @@ const theme = createTheme({
     // WhatsApp green — kept for the specific social link only
     whatsapp: {
       main: "#25D366",
+    },
+
+    // Instagram pink — kept for the specific social link only
+    instagram: {
+      main: "#E4405F",
     },
 
     secondary: {
@@ -61,7 +79,7 @@ const theme = createTheme({
       disabled: "#a8a4a0",
     },
 
-    divider: alpha("#c62828", 0.25),
+    divider: alpha(PRIMARY_RED, 0.25),
   },
 
   typography: {
@@ -120,7 +138,26 @@ const theme = createTheme({
       styleOverrides: {
         paper: {
           backgroundColor: "#1a1a1a",
-          border: `1px solid ${alpha("#c62828", 0.25)}`,
+          border: `1px solid ${alpha(PRIMARY_RED, 0.25)}`,
+        },
+      },
+    },
+  },
+});
+
+// ── Responsive typography overrides ──────────────────────────────────
+// Applied in a second pass so we can reference theme.breakpoints.
+theme = createTheme(theme, {
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        // h2 used for all section headings: 3rem on md+, 2rem below
+        h2: {
+          [theme.breakpoints.down("md")]: { fontSize: "2rem" },
+        },
+        // h3 used for sub-headings: 2.25rem on md+, 1.75rem below
+        h3: {
+          [theme.breakpoints.down("md")]: { fontSize: "1.75rem" },
         },
       },
     },

@@ -1,11 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-
-const AMBER = "#c8923a";
 import CloseIcon from "@mui/icons-material/Close";
+import { typeScale } from "../../styles/theme";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ShuffleIcon from "@mui/icons-material/Shuffle";
@@ -74,92 +73,92 @@ const images = [
     category: "Blackwork",
     title: "Dark Illustration",
   },
-   {
+  {
     src: "/artist-images/Tattoos/6.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-   {
+  {
     src: "/artist-images/Tattoos/3.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-   {
+  {
     src: "/artist-images/Tattoos/8.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-   {
+  {
     src: "/artist-images/Tattoos/9.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-   {
+  {
     src: "/artist-images/Tattoos/10.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-   {
+  {
     src: "/artist-images/Tattoos/12.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/25.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/28.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/30.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/14.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/23.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/27.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-      {
+  {
     src: "/artist-images/Tattoos/4.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/5.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/11.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-       {
+  {
     src: "/artist-images/Tattoos/20.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/24.webp",
     category: "Blackwork",
     title: "Dark Illustration",
   },
-     {
+  {
     src: "/artist-images/Tattoos/13.webp",
     category: "Blackwork",
     title: "Dark Illustration",
@@ -218,7 +217,10 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         {/* Prev */}
         <Box
           component="button"
-          onClick={(e) => { e.stopPropagation(); onPrev(); }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onPrev();
+          }}
           sx={{
             position: "absolute",
             left: { xs: 12, md: 32 },
@@ -245,7 +247,10 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         {/* Next */}
         <Box
           component="button"
-          onClick={(e) => { e.stopPropagation(); onNext(); }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onNext();
+          }}
           sx={{
             position: "absolute",
             right: { xs: 12, md: 32 },
@@ -302,14 +307,31 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         </MotionBox>
       </MotionBox>
     </AnimatePresence>,
-    document.body
+    document.body,
   );
 };
 
 // ── Gallery ───────────────────────────────────────────────────────────
 const Gallery = () => {
-  const [shuffledOrder, setShuffledOrder] = useState(() => images.map((_, i) => i));
+  const theme = useTheme();
+  const [shuffledOrder, setShuffledOrder] = useState(() =>
+    images.map((_, i) => i),
+  );
   const [lightboxIndex, setLightboxIndex] = useState(null);
+  const hasHistoryEntry = useRef(false);
+
+  // Listen for the phone's native back button.
+  // When the back button is pressed while the lightbox is open,
+  // the browser pops the fake history entry we pushed — we catch
+  // that here and close the lightbox instead of navigating away.
+  useEffect(() => {
+    const handlePopState = () => {
+      hasHistoryEntry.current = false;
+      setLightboxIndex(null);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   const handleShuffle = () => {
     setShuffledOrder((prev) => {
@@ -324,12 +346,31 @@ const Gallery = () => {
 
   const displayed = shuffledOrder.map((i) => images[i]);
 
-  const openLightbox = (i) => setLightboxIndex(i);
-  const closeLightbox = () => setLightboxIndex(null);
+  // Push a fake entry onto the browser history stack when the lightbox opens.
+  // This makes the phone's back button "see" something to go back from,
+  // so it pops this entry (triggering handlePopState above) instead of
+  // leaving the gallery page entirely.
+  const openLightbox = (i) => {
+    setLightboxIndex(i);
+    window.history.pushState({ lightboxOpen: true }, "");
+    hasHistoryEntry.current = true;
+  };
+
+  // When closing via the UI (close button or tapping outside the image),
+  // we also need to remove the fake history entry we pushed.
+  // history.back() does that — it fires popstate, which calls setLightboxIndex(null)
+  // again (harmless no-op since it's already null).
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+    if (hasHistoryEntry.current) {
+      hasHistoryEntry.current = false;
+      window.history.back();
+    }
+  }, []);
+
   const prevImage = () =>
     setLightboxIndex((i) => (i - 1 + displayed.length) % displayed.length);
-  const nextImage = () =>
-    setLightboxIndex((i) => (i + 1) % displayed.length);
+  const nextImage = () => setLightboxIndex((i) => (i + 1) % displayed.length);
 
   const renderCard = (img, globalIndex, rowI, ci, heights) => (
     <MotionBox
@@ -345,6 +386,9 @@ const Gallery = () => {
         position: "relative",
         cursor: "zoom-in",
         flexShrink: 0,
+        userSelect: "none",
+        WebkitUserSelect: "none",
+        WebkitTouchCallout: "none",
         boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
         transition: "transform 0.35s ease, box-shadow 0.35s ease",
         "&:hover": {
@@ -357,6 +401,7 @@ const Gallery = () => {
           height: "100%",
           objectFit: "cover",
           transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
+          pointerEvents: "none", // prevents iOS long-press "Save Image" menu
         },
         "&:hover img": { transform: "scale(1.04)" },
         "&:hover .gallery-overlay": { opacity: 1 },
@@ -368,7 +413,8 @@ const Gallery = () => {
         sx={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%)",
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%)",
           opacity: 0,
           transition: "opacity 0.4s ease",
           display: "flex",
@@ -377,7 +423,14 @@ const Gallery = () => {
           p: 2.5,
         }}
       >
-        <Typography sx={{ fontSize: 15, fontWeight: 800, color: "white", lineHeight: 1.2 }}>
+        <Typography
+          sx={{
+            fontSize: typeScale.heading,
+            fontWeight: 800,
+            color: "white",
+            lineHeight: 1.2,
+          }}
+        >
           {img.title}
         </Typography>
       </Box>
@@ -386,27 +439,71 @@ const Gallery = () => {
 
   return (
     <Box
+      id="page-gallery"
       sx={{
         minHeight: "100vh",
         pt: { xs: "88px", md: "96px" },
-        pb: { xs: 10, md: 14 },
+        pb: { xs: 6, md: 8 },
         px: { xs: 2, sm: 3, md: 4 },
+        display: "flex",
+        flexDirection: "column",
+        gap: { xs: 5, md: 6 },
       }}
     >
       {/* ── Header ── */}
-      <Box sx={{ maxWidth: 1400, mx: "auto", display: "flex", alignItems: "center", gap: { md: 6 }, pt: { xs: 6, md: 8 }, mb: { xs: 5, md: 7 }, px: { xs: 1, sm: 2 } }}>
-
+      <Box
+        id="gallery-header"
+        sx={{
+          maxWidth: 1400,
+          mx: "auto",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: { md: 6 },
+          pt: { xs: 6, md: 8 },
+          px: { xs: 1, sm: 2 },
+        }}
+      >
         {/* Left: text + shuffle */}
-        <Box sx={{ flex: 1 }}>
-          <MotionBox initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <Typography sx={{ fontSize: 11, fontWeight: 700, letterSpacing: 4, color: AMBER, textTransform: "uppercase", mb: 1 }}>
+        <Box
+          sx={{
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            gap: 3,
+            alignItems: "flex-start",
+          }}
+        >
+          <MotionBox
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}
+          >
+            <Typography
+              sx={{
+                fontSize: typeScale.label,
+                fontWeight: 700,
+                letterSpacing: 4,
+                color: "accent.main",
+                textTransform: "uppercase",
+              }}
+            >
               Portfolio
             </Typography>
-            <Typography variant="h2" sx={{ fontSize: { xs: "2rem", md: "3rem" }, fontWeight: 900, lineHeight: 1.05 }}>
-              The Work
+            <Typography variant="h2" sx={{ fontWeight: 900, lineHeight: 1.05 }}>
+              Some of my work
             </Typography>
-            <Typography sx={{ color: "text.secondary", fontSize: { xs: "0.9rem", md: "1rem" }, lineHeight: 1.7, mt: 1.5, mb: 3, maxWidth: 480 }}>
-              Every piece drawn from scratch — no flash, no templates, no compromises. {images.length} works in the portfolio.
+            <Typography
+              sx={{
+                color: "text.secondary",
+                fontSize: typeScale.body,
+                lineHeight: 1.7,
+                maxWidth: 480,
+              }}
+            >
+              A selection of recent tattoos,anime, gaming, original work, and
+              everything in between.
             </Typography>
           </MotionBox>
 
@@ -415,13 +512,13 @@ const Gallery = () => {
             component="button"
             onClick={handleShuffle}
             sx={{
-              background: alpha(AMBER, 0.07),
-              border: `1px solid ${alpha(AMBER, 0.22)}`,
+              background: alpha(theme.palette.accent.main, 0.07),
+              border: `1px solid ${alpha(theme.palette.accent.main, 0.22)}`,
               color: "text.primary",
               borderRadius: 2,
               px: 2.5,
               py: 1,
-              fontSize: 13,
+              fontSize: typeScale.caption,
               fontWeight: 600,
               letterSpacing: 1,
               cursor: "pointer",
@@ -431,13 +528,13 @@ const Gallery = () => {
               gap: 1,
               transition: "all 0.2s ease",
               alignSelf: { xs: "flex-start", md: "auto" },
-            "&:hover": {
-              borderColor: alpha(AMBER, 0.38),
-              background: alpha(AMBER, 0.12),
-            },
-          }}
-        >
-          <ShuffleIcon sx={{ fontSize: 16 }} /> Shuffle
+              "&:hover": {
+                borderColor: alpha(theme.palette.accent.main, 0.38),
+                background: alpha(theme.palette.accent.main, 0.12),
+              },
+            }}
+          >
+            <ShuffleIcon sx={{ fontSize: 16 }} /> Shuffle
           </Box>
         </Box>
 
@@ -446,17 +543,66 @@ const Gallery = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          sx={{ flex: 1, display: { xs: "none", md: "flex" }, alignItems: "center", justifyContent: "center", height: 240, position: "relative" }}
+          sx={{
+            flex: 1,
+            display: { xs: "none", md: "flex" },
+            alignItems: "center",
+            justifyContent: "center",
+            height: 240,
+            position: "relative",
+          }}
         >
           {[
-            { w: 140, h: 170, rotate: -9,  x: -70, y: 10,  dur: 4.8, delay: 0,   border: alpha(AMBER, 0.44),             src: images[0].src,  rotateAnim: [-9, -7, -9]  },
-            { w: 115, h: 145, rotate:  3,  x:   5, y: -15, dur: 5.5, delay: 0.6, border: "rgba(255,255,255,0.35)", src: images[5].src,  rotateAnim: [3, 5, 3]     },
-            { w: 125, h: 155, rotate: 13,  x:  70, y: 5,   dur: 4.2, delay: 1.1, border: "rgba(200,146,58,0.45)",  src: images[10].src, rotateAnim: [13, 11, 13]  },
+            {
+              w: 140,
+              h: 170,
+              rotate: -9,
+              x: -70,
+              y: 10,
+              dur: 4.8,
+              delay: 0,
+              border: alpha(theme.palette.accent.main, 0.44),
+              src: images[0].src,
+              rotateAnim: [-9, -7, -9],
+            },
+            {
+              w: 115,
+              h: 145,
+              rotate: 3,
+              x: 5,
+              y: -15,
+              dur: 5.5,
+              delay: 0.6,
+              border: "rgba(255,255,255,0.35)",
+              src: images[5].src,
+              rotateAnim: [3, 5, 3],
+            },
+            {
+              w: 125,
+              h: 155,
+              rotate: 13,
+              x: 70,
+              y: 5,
+              dur: 4.2,
+              delay: 1.1,
+              border: alpha(theme.palette.accent.main, 0.45),
+              src: images[10].src,
+              rotateAnim: [13, 11, 13],
+            },
           ].map((f, i) => (
             <MotionBox
               key={i}
-              animate={{ y: [f.y, f.y - 10, f.y], rotate: f.rotateAnim, opacity: [0.85, 1, 0.85] }}
-              transition={{ duration: f.dur, repeat: Infinity, delay: f.delay, ease: "easeInOut" }}
+              animate={{
+                y: [f.y, f.y - 10, f.y],
+                rotate: f.rotateAnim,
+                opacity: [0.85, 1, 0.85],
+              }}
+              transition={{
+                duration: f.dur,
+                repeat: Infinity,
+                delay: f.delay,
+                ease: "easeInOut",
+              }}
               sx={{
                 position: "absolute",
                 width: f.w,
@@ -465,16 +611,22 @@ const Gallery = () => {
                 borderRadius: 2,
                 overflow: "hidden",
                 transform: `translateX(${f.x}px)`,
-                boxShadow: i === 0
-                  ? `0 8px 32px rgba(200,146,58,0.2)`
-                  : `0 8px 24px rgba(0,0,0,0.35)`,
+                boxShadow:
+                  i === 0
+                    ? `0 8px 32px ${alpha(theme.palette.accent.main, 0.2)}`
+                    : `0 8px 24px rgba(0,0,0,0.35)`,
               }}
             >
               <Box
                 component="img"
                 src={f.src}
                 alt=""
-                sx={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block",
+                }}
               />
             </MotionBox>
           ))}
@@ -482,7 +634,7 @@ const Gallery = () => {
       </Box>
 
       {/* ── Masonry ── */}
-      <Box sx={{ maxWidth: 1400, mx: "auto" }}>
+      <Box id="gallery-grid" sx={{ maxWidth: 1400, mx: "auto", width: "100%" }}>
         <AnimatePresence mode="wait">
           <MotionBox
             key={shuffledOrder.join(",")}
@@ -507,7 +659,10 @@ const Gallery = () => {
                   {displayed
                     .filter((_, i) => i % 3 === ci)
                     .map((img, rowI) =>
-                      renderCard(img, rowI * 3 + ci, rowI, ci, { tall: 620, short: 480 })
+                      renderCard(img, rowI * 3 + ci, rowI, ci, {
+                        tall: 620,
+                        short: 480,
+                      }),
                     )}
                 </Box>
               ))}
@@ -529,7 +684,10 @@ const Gallery = () => {
                   {displayed
                     .filter((_, i) => i % 2 === ci)
                     .map((img, rowI) =>
-                      renderCard(img, rowI * 2 + ci, rowI, ci, { tall: 360, short: 280 })
+                      renderCard(img, rowI * 2 + ci, rowI, ci, {
+                        tall: 360,
+                        short: 280,
+                      }),
                     )}
                 </Box>
               ))}

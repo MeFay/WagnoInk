@@ -1,4 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import React from "react";
 
 /**
@@ -15,6 +16,8 @@ const CustomButton = React.forwardRef(
     { children, size = "medium", variant = "primary", onClick, href, target, rel, fullWidth, ...props },
     ref,
   ) => {
+    const theme = useTheme();
+
     const sizes = {
       small:  { px: 2.5, py: 0.8,  fontSize: 13 },
       medium: { px: 3.5, py: 1.1,  fontSize: 14 },
@@ -24,11 +27,11 @@ const CustomButton = React.forwardRef(
     const Component = href ? "a" : "button";
 
     const primaryStyles = {
-      background: "linear-gradient(135deg, rgba(198,40,40,0.15), rgba(142,0,0,0.15))",
+      background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.15)}, ${alpha(theme.palette.primary.dark, 0.15)})`,
       backdropFilter: "blur(12px)",
-      border: "1px solid rgba(198,40,40,0.3)",
+      border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`,
       color: "#ffffff",
-      boxShadow: "0 2px 8px rgba(0,0,0,0.3), 0 0 0 0 rgba(198,40,40,0)",
+      boxShadow: `0 2px 8px rgba(0,0,0,0.3), 0 0 0 0 ${alpha(theme.palette.primary.main, 0)}`,
 
       "&::before": {
         content: '""',
@@ -36,7 +39,7 @@ const CustomButton = React.forwardRef(
         inset: 0,
         borderRadius: 999,
         padding: "1.5px",
-        background: "linear-gradient(90deg, #c62828, #e53935, #c62828)",
+        background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.primary.light}, ${theme.palette.primary.main})`,
         WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
         WebkitMaskComposite: "xor",
         maskComposite: "exclude",
@@ -56,20 +59,20 @@ const CustomButton = React.forwardRef(
       },
 
       "&:hover": {
-        background: "rgba(198,40,40,0.15)",
-        borderColor: "rgba(198,40,40,0.4)",
+        background: alpha(theme.palette.primary.main, 0.15),
+        borderColor: alpha(theme.palette.primary.main, 0.4),
         transform: "translateY(-3px)",
-        boxShadow: "0 8px 24px rgba(0,0,0,0.4), 0 0 40px rgba(198,40,40,0.3)",
+        boxShadow: `0 8px 24px rgba(0,0,0,0.4), 0 0 40px ${alpha(theme.palette.primary.main, 0.3)}`,
       },
       "&:hover::before": { opacity: 1 },
       "&:hover::after": { left: "100%" },
 
       "&:active": {
         transform: "translateY(-1px)",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.3), 0 0 20px rgba(198,40,40,0.2)",
+        boxShadow: `0 4px 12px rgba(0,0,0,0.3), 0 0 20px ${alpha(theme.palette.primary.main, 0.2)}`,
       },
       "&:focus-visible": {
-        outline: "2px solid rgba(198,40,40,0.6)",
+        outline: `2px solid ${alpha(theme.palette.primary.main, 0.6)}`,
         outlineOffset: "3px",
       },
     };
@@ -101,9 +104,9 @@ const CustomButton = React.forwardRef(
     };
 
     const whatsappStyles = {
-      background: "rgba(37,211,102,0.12)",
+      background: alpha(theme.palette.whatsapp.main, 0.12),
       backdropFilter: "blur(12px)",
-      border: "1px solid rgba(37,211,102,0.3)",
+      border: `1px solid ${alpha(theme.palette.whatsapp.main, 0.3)}`,
       color: "#ffffff",
       boxShadow: "none",
 
@@ -111,16 +114,16 @@ const CustomButton = React.forwardRef(
       "&::after": { display: "none" },
 
       "&:hover": {
-        background: "rgba(37,211,102,0.22)",
-        borderColor: "rgba(37,211,102,0.5)",
+        background: alpha(theme.palette.whatsapp.main, 0.22),
+        borderColor: alpha(theme.palette.whatsapp.main, 0.5),
         transform: "translateY(-2px)",
-        boxShadow: "0 8px 24px rgba(37,211,102,0.2)",
+        boxShadow: `0 8px 24px ${alpha(theme.palette.whatsapp.main, 0.2)}`,
       },
 
       "&:active": { transform: "translateY(0px)" },
 
       "&:focus-visible": {
-        outline: "2px solid rgba(37,211,102,0.5)",
+        outline: `2px solid ${alpha(theme.palette.whatsapp.main, 0.5)}`,
         outlineOffset: "3px",
       },
     };

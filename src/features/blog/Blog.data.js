@@ -36,7 +36,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "Your artist will cover the tattoo with a bandage or wrap. Leave it on for the time they recommend — usually 2 to 4 hours, or up to 24 hours if they used a second-skin film. When you remove it, wash the area gently with clean hands, lukewarm water, and an unscented soap. Pat dry with a clean paper towel — never rub.",
+        text: "Your artist will cover the tattoo with a bandage or wrap. Leave it on for the time they recommend, usually 2 to 4 hours, or up to 24 hours if they used a second-skin film. When you remove it, wash the area gently with clean hands, lukewarm water, and an unscented soap. Pat dry with a clean paper towel, never rub.",
       },
       {
         type: "quote",
@@ -48,7 +48,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "Apply a thin layer of unscented moisturiser 2–3 times a day. Less is more — a thick layer traps moisture and can cause issues. The tattoo will start to peel, which is completely normal. Do not pick or scratch it. Keep it out of direct sunlight and avoid swimming, baths, or soaking of any kind.",
+        text: "Apply a thin layer of unscented moisturiser 2–3 times a day. Less is more, a thick layer traps moisture and can cause issues. The tattoo will start to peel, which is completely normal. Do not pick or scratch it. Keep it out of direct sunlight and avoid swimming, baths, or soaking of any kind.",
       },
       {
         type: "heading",
@@ -60,7 +60,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "If you notice excessive redness, swelling, or discharge after the first couple of days, consult a doctor — though infections are rare when proper aftercare is followed.",
+        text: "If you notice excessive redness, swelling, or discharge after the first couple of days, consult a doctor, though infections are rare when proper aftercare is followed.",
       },
     ],
   },
@@ -76,7 +76,7 @@ export const blogPosts = [
     content: [
       {
         type: "paragraph",
-        text: "Your first tattoo is a decision you will carry for life. That is not a reason to be afraid — it is a reason to be intentional. Here is how to approach it.",
+        text: "Your first tattoo is a decision you will carry for life. That is not a reason to be afraid, it is a reason to be intentional. Here is how to approach it.",
       },
       {
         type: "heading",
@@ -92,7 +92,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "Different parts of the body age differently, move differently, and have different visibility. A tattoo on your forearm will be seen every day. One on your ribs will be largely private. Consider how the placement fits into your life — professionally and personally. Also consider pain: ribs, feet, and the spine are notoriously more painful than arms or thighs.",
+        text: "Different parts of the body age differently, move differently, and have different visibility. A tattoo on your forearm will be seen every day. One on your ribs will be largely private. Consider how the placement fits into your life, professionally and personally. Also consider pain: ribs, feet, and the spine are notoriously more painful than arms or thighs.",
       },
       {
         type: "quote",
@@ -105,7 +105,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "Not every artist does every style well. If you want realism, find an artist whose portfolio is full of realism. If you want fine line, find a specialist. Looking at an artist's most recent work — not their best work from three years ago — gives you the most accurate picture of what you will get.",
+        text: "Not every artist does every style well. If you want realism, find an artist whose portfolio is full of realism. If you want fine line, find a specialist. Looking at an artist's most recent work, not their best work from three years ago, gives you the most accurate picture of what you will get.",
       },
       {
         type: "heading",
@@ -113,7 +113,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "A good tattoo artist will ask questions before they pick up a needle. They might suggest changes to your idea — a different size, placement, or style adaptation that will make it work better on skin. This is not them dismissing your vision. It is expertise. Trust it.",
+        text: "A good tattoo artist will ask questions before they pick up a needle. They might suggest changes to your idea, a different size, placement, or style adaptation that will make it work better on skin. This is not them dismissing your vision. It is expertise. Trust it.",
       },
     ],
   },
@@ -124,12 +124,12 @@ export const blogPosts = [
     readTime: "6 min read",
     category: "Art & Culture",
     excerpt:
-      "From traditional to contemporary — explore how tattoo art has transformed over the decades.",
+      "From traditional to contemporary,explore how tattoo art has transformed over the decades.",
     coverImage: "/artist-images/Blog/history.webp",
     content: [
       {
         type: "paragraph",
-        text: "Tattooing is one of the oldest art forms in human history, with evidence dating back thousands of years. But the styles we recognise today are largely a product of the last century — shaped by culture, technology, and a series of boundary-pushing artists.",
+        text: "Tattooing is one of the oldest art forms in human history, with evidence dating back thousands of years. But the styles we recognise today are largely a product of the last century, shaped by culture, technology, and a series of boundary-pushing artists.",
       },
       {
         type: "heading",
@@ -137,7 +137,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "Bold outlines, limited colour palettes, and iconic imagery — anchors, roses, eagles, daggers. Traditional tattooing was brought to the West by sailors and popularised by artists like Norman Collins (Sailor Jerry) in the mid-20th century. Its staying power comes from its simplicity: designs that age well because they were built to last.",
+        text: "Bold outlines, limited colour palettes, and iconic imagery, anchors, roses, eagles, daggers. Traditional tattooing was brought to the West by sailors and popularised by artists like Norman Collins (Sailor Jerry) in the mid-20th century. Its staying power comes from its simplicity: designs that age well because they were built to last.",
       },
       {
         type: "heading",
@@ -145,7 +145,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "Realism emerged as artists pushed to see how closely a tattoo could replicate a photograph. Portraits, animals, landscapes — rendered with meticulous shading and no outlines. It demands technical mastery and is one of the most unforgiving styles: there is nowhere to hide imprecision.",
+        text: "Realism emerged as artists pushed to see how closely a tattoo could replicate a photograph. Portraits, animals, landscapes, rendered with meticulous shading and no outlines. It demands technical mastery and is one of the most unforgiving styles: there is nowhere to hide imprecision.",
       },
       {
         type: "heading",
@@ -153,7 +153,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "A relatively recent development, fine line tattooing uses single-needle techniques to create delicate, intricate designs with minimal ink. It has exploded in popularity partly because it photographs beautifully and looks elegant at small sizes. The trade-off is longevity — fine lines require more care and may need touch-ups over time.",
+        text: "A relatively recent development, fine line tattooing uses single-needle techniques to create delicate, intricate designs with minimal ink. It has exploded in popularity partly because it photographs beautifully and looks elegant at small sizes. The trade-off is longevity, fine lines require more care and may need touch-ups over time.",
       },
       {
         type: "heading",
@@ -161,7 +161,7 @@ export const blogPosts = [
       },
       {
         type: "paragraph",
-        text: "Today's tattoo landscape is a mix of everything — artists freely blending styles, pulling from illustration, graphic design, and fine art. The boundaries between styles are dissolving. What matters now is not category but execution: a tattoo that is unmistakably the work of one specific artist, done with intention and craft.",
+        text: "Today's tattoo landscape is a mix of everything, artists freely blending styles, pulling from illustration, graphic design, and fine art. The boundaries between styles are dissolving. What matters now is not category but execution: a tattoo that is unmistakably the work of one specific artist, done with intention and craft.",
       },
     ],
   },

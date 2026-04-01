@@ -18,7 +18,7 @@ const SectionContainer = ({ children, sx = {}, innerSx = {}, ...props }) => (
         mx: "auto",
         display: "flex",
         flexDirection: "column",
-        gap: { xs: 8, md: 12 },
+        gap: { xs: 6, md: 10 },
         ...innerSx,
       }}
     >

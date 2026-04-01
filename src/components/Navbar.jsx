@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { typeScale } from "../styles/theme";
 import LanguageIcon from "@mui/icons-material/Language";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
@@ -53,7 +54,7 @@ const Navbar = () => {
   const hoverBg = alpha(theme.palette.secondary.main, 0.1);
   const activeBg = alpha(theme.palette.primary.main, 0.2);
   const containerBg = alpha(theme.palette.text.primary, 0.05);
-  const dividerColor = alpha("#c8923a", 0.45);
+  const dividerColor = alpha(theme.palette.accent.main, 0.45);
 
   const navItemBase = {
     display: "flex",
@@ -202,7 +203,7 @@ const Navbar = () => {
             sx: {
               mb: 1,
               bgcolor: "#111111",
-              border: `1px solid rgba(198,40,40,0.2)`,
+              border: `1px solid ${alpha(theme.palette.primary.main, 0.2)}`,
               borderRadius: 2,
               boxShadow: "0 16px 40px rgba(0,0,0,0.6)",
               minWidth: 140,
@@ -217,21 +218,21 @@ const Navbar = () => {
             onClick={() => { setCurrentLanguage(lang.code); setLanguageAnchor(null); }}
             selected={currentLanguage === lang.code}
             sx={{
-              fontSize: 13,
+              fontSize: typeScale.caption,
               fontWeight: currentLanguage === lang.code ? 700 : 400,
               color: currentLanguage === lang.code ? "primary.main" : "text.secondary",
               letterSpacing: 1,
               py: 1.5,
               px: 2.5,
               transition: "all 0.2s ease",
-              "&:hover": { bgcolor: "rgba(198,40,40,0.1)", color: "white" },
-              "&.Mui-selected": { bgcolor: "rgba(198,40,40,0.08)" },
-              "&.Mui-selected:hover": { bgcolor: "rgba(198,40,40,0.15)" },
+              "&:hover": { bgcolor: alpha(theme.palette.primary.main, 0.1), color: "white" },
+              "&.Mui-selected": { bgcolor: alpha(theme.palette.primary.main, 0.08) },
+              "&.Mui-selected:hover": { bgcolor: alpha(theme.palette.primary.main, 0.15) },
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%", gap: 2 }}>
               {lang.label}
-              <Typography component="span" sx={{ fontSize: 11, letterSpacing: 2, color: "text.disabled" }}>
+              <Typography component="span" sx={{ fontSize: typeScale.label, letterSpacing: 2, color: "text.disabled" }}>
                 {lang.code}
               </Typography>
             </Box>

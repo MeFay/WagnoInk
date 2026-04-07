@@ -5,38 +5,26 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import BrushIcon from "@mui/icons-material/Brush";
 import AutoFixHighIcon from "@mui/icons-material/AutoFixHigh";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useTranslation } from "react-i18next";
 import CustomButton from "../../components/UI/Button";
 import SectionContainer from "../../components/SectionContainer";
 import { typeScale } from "../../styles/theme";
+import { WHATSAPP_URL } from "../../config/contact";
 
 const MotionBox = motion(Box);
 
-const steps = [
-  {
-    number: "01",
-    icon: ChatBubbleOutlineIcon,
-    title: "Consult",
-    description:
-      "We talk through your idea, placement, size, and style. No pressure, just an honest conversation about what'll work best on your skin.",
-  },
-  {
-    number: "02",
-    icon: BrushIcon,
-    title: "Design",
-    description:
-      "Every piece is drawn from scratch for you. You'll see the design before we ever touch a needle, adjustments welcome.",
-  },
-  {
-    number: "03",
-    icon: AutoFixHighIcon,
-    title: "Ink",
-    description:
-      "Session day. Clean studio, focused work, no rush. Aftercare instructions included so your tattoo heals exactly as it should.",
-  },
-];
+const STEP_ICONS = [ChatBubbleOutlineIcon, BrushIcon, AutoFixHighIcon];
 
 const ProcessSection = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
+
+  const steps = [
+    { number: "01", icon: STEP_ICONS[0], title: t("process.step1Title"), description: t("process.step1Desc") },
+    { number: "02", icon: STEP_ICONS[1], title: t("process.step2Title"), description: t("process.step2Desc") },
+    { number: "03", icon: STEP_ICONS[2], title: t("process.step3Title"), description: t("process.step3Desc") },
+  ];
+
   return (
   <SectionContainer id="section-process" sx={{ overflow: "hidden" }}>
     {/* Background watermark */}
@@ -58,7 +46,7 @@ const ProcessSection = () => {
         zIndex: 0,
       }}
     >
-      Process
+      {t("process.watermark")}
     </Typography>
 
     {/* Header */}
@@ -68,13 +56,13 @@ const ProcessSection = () => {
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 2 }}
     >
       <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
-        How It Works
+        {t("process.label")}
       </Typography>
       <Typography variant="h2" sx={{ fontWeight: 900, maxWidth: 500 }}>
-        From Idea to Ink
+        {t("process.title")}
       </Typography>
       <Typography sx={{ color: "text.secondary", fontSize: typeScale.body, lineHeight: 1.7, maxWidth: 560 }}>
-        A simple process built around your vision, from first conversation to finished piece.
+        {t("process.description")}
       </Typography>
     </MotionBox>
 
@@ -133,16 +121,16 @@ const ProcessSection = () => {
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 3 }}
     >
       <Typography sx={{ fontSize: typeScale.body, color: "text.secondary", lineHeight: 1.7 }}>
-        Ready to start?
+        {t("process.readyLabel")}
       </Typography>
       <CustomButton
         variant="whatsapp"
         size="large"
-        href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+        href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
       >
-        Book a consultation
+        {t("process.ctaBtn")}
         <ArrowForwardIcon sx={{ fontSize: 18 }} />
       </CustomButton>
     </MotionBox>

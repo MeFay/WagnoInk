@@ -3,16 +3,17 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useTranslation } from "react-i18next";
 import SectionContainer from "../../components/SectionContainer";
 import CustomButton from "../../components/UI/Button";
 import { typeScale } from "../../styles/theme";
+import { WHATSAPP_URL } from "../../config/contact";
 
 const MotionBox = motion(Box);
 
-const WHATSAPP_URL =
-  "https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem.";
-
-const HomeCTA = () => (
+const HomeCTA = () => {
+  const { t } = useTranslation();
+  return (
   <SectionContainer id="section-cta">
     <MotionBox
       initial={{ opacity: 0, y: 30 }}
@@ -39,14 +40,16 @@ const HomeCTA = () => (
             textTransform: "uppercase",
           }}
         >
-          Ready to Begin?
+          {t("homeCTA.label")}
         </Typography>
 
         <Typography
           variant="h2"
           sx={{ fontWeight: 900, lineHeight: 1.1 }}
         >
-          Every Tattoo Starts<br />with a Conversation.
+          {t("homeCTA.title").split("\n").map((line, i) => (
+            <span key={i}>{line}{i === 0 && <br />}</span>
+          ))}
         </Typography>
 
         <Typography
@@ -56,7 +59,7 @@ const HomeCTA = () => (
             lineHeight: 1.7,
           }}
         >
-          Tell me your idea — I'll handle everything from design to ink.
+          {t("homeCTA.description")}
         </Typography>
       </Box>
 
@@ -76,7 +79,7 @@ const HomeCTA = () => (
           rel="noopener noreferrer"
         >
           <WhatsAppIcon sx={{ fontSize: 18 }} />
-          Open WhatsApp
+          {t("homeCTA.whatsappBtn")}
         </CustomButton>
 
         <CustomButton
@@ -85,11 +88,12 @@ const HomeCTA = () => (
           component={Link}
           to="/info"
         >
-          Contact & Info <ArrowForwardIcon sx={{ fontSize: 18 }} />
+          {t("homeCTA.infoBtn")} <ArrowForwardIcon sx={{ fontSize: 18 }} />
         </CustomButton>
       </Box>
     </MotionBox>
   </SectionContainer>
-);
+  );
+};
 
 export default HomeCTA;

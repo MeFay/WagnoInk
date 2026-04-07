@@ -6,6 +6,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { useTranslation } from "react-i18next";
 import CustomButton from "../../components/UI/Button";
 import {
   SECTIONS,
@@ -26,9 +27,17 @@ const ICON_MAP = {
 };
 const socialLinks = socialData.map((s) => ({ ...s, icon: ICON_MAP[s.label] }));
 
+const SECTION_LABEL_KEYS = {
+  "introduction": "about.sectionIntroduction",
+  "work-experience": "about.sectionWorkExperience",
+  "training": "about.sectionTraining",
+  "contests": "about.sectionContests",
+};
+
 // ── Sidebar ──────────────────────────────────────────────────────────
 const SidebarNav = ({ activeSection }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -73,7 +82,7 @@ const SidebarNav = ({ activeSection }) => {
                 flexShrink: 0,
               }}
             />
-            {s.label}
+            {t(SECTION_LABEL_KEYS[s.id] ?? s.id)}
           </Box>
         );
       })}
@@ -132,6 +141,7 @@ const Divider = () => (
 // ── Page ─────────────────────────────────────────────────────────────
 const About = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const AMBER = theme.palette.accent.main;
   const RED = theme.palette.primary.main;
   const [activeSection, setActiveSection] = useState("introduction");
@@ -231,6 +241,8 @@ const About = () => {
                     />
                     {/* Photo */}
                     <Box
+                      role="img"
+                      aria-label="Wagno — tattoo artist"
                       sx={{
                         width: "100%",
                         height: "100%",
@@ -309,7 +321,7 @@ const About = () => {
                         letterSpacing: 0.3,
                       }}
                     >
-                      Tattoo Artist · Est. 2016
+                      {t("about.subtitle")}
                     </Typography>
                   </Box>
 
@@ -359,14 +371,7 @@ const About = () => {
                     lineHeight: 1.95,
                   }}
                 >
-                  Originally from São Luís, Brazil. Started tattooing in late
-                  2017 after moving to Goiânia, where I did my first
-                  apprenticeship. Returned to São Luís in 2018, opened my own
-                  studio, and spent a few years refining my craft, picked up
-                  four convention awards along the way. In 2024 I made the move
-                  to Europe, working first in Spain before settling in Porto in
-                  early 2025. Now tattooing at Asgard Tattoo Barber Studio in
-                  Porto, and sometimes in Spain.
+                  {t("about.bio")}
                 </Typography>
               </MotionBox>
             </MotionBox>
@@ -376,7 +381,7 @@ const About = () => {
 
           {/* ── WORK EXPERIENCE ──────────────────────────────── */}
           <TrackedSection id="work-experience">
-            <SectionLabel>Work Experience</SectionLabel>
+            <SectionLabel>{t("about.workExperienceLabel")}</SectionLabel>
 
             {/* Timeline wrapper — vertical line on the left */}
             <Box
@@ -493,7 +498,7 @@ const About = () => {
                               textTransform: "uppercase",
                             }}
                           >
-                            Current
+                            {t("about.current")}
                           </Typography>
                         </Box>
                       )}
@@ -584,7 +589,7 @@ const About = () => {
 
           {/* ── TRAINING ─────────────────────────────────────── */}
           <TrackedSection id="training">
-            <SectionLabel>Training</SectionLabel>
+            <SectionLabel>{t("about.trainingLabel")}</SectionLabel>
 
             {/* Same timeline layout as Work Experience */}
             <Box
@@ -715,7 +720,7 @@ const About = () => {
 
           {/* ── CONTESTS ─────────────────────────────────────── */}
           <TrackedSection id="contests">
-            <SectionLabel>Contests & Awards</SectionLabel>
+            <SectionLabel>{t("about.contestsLabel")}</SectionLabel>
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {contests.map((c, i) => {
@@ -836,7 +841,7 @@ const About = () => {
                   textTransform: "uppercase",
                 }}
               >
-                From the conventions
+                {t("about.prizeImagesLabel")}
               </Typography>
 
               {/* Grid: large left + two stacked right */}

@@ -20,7 +20,7 @@ export const socialLinks = [
   },
   {
     label: "Email",
-    href: "mailto:Wagno.ink@icloud.com",
+    href: "mailto:Wagno.ink@gmail.com",
     hoverColor: theme.palette.accent.main,
   },
 ];

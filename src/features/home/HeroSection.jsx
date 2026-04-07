@@ -1,22 +1,24 @@
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import CustomButton from "../../components/UI/Button";
 import { typeScale } from "../../styles/theme";
+import { WHATSAPP_URL } from "../../config/contact";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 
 const VIDEO_SRC = "/video/HeroVideoCropped.mp4";
 
-const stats = [
-  { value: "8+", label: "Years of experience" },
-  { value: "500+", label: "Tattoos done" },
-  { value: "100%", label: "Custom adapted to you" },
-];
-
 const HeroSection = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const stats = [
+    { value: "8+",   label: t("hero.stat1Label") },
+    { value: "100%", label: t("hero.stat3Label") },
+  ];
 
   return (
     <Box
@@ -105,7 +107,7 @@ const HeroSection = () => {
             textTransform: "uppercase",
           }}
         >
-          Porto, Portugal · Since 2016
+          {t("hero.location")}
         </MotionTypography>
 
         {/* Main heading */}
@@ -138,7 +140,7 @@ const HeroSection = () => {
               pl: { xs: "8px", md: "18px" },
             }}
           >
-            Tattoo Artist
+            {t("hero.subtitle")}
           </Typography>
         </MotionBox>
 
@@ -155,8 +157,7 @@ const HeroSection = () => {
             lineHeight: 1.7,
           }}
         >
-          Based mainly in Porto. Let's create something you'll love. Your idea,
-          my craft, together we make it happen.
+          {t("hero.tagline")}
         </MotionTypography>
 
         {/* CTAs */}
@@ -172,15 +173,15 @@ const HeroSection = () => {
           }}
         >
           <CustomButton onClick={() => navigate("/gallery")} size="large">
-            See my work
+            {t("hero.cta1")}
           </CustomButton>
           <CustomButton
-            href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+            href={WHATSAPP_URL}
             target="_blank"
             rel="noopener noreferrer"
             size="large"
           >
-            Book a consultation
+            {t("hero.cta2")}
           </CustomButton>
         </MotionBox>
 
@@ -257,7 +258,7 @@ const HeroSection = () => {
             textTransform: "uppercase",
           }}
         >
-          Scroll
+          {t("hero.scroll")}
         </Typography>
         <Box
           sx={{

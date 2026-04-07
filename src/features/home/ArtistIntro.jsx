@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+import { useTranslation } from "react-i18next";
 import SectionContainer from "../../components/SectionContainer";
 import { typeScale } from "../../styles/theme";
 
@@ -17,6 +18,7 @@ const credentials = [
 
 const ArtistIntro = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <SectionContainer id="section-artist-intro" sx={{ overflow: "hidden" }}>
       <Box
@@ -109,7 +111,7 @@ const ArtistIntro = () => {
                   lineHeight: 1,
                 }}
               >
-                Award winner
+                {t("artistIntro.awardLabel")}
               </Typography>
               <Typography
                 sx={{
@@ -118,7 +120,7 @@ const ArtistIntro = () => {
                   lineHeight: 1,
                 }}
               >
-                4 conventions
+                {t("artistIntro.awardSub")}
               </Typography>
             </Box>
           </MotionBox>
@@ -141,7 +143,7 @@ const ArtistIntro = () => {
               textTransform: "uppercase",
             }}
           >
-            About me
+            {t("artistIntro.label")}
           </Typography>
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -155,10 +157,7 @@ const ArtistIntro = () => {
                 lineHeight: 1.8,
               }}
             >
-              Born in Brazil, based in Porto. I picked up a machine eight years
-              ago and never looked back. My work lives somewhere between realism
-              and feeling, technically solid, but always built around the person
-              wearing it.
+              {t("artistIntro.bio1")}
             </Typography>
             <Typography
               sx={{
@@ -167,8 +166,7 @@ const ArtistIntro = () => {
                 lineHeight: 1.8,
               }}
             >
-              I specialize in anime, gaming, and character tattoos. Whipshading,
-              fine line, and blackwork are where I'm most at home.{" "}
+              {t("artistIntro.bio2")}
             </Typography>
           </Box>
 
@@ -211,7 +209,7 @@ const ArtistIntro = () => {
               "&:hover": { gap: 1.5, color: "accent.light" },
             }}
           >
-            Read more
+            {t("artistIntro.readMore")}
             <ArrowForwardIcon sx={{ fontSize: 18 }} />
           </Box>
         </MotionBox>

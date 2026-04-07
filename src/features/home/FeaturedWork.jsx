@@ -3,6 +3,7 @@ import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useTranslation } from "react-i18next";
 import SectionContainer from "../../components/SectionContainer";
 import { typeScale } from "../../styles/theme";
 
@@ -74,6 +75,7 @@ const FeaturedCard = ({ project, tall = false, index = 0 }) => (
 
 const GhostCard = ({ index = 2 }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <MotionBox
       initial={{ opacity: 0, y: 50 }}
@@ -111,10 +113,10 @@ const GhostCard = ({ index = 2 }) => {
       </Typography>
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
         <Typography sx={{ color: "text.primary", fontWeight: 700, fontSize: typeScale.heading, letterSpacing: 0.3 }}>
-          More work in the gallery
+          {t("featuredWork.ghostTitle")}
         </Typography>
         <Box sx={{ display: "inline-flex", alignItems: "center", gap: 0.75, color: "accent.main", fontSize: typeScale.caption, fontWeight: 700, letterSpacing: 2, textTransform: "uppercase" }}>
-          View all
+          {t("featuredWork.viewAll")}
           <ArrowForwardIcon className="ghost-arrow" sx={{ fontSize: 16, transition: "transform 0.3s ease" }} />
         </Box>
       </Box>
@@ -122,7 +124,9 @@ const GhostCard = ({ index = 2 }) => {
   );
 };
 
-const FeaturedWork = () => (
+const FeaturedWork = () => {
+  const { t } = useTranslation();
+  return (
   <SectionContainer
     id="section-featured-work"
     sx={{
@@ -146,14 +150,16 @@ const FeaturedWork = () => (
     >
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
-          Featured Work
+          {t("featuredWork.label")}
         </Typography>
         <Typography variant="h2" sx={{ fontWeight: 900, lineHeight: 1.1 }}>
-          Recent<br />pieces
+          {t("featuredWork.title").split("\n").map((line, i) => (
+            <span key={i}>{line}{i === 0 && <br />}</span>
+          ))}
         </Typography>
       </Box>
       <Typography sx={{ color: "text.secondary", fontSize: typeScale.body, lineHeight: 1.7, maxWidth: 340, textAlign: { xs: "left", md: "right" }, pb: { md: 0.5 } }}>
-        A look at some recent tattoos. Want to see more? Head over to the full gallery.
+        {t("featuredWork.description")}
       </Typography>
     </MotionBox>
 
@@ -170,6 +176,7 @@ const FeaturedWork = () => (
     </MotionBox>
 
   </SectionContainer>
-);
+  );
+};
 
 export default FeaturedWork;

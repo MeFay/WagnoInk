@@ -8,6 +8,7 @@ import PaletteIcon from "@mui/icons-material/Palette";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import HealingIcon from "@mui/icons-material/Healing";
+import { useTranslation } from "react-i18next";
 import ContactSection from "../home/ContactForm";
 import { typeScale } from "../../styles/theme";
 
@@ -20,12 +21,11 @@ const fade = (delay = 0) => ({
   viewport: { once: true },
 });
 
-// ── Data ────────────────────────────────────────────────────────────────
-
-const LOCATIONS = [
+// ── Static location data (addresses & URLs don't need translation) ─────
+const LOCATION_DATA = [
   {
     city: "Rio Tinto, Porto",
-    country: "Portugal",
+    countryKey: "info.portugal",
     address: "Rua de Santa Catarina, Porto",
     mapsUrl: "#",
     hours: "Mon - Sat 9:30–20:00",
@@ -33,90 +33,23 @@ const LOCATIONS = [
   },
   {
     city: "Cambados, Galiza",
-    country: "Spain",
-    address: "Rúa a Mariña, 2, 36630 Cambados, Pontevedra, Espanha",
+    countryKey: "info.spain",
+    address: "Rúa a Mariña, 2, 36630 Cambados, Pontevedra",
     mapsUrl: "https://maps.app.goo.gl/2TxD6tYg481juCXT7",
-    hours: "Guest spots,  message to confirm",
+    guestSpot: true,
     main: false,
   },
   {
     city: "Cangas, Galiza",
-    country: "Spain",
-    address: "Av. de Bueu, 30, Bajo 1, 36940 Cangas, Pontevedra, Espanha",
+    countryKey: "info.spain",
+    address: "Av. de Bueu, 30, Bajo 1, 36940 Cangas, Pontevedra",
     mapsUrl: "https://maps.app.goo.gl/8qHTpTcCdaCXtrFj7",
-    hours: "Guest spots, message to confirm",
+    guestSpot: true,
     main: false,
   },
 ];
 
-const STEPS = [
-  {
-    number: "01",
-    icon: ChatIcon,
-    title: "Get in touch",
-    body: "Send a message via WhatsApp or the contact form. Describe your idea, the placement, and your rough size in mind. Photos and references are always welcome.",
-  },
-  {
-    number: "02",
-    icon: PaletteIcon,
-    title: "Consultation",
-    body: "We talk through your concept, style, references, placement, and what works best for your body.",
-  },
-  {
-    number: "03",
-    icon: PaymentsIcon,
-    title: "Design & Deposit",
-    body: "A deposit is required to secure your appointment and cover design time. This comes off the final price.",
-  },
-  {
-    number: "04",
-    icon: EventAvailableIcon,
-    title: "Your Session",
-    body: "Sessions are by appointment only. Bring a snack if you would like, longer pieces may need a break.",
-  },
-  {
-    number: "05",
-    icon: HealingIcon,
-    title: "Aftercare",
-    body: "Proper aftercare affects how your tattoo heals. Full instructions given at the end of your session.",
-  },
-];
-
-const PAYMENT_CARDS = [
-  {
-    step: "01",
-    title: "Price Discussion",
-    body: "During the consultation we talk through your piece and agree on a price. Pricing is per project, not per hour, based on size, detail, style, and placement.",
-  },
-  {
-    step: "02",
-    title: "Upfront Deposit",
-    body: "Once the price is agreed, a non-refundable deposit is required to confirm the booking. This covers design time and secures your spot. The deposit is deducted from the final total.",
-  },
-  {
-    step: "03",
-    title: "Final Payment",
-    body: "The remaining balance is paid on the day, once the tattoo is finished. Cash or bank transfer accepted.",
-  },
-];
-
-const BEFORE = [
-  "Eat a full meal before your appointment",
-  "Stay well hydrated the day before and day of",
-  "Wear clothing that gives easy access to the area",
-  "Avoid alcohol for at least 24 hours beforehand",
-  "Get a good night's sleep",
-  "Shave the area if needed (or ask us to)",
-];
-
-const AFTER = [
-  "Keep the tattoo clean, wash gently with mild soap",
-  "Apply a thin layer of fragrance-free moisturiser",
-  "Avoid sun exposure and soaking for 2–3 weeks",
-  "Do not scratch, pick, or rub the healing area",
-  "No swimming pools, sea, or saunas during healing",
-  "Reach out if something looks off",
-];
+const STEP_ICONS = [ChatIcon, PaletteIcon, PaymentsIcon, EventAvailableIcon, HealingIcon];
 
 // ── Sub-components ────────────────────────────────────────────────────
 
@@ -153,6 +86,7 @@ const Card = ({ children, sx = {} }) => (
 
 const HeaderDecoration = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -304,7 +238,7 @@ const HeaderDecoration = () => {
             textTransform: "uppercase",
           }}
         >
-          Portugal · Spain
+          {t("info.floatingLabel")}
         </Typography>
       </MotionBox>
     </Box>
@@ -315,8 +249,13 @@ const HeaderDecoration = () => {
 
 const Info = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const px = { xs: 3, sm: 5, md: 8, lg: 10 };
   const sectionGap = { xs: 6, md: 8 };
+
+  // Build translated data inside component
+  const BEFORE = t("info.before", { returnObjects: true });
+  const AFTER = t("info.after", { returnObjects: true });
 
   return (
     <Box
@@ -338,7 +277,7 @@ const Info = () => {
             {...fade()}
             sx={{ flex: 1, display: "flex", flexDirection: "column", gap: 2 }}
           >
-            <SectionLabel>The Details</SectionLabel>
+            <SectionLabel>{t("info.label")}</SectionLabel>
             <Typography
               variant="h1"
               sx={{
@@ -347,9 +286,9 @@ const Info = () => {
                 lineHeight: 1.05,
               }}
             >
-              Everything You
-              <br />
-              Need to Know
+              {t("info.title").split("\n").map((line, i) => (
+                <span key={i}>{line}{i === 0 && <br />}</span>
+              ))}
             </Typography>
             <Typography
               sx={{
@@ -359,8 +298,7 @@ const Info = () => {
                 maxWidth: 520,
               }}
             >
-              Locations, booking process, payment, and what to expect, all in
-              one place.
+              {t("info.description")}
             </Typography>
           </MotionBox>
 
@@ -389,12 +327,12 @@ const Info = () => {
             pb: { xs: 3, md: 4 },
           }}
         >
-          <SectionLabel>Locations</SectionLabel>
+          <SectionLabel>{t("info.locationsLabel")}</SectionLabel>
           <Typography
             variant="h2"
             sx={{ fontSize: { xs: "1.8rem", md: "2.5rem" }, fontWeight: 900 }}
           >
-            Where You Can Find Me
+            {t("info.locationsTitle")}
           </Typography>
         </MotionBox>
 
@@ -405,7 +343,7 @@ const Info = () => {
             gap: { xs: 3, md: 4 },
           }}
         >
-          {LOCATIONS.map((loc, i) => (
+          {LOCATION_DATA.map((loc, i) => (
             <MotionBox key={loc.city} {...fade(i * 0.1)}>
               <Card
                 sx={{
@@ -445,7 +383,7 @@ const Info = () => {
                         textTransform: "uppercase",
                       }}
                     >
-                      Main Studio
+                      {t("info.mainStudio")}
                     </Typography>
                   </Box>
                 )}
@@ -471,7 +409,7 @@ const Info = () => {
                         textTransform: "uppercase",
                       }}
                     >
-                      Coming Soon
+                      {t("info.comingSoon")}
                     </Typography>
                   </Box>
                 )}
@@ -500,7 +438,7 @@ const Info = () => {
                         textTransform: "uppercase",
                       }}
                     >
-                      {loc.country}
+                      {t(loc.countryKey)}
                     </Typography>
                   </Box>
 
@@ -544,7 +482,7 @@ const Info = () => {
                         lineHeight: 1.5,
                       }}
                     >
-                      {loc.hours}
+                      {loc.guestSpot ? t("info.guestSpotHours") : loc.hours}
                     </Typography>
                   </Box>
 
@@ -565,7 +503,7 @@ const Info = () => {
                         "&:hover": { color: "primary.main" },
                       }}
                     >
-                      View on Google Maps →
+                      {t("info.viewMaps")}
                     </Box>
                   )}
                 </Box>
@@ -589,20 +527,20 @@ const Info = () => {
             pb: { xs: 3, md: 4 },
           }}
         >
-          <SectionLabel>Process</SectionLabel>
+          <SectionLabel>{t("info.processLabel")}</SectionLabel>
           <Typography
             variant="h2"
             sx={{ fontSize: { xs: "1.8rem", md: "2.5rem" }, fontWeight: 900 }}
           >
-            How It Works
+            {t("info.processTitle")}
           </Typography>
         </MotionBox>
 
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {STEPS.map((step, i) => {
-            const Icon = step.icon;
+          {STEP_ICONS.map((Icon, i) => {
+            const stepNum = String(i + 1).padStart(2, "0");
             return (
-              <MotionBox key={step.number} {...fade(i * 0.08)}>
+              <MotionBox key={stepNum} {...fade(i * 0.08)}>
                 <Card
                   sx={{
                     display: "flex",
@@ -635,7 +573,7 @@ const Info = () => {
                         minWidth: 48,
                       }}
                     >
-                      {step.number}
+                      {stepNum}
                     </Typography>
                     <Box
                       sx={{
@@ -663,7 +601,7 @@ const Info = () => {
                         fontSize: typeScale.body,
                       }}
                     >
-                      {step.title}
+                      {t(`info.steps.${i + 1}.title`)}
                     </Typography>
                     <Typography
                       sx={{
@@ -672,7 +610,7 @@ const Info = () => {
                         lineHeight: 1.7,
                       }}
                     >
-                      {step.body}
+                      {t(`info.steps.${i + 1}.body`)}
                     </Typography>
                   </Box>
                 </Card>
@@ -696,12 +634,12 @@ const Info = () => {
             pb: { xs: 3, md: 4 },
           }}
         >
-          <SectionLabel>Payment</SectionLabel>
+          <SectionLabel>{t("info.paymentLabel")}</SectionLabel>
           <Typography
             variant="h2"
             sx={{ fontSize: { xs: "1.8rem", md: "2.5rem" }, fontWeight: 900 }}
           >
-            Deposit & Pricing
+            {t("info.paymentTitle")}
           </Typography>
         </MotionBox>
 
@@ -712,8 +650,8 @@ const Info = () => {
             gap: { xs: 3, md: 4 },
           }}
         >
-          {PAYMENT_CARDS.map((card, i) => (
-            <MotionBox key={card.title} {...fade(i * 0.1)}>
+          {[1, 2, 3].map((cardNum, i) => (
+            <MotionBox key={cardNum} {...fade(i * 0.1)}>
               <Card
                 sx={{
                   height: "100%",
@@ -730,7 +668,7 @@ const Info = () => {
                     lineHeight: 1,
                   }}
                 >
-                  {card.step}
+                  {String(cardNum).padStart(2, "0")}
                 </Typography>
                 <Typography
                   sx={{
@@ -739,7 +677,7 @@ const Info = () => {
                     fontSize: typeScale.body,
                   }}
                 >
-                  {card.title}
+                  {t(`info.paymentCards.${cardNum}.title`)}
                 </Typography>
                 <Typography
                   sx={{
@@ -748,7 +686,7 @@ const Info = () => {
                     lineHeight: 1.7,
                   }}
                 >
-                  {card.body}
+                  {t(`info.paymentCards.${cardNum}.body`)}
                 </Typography>
               </Card>
             </MotionBox>
@@ -770,12 +708,12 @@ const Info = () => {
             pb: { xs: 3, md: 4 },
           }}
         >
-          <SectionLabel>Preparation & Aftercare</SectionLabel>
+          <SectionLabel>{t("info.beforeAfterLabel")}</SectionLabel>
           <Typography
             variant="h2"
             sx={{ fontSize: { xs: "1.8rem", md: "2.5rem" }, fontWeight: 900 }}
           >
-            Before & After Your Session
+            {t("info.beforeAfterTitle")}
           </Typography>
         </MotionBox>
 
@@ -802,7 +740,7 @@ const Info = () => {
                   fontSize: typeScale.body,
                 }}
               >
-                Before Your Session
+                {t("info.beforeTitle")}
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {BEFORE.map((item) => (
@@ -851,7 +789,7 @@ const Info = () => {
                   fontSize: typeScale.body,
                 }}
               >
-                Aftercare
+                {t("info.afterTitle")}
               </Typography>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {AFTER.map((item) => (

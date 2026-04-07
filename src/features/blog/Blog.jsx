@@ -1,15 +1,16 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { Box, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useTranslation } from "react-i18next";
 import { blogPosts } from "./Blog.data";
 import { typeScale } from "../../styles/theme";
 
 const MotionBox = motion.create(Box);
-const ALL = "All";
+const ALL = "__ALL__";
 const getCategories = (posts) => [ALL, ...new Set(posts.map((p) => p.category))];
 
 // ── Animated header decoration ─────────────────────────────────────────
@@ -45,6 +46,7 @@ const BlogDecoration = () => {
 // ── Category filter bar ────────────────────────────────────────────────
 const CategoryFilter = ({ categories, active, onChange }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
       {categories.map((cat) => (
@@ -61,7 +63,7 @@ const CategoryFilter = ({ categories, active, onChange }) => {
             "&:hover": { borderColor: "rgba(255,255,255,0.35)", color: "text.primary" },
           }}
         >
-          {cat}
+          {cat === ALL ? t("blog.filterAll") : cat}
         </Box>
       ))}
     </Box>
@@ -71,6 +73,7 @@ const CategoryFilter = ({ categories, active, onChange }) => {
 // ── Featured card ──────────────────────────────────────────────────────
 const FeaturedCard = ({ post }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
   <MotionBox
     initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
@@ -89,7 +92,7 @@ const FeaturedCard = ({ post }) => {
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Box sx={{ display: "flex", gap: 1 }}>
           <Box sx={{ px: 1.5, py: 0.5, borderRadius: 999, border: "1px solid rgba(255,255,255,0.2)" }}>
-            <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, color: "text.secondary", letterSpacing: 2, textTransform: "uppercase" }}>Featured</Typography>
+            <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, color: "text.secondary", letterSpacing: 2, textTransform: "uppercase" }}>{t("blog.featured")}</Typography>
           </Box>
           <Box sx={{ px: 1.5, py: 0.5, borderRadius: 999, bgcolor: alpha(theme.palette.primary.main, 0.9) }}>
             <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, color: "text.primary" }}>{post.category}</Typography>
@@ -106,7 +109,7 @@ const FeaturedCard = ({ post }) => {
           <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{post.readTime}</Typography>
         </Box>
         <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, color: "primary.main", fontWeight: 700, fontSize: typeScale.body }}>
-          Read article
+          {t("blog.readArticle")}
           <ArrowForwardIcon className="feat-arrow" sx={{ fontSize: 16, transition: "transform 0.3s ease" }} />
         </Box>
       </Box>
@@ -161,6 +164,7 @@ const PostCard = ({ post, index }) => {
 
 // ── Page ──────────────────────────────────────────────────────────────
 const Blog = () => {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState(ALL);
   const categories = getCategories(blogPosts);
   const filtered = activeCategory === ALL ? blogPosts : blogPosts.filter((p) => p.category === activeCategory);
@@ -178,13 +182,13 @@ const Blog = () => {
           >
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5 }}>
               <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
-                Notes from the studio
+                {t("blog.label")}
               </Typography>
               <Typography variant="h1" sx={{ fontSize: { xs: "2.5rem", md: "3.5rem" }, fontWeight: 900, lineHeight: 1 }}>
-                The Blog
+                {t("blog.title")}
               </Typography>
               <Typography sx={{ color: "text.secondary", fontSize: typeScale.body, lineHeight: 1.7, maxWidth: 480 }}>
-                Aftercare tips, thoughts on style, and whatever else comes up.
+                {t("blog.description")}
               </Typography>
             </Box>
             <CategoryFilter categories={categories} active={activeCategory} onChange={setActiveCategory} />
@@ -199,7 +203,7 @@ const Blog = () => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 3 }}>
             <Box sx={{ flex: 1, height: "1px", bgcolor: "rgba(255,255,255,0.07)" }} />
             <Typography sx={{ fontSize: typeScale.label, color: "text.disabled", letterSpacing: 2, textTransform: "uppercase", flexShrink: 0 }}>
-              {rest.length} more {rest.length === 1 ? "post" : "posts"}
+              {t("blog.morePosts", { count: rest.length })}
             </Typography>
             <Box sx={{ flex: 1, height: "1px", bgcolor: "rgba(255,255,255,0.07)" }} />
           </Box>
@@ -218,7 +222,7 @@ const Blog = () => {
 
         {filtered.length === 0 && (
           <Box sx={{ py: 10, textAlign: "center" }}>
-            <Typography sx={{ color: "text.disabled", fontSize: typeScale.body }}>No posts in this category yet.</Typography>
+            <Typography sx={{ color: "text.disabled", fontSize: typeScale.body }}>{t("blog.noPostsInCategory")}</Typography>
           </Box>
         )}
 

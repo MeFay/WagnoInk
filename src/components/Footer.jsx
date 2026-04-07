@@ -6,23 +6,25 @@ import EmailIcon from "@mui/icons-material/Email";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { typeScale } from "../styles/theme";
+import { useTranslation } from "react-i18next";
 
 const navLinks = [
-  { label: "Home",    to: "/"        },
-  { label: "About",   to: "/about"   },
-  { label: "Gallery", to: "/gallery" },
-  { label: "Blog",    to: "/blog"    },
-  { label: "Info",    to: "/info"    },
+  { labelKey: "navbar.home",    to: "/"        },
+  { labelKey: "navbar.about",   to: "/about"   },
+  { labelKey: "navbar.gallery", to: "/gallery" },
+  { labelKey: "navbar.blog",    to: "/blog"    },
+  { labelKey: "navbar.info",    to: "/info"    },
 ];
 
 const Footer = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const socialLinks = [
     { icon: InstagramIcon, href: "https://www.instagram.com/wagno.ink/", label: "Instagram", color: theme.palette.instagram.main },
     { icon: WhatsAppIcon,  href: "https://wa.me/351910848391",            label: "WhatsApp",  color: theme.palette.whatsapp.main },
-    { icon: EmailIcon,     href: "mailto:Wagno.ink@icloud.com",           label: "Email",     color: theme.palette.accent.main },
+    { icon: EmailIcon,     href: "mailto:Wagno.ink@gmail.com",           label: "Email",     color: theme.palette.accent.main },
   ];
 
   return (
@@ -39,7 +41,7 @@ const Footer = () => {
           <Box sx={{ display: "flex", gap: { xs: 2.5, md: 4 }, flexWrap: "wrap" }}>
             {navLinks.map((link) => (
               <Typography key={link.to} component={Link} to={link.to} sx={{ textDecoration: "none", fontSize: typeScale.body, color: "text.secondary", letterSpacing: 0.3, transition: "color 0.2s ease", "&:hover": { color: "text.primary" } }}>
-                {link.label}
+                {t(link.labelKey)}
               </Typography>
             ))}
           </Box>
@@ -64,12 +66,12 @@ const Footer = () => {
         <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, alignItems: { sm: "center" }, justifyContent: "space-between", gap: { xs: 2, sm: 0 } }}>
 
           <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary" }}>
-            © {new Date().getFullYear()} Wagno Tattoo. All rights reserved.
+            {t("footer.copyright", { year: new Date().getFullYear() })}
           </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: { xs: "space-between", sm: "flex-end" }, gap: 2 }}>
             <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary" }}>
-              Built by{" "}
+              {t("footer.builtBy")}{" "}
               <Box component="a" href="https://www.linkedin.com/in/fatima-alves-azevedodo-271ab1212" target="_blank" rel="noopener noreferrer"
                 sx={{ color: "accent.main", textDecoration: "none", fontWeight: 600, transition: "color 0.2s ease", "&:hover": { color: "primary.main" } }}
               >

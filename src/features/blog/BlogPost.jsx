@@ -4,6 +4,7 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useTranslation } from "react-i18next";
 import { getPostBySlug, blogPosts } from "./Blog.data";
 import { typeScale } from "../../styles/theme";
 
@@ -75,6 +76,7 @@ const ContentBlock = ({ block, index }) => {
 // ── Post page ─────────────────────────────────────────────────────────
 const BlogPost = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const { slug } = useParams();
   const post = getPostBySlug(slug);
 
@@ -103,7 +105,7 @@ const BlogPost = () => {
             }}
           >
             <ArrowBackIcon sx={{ fontSize: 16 }} />
-            Back to Blog
+            {t("blog.backToBlog")}
           </Box>
         </MotionBox>
 
@@ -164,7 +166,7 @@ const BlogPost = () => {
         {related.length > 0 && (
           <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, letterSpacing: 4, color: "primary.main", textTransform: "uppercase" }}>
-              Read More
+              {t("blog.readMore")}
             </Typography>
             <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" }, gap: 3 }}>
               {related.map((p) => (

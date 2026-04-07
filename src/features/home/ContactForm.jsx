@@ -2,42 +2,51 @@ import { Box, Typography, TextField, CircularProgress, useTheme } from "@mui/mat
 import { alpha } from "@mui/material/styles";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { useTranslation } from "react-i18next";
 import { typeScale } from "../../styles/theme";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import SectionContainer from "../../components/SectionContainer";
 import CustomButton from "../../components/UI/Button";
+import {
+  WHATSAPP_URL,
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  CONTACT_PHONE_LINK,
+  INSTAGRAM_URL,
+  MAPS_URL,
+} from "../../config/contact";
 
 
 const MotionBox = motion(Box);
-
-const contactInfo = [
-  { icon: LocationOnIcon, label: "Main Studio Location", value: "Porto, Portugal", link: "https://maps.google.com" },
-  { icon: PhoneIcon, label: "Phone", value: "+351 910 848 391", link: "tel:+351910848391" },
-  { icon: EmailIcon, label: "Email", value: "Wagno.ink@icloud.com", link: "mailto:Wagno.ink@icloud.com" },
-  { icon: InstagramIcon, label: "Instagram", value: "@wagno.ink", link: "https://www.instagram.com/wagno.ink/" },
-];
-
-const studioHours = [
-  { day: "Monday - Friday", hours: "10:00 AM - 7:00 PM" },
-  { day: "Saturday", hours: "11:00 AM - 6:00 PM" },
-  { day: "Sunday", hours: "Closed" },
-];
-
-const WHATSAPP_URL = "https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem.";
 
 const INITIAL_FORM = { name: "", email: "", phone: "", message: "" };
 
 const ContactSection = ({ sx, innerSx }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // "idle" | "loading" | "success" | "error"
+
+  const contactInfo = [
+    { icon: LocationOnIcon, label: t("contact.locationLabel"), value: "Porto, Portugal", link: MAPS_URL },
+    { icon: PhoneIcon, label: t("contact.phoneLabel"), value: CONTACT_PHONE, link: CONTACT_PHONE_LINK },
+    { icon: EmailIcon, label: t("contact.emailLabel"), value: CONTACT_EMAIL, link: `mailto:${CONTACT_EMAIL}` },
+    { icon: InstagramIcon, label: t("contact.instagramLabel"), value: "@wagno.ink", link: INSTAGRAM_URL },
+  ];
+
+  const studioHours = [
+    { day: t("contact.mon_fri"), hours: "10:00 AM - 7:00 PM" },
+    { day: t("contact.saturday"), hours: "11:00 AM - 6:00 PM" },
+    { day: t("contact.sunday"), hours: t("contact.closed") },
+  ];
 
   const textFieldSx = {
     "& .MuiOutlinedInput-root": {
@@ -51,10 +60,10 @@ const ContactSection = ({ sx, innerSx }) => {
 
   const validate = () => {
     const next = {};
-    if (!form.name.trim()) next.name = "Name is required.";
-    if (!form.email.trim()) next.email = "Email is required.";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "Enter a valid email.";
-    if (!form.message.trim()) next.message = "Please describe your tattoo idea.";
+    if (!form.name.trim()) next.name = t("contact.errorName");
+    if (!form.email.trim()) next.email = t("contact.errorEmailRequired");
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = t("contact.errorEmailInvalid");
+    if (!form.message.trim()) next.message = t("contact.errorMessage");
     return next;
   };
 
@@ -71,9 +80,17 @@ const ContactSection = ({ sx, innerSx }) => {
 
     setStatus("loading");
     try {
-      // Replace this with your actual form submission endpoint.
-      // Example: await fetch("/api/contact", { method: "POST", body: JSON.stringify(form) });
-      await new Promise((res) => setTimeout(res, 1200)); // simulated delay
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          phone: form.phone || "Not provided",
+          message: form.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      );
       setStatus("success");
       setForm(INITIAL_FORM);
     } catch {
@@ -97,16 +114,18 @@ const ContactSection = ({ sx, innerSx }) => {
     >
       {/* Description — bottom-left */}
       <Typography sx={{ color: "text.secondary", fontSize: { xs: "0.9rem", md: "1rem" }, lineHeight: 1.7, maxWidth: 340, pb: { md: 0.5 } }}>
-        Ready to bring your vision to life? Reach out to discuss your next tattoo.
+        {t("contact.introDescription")}
       </Typography>
 
       {/* Title block — right */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: { xs: "flex-start", md: "flex-end" }, textAlign: { xs: "left", md: "right" } }}>
         <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
-          Get in Touch
+          {t("contact.label")}
         </Typography>
         <Typography variant="h2" sx={{ fontWeight: 900, fontSize: { xs: "2rem", md: "3rem" }, lineHeight: 1.1 }}>
-          Let's Create<br />Something Amazing
+          {t("contact.title").split("\n").map((line, i) => (
+            <span key={i}>{line}{i === 0 && <br />}</span>
+          ))}
         </Typography>
       </Box>
     </MotionBox>
@@ -164,7 +183,7 @@ const ContactSection = ({ sx, innerSx }) => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
             <AccessTimeIcon sx={{ color: "primary.main", fontSize: 24 }} />
             <Typography sx={{ fontSize: 18, fontWeight: 700, color: "white", letterSpacing: 0.5 }}>
-              Studio Hours
+              {t("contact.hoursTitle")}
             </Typography>
           </Box>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -190,45 +209,45 @@ const ContactSection = ({ sx, innerSx }) => {
       >
         <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
           <Typography variant="h5" sx={{ fontWeight: 700, color: "white" }}>
-            Send us a Message
+            {t("contact.formTitle")}
           </Typography>
           <Typography sx={{ color: "text.secondary", fontSize: 14 }}>
-            Fill out the form below and we'll get back to you within 24 hours.
+            {t("contact.formSubtitle")}
           </Typography>
         </Box>
 
         {status === "success" ? (
           <Box sx={{ py: 6, display: "flex", flexDirection: "column", alignItems: "center", gap: 2, textAlign: "center" }}>
             <Typography sx={{ fontSize: 40 }}>✓</Typography>
-            <Typography sx={{ fontWeight: 700, color: "white", fontSize: 18 }}>Message sent!</Typography>
+            <Typography sx={{ fontWeight: 700, color: "white", fontSize: 18 }}>{t("contact.successTitle")}</Typography>
             <Typography sx={{ color: "text.secondary", fontSize: 14 }}>
-              We'll get back to you within 24 hours.
+              {t("contact.successSubtitle")}
             </Typography>
             <CustomButton variant="secondary" size="small" onClick={() => setStatus("idle")}>
-              Send another
+              {t("contact.sendAnother")}
             </CustomButton>
           </Box>
         ) : (
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
             <TextField
-              fullWidth label="Your Name" variant="outlined" required
+              fullWidth label={t("contact.nameInput")} variant="outlined" required
               name="name" value={form.name} onChange={handleChange}
               error={!!errors.name} helperText={errors.name}
               sx={textFieldSx}
             />
             <TextField
-              fullWidth label="Email Address" variant="outlined" type="email" required
+              fullWidth label={t("contact.emailInput")} variant="outlined" type="email" required
               name="email" value={form.email} onChange={handleChange}
               error={!!errors.email} helperText={errors.email}
               sx={textFieldSx}
             />
             <TextField
-              fullWidth label="Phone Number (Optional)" variant="outlined"
+              fullWidth label={t("contact.phoneInput")} variant="outlined"
               name="phone" value={form.phone} onChange={handleChange}
               sx={textFieldSx}
             />
             <TextField
-              fullWidth label="Tell us about your tattoo idea" variant="outlined" multiline rows={5} required
+              fullWidth label={t("contact.messageInput")} variant="outlined" multiline rows={5} required
               name="message" value={form.message} onChange={handleChange}
               error={!!errors.message} helperText={errors.message}
               sx={textFieldSx}
@@ -236,12 +255,12 @@ const ContactSection = ({ sx, innerSx }) => {
 
             {status === "error" && (
               <Typography sx={{ fontSize: 13, color: "error.main" }}>
-                Something went wrong. Please try again or contact us via WhatsApp.
+                {t("contact.errorSubmit")}
               </Typography>
             )}
 
-            <CustomButton size="large" fullWidth>
-              {status === "loading" ? <CircularProgress size={18} sx={{ color: "white" }} /> : <>Send Message <ArrowForwardIcon sx={{ fontSize: 18 }} /></>}
+            <CustomButton size="large" fullWidth disabled={status === "loading"}>
+              {status === "loading" ? <CircularProgress size={18} sx={{ color: "white" }} /> : <>{t("contact.submitBtn")} <ArrowForwardIcon sx={{ fontSize: 18 }} /></>}
             </CustomButton>
           </Box>
         )}
@@ -261,10 +280,10 @@ const ContactSection = ({ sx, innerSx }) => {
     >
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
         <Typography sx={{ fontSize: 20, fontWeight: 700, color: "white" }}>
-          Prefer WhatsApp?
+          {t("contact.whatsappTitle")}
         </Typography>
         <Typography sx={{ color: "text.secondary", fontSize: 14 }}>
-          Chat with us directly for faster responses and instant booking.
+          {t("contact.whatsappDesc")}
         </Typography>
       </Box>
         <CustomButton
@@ -275,7 +294,7 @@ const ContactSection = ({ sx, innerSx }) => {
           rel="noopener noreferrer"
         >
           <WhatsAppIcon sx={{ fontSize: 20 }} />
-          Open WhatsApp
+          {t("contact.whatsappBtn")}
         </CustomButton>
     </MotionBox>
   </SectionContainer>

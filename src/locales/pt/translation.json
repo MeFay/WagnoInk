@@ -1,0 +1,207 @@
+{
+  "navbar": {
+    "home": "Início",
+    "about": "Sobre",
+    "gallery": "Galeria",
+    "blog": "Blog",
+    "info": "Info",
+    "bookNow": "Reservar Agora"
+  },
+  "footer": {
+    "copyright": "© {{year}} Wagno Tattoo. Todos os direitos reservados.",
+    "builtBy": "Desenvolvido por"
+  },
+  "hero": {
+    "location": "Porto, Portugal · Desde 2016",
+    "subtitle": "Tatuador",
+    "tagline": "Sediado principalmente em Porto. Vamos criar algo que vais adorar. A tua ideia, o meu ofício — juntos fazemos acontecer.",
+    "cta1": "Ver o meu trabalho",
+    "cta2": "Marcar uma consulta",
+    "stat1Label": "Anos de experiência",
+    "stat3Label": "Personalizado para ti",
+    "scroll": "Rolar"
+  },
+  "featuredWork": {
+    "label": "Trabalhos em Destaque",
+    "title": "Peças\nrecentes",
+    "description": "Uma amostra de tatuagens recentes. Queres ver mais? Visita a galeria completa.",
+    "ghostTitle": "Mais trabalhos na galeria",
+    "viewAll": "Ver todos"
+  },
+  "artistIntro": {
+    "label": "Sobre mim",
+    "bio1": "Nascido no Brasil, sediado em Porto. Peguei numa máquina há oito anos e nunca mais parei. O meu trabalho vive algures entre o realismo e a emoção — tecnicamente sólido, mas sempre construído à volta da pessoa que o vai usar.",
+    "bio2": "Especializo-me em tatuagens de anime, gaming e personagens. Whipshading, fine line e blackwork são onde me sinto mais em casa.",
+    "awardLabel": "Premiado",
+    "awardSub": "4 convenções",
+    "readMore": "Saber mais"
+  },
+  "process": {
+    "watermark": "Processo",
+    "label": "Como Funciona",
+    "title": "Da Ideia à Tinta",
+    "description": "Um processo simples construído à volta da tua visão — da primeira conversa à peça acabada.",
+    "step1Title": "Consulta",
+    "step1Desc": "Falamos sobre a tua ideia, o posicionamento, o tamanho e o estilo. Sem pressão, apenas uma conversa honesta sobre o que vai funcionar melhor na tua pele.",
+    "step2Title": "Design",
+    "step2Desc": "Cada peça é desenhada de raiz para ti. Vais ver o design antes de tocarmos numa agulha — ajustes são bem-vindos.",
+    "step3Title": "Tinta",
+    "step3Desc": "Dia da sessão. Estúdio limpo, trabalho focado, sem pressa. Instruções de cuidados incluídas para que a tua tatuagem cicatrize exatamente como deve.",
+    "readyLabel": "Pronto para começar?",
+    "ctaBtn": "Marcar uma consulta"
+  },
+  "blogSection": {
+    "label": "Insights e Histórias",
+    "title": "Últimos do Blog",
+    "description": "Conselhos de especialista, dicas de cuidados e histórias do estúdio.",
+    "viewAll": "Ver Todos os Artigos"
+  },
+  "homeCTA": {
+    "label": "Pronto para Começar?",
+    "title": "Cada Tatuagem Começa\ncom uma Conversa.",
+    "description": "Conta-me a tua ideia — eu trato de tudo, do design à tinta.",
+    "whatsappBtn": "Abrir WhatsApp",
+    "infoBtn": "Contacto e Info"
+  },
+  "contact": {
+    "introDescription": "Pronto para dar vida à tua visão? Fala connosco para discutir a tua próxima tatuagem.",
+    "label": "Entra em Contacto",
+    "title": "Vamos Criar\nAlgo Incrível",
+    "locationLabel": "Localização do Estúdio Principal",
+    "phoneLabel": "Telefone",
+    "emailLabel": "Email",
+    "instagramLabel": "Instagram",
+    "hoursTitle": "Horário do Estúdio",
+    "mon_fri": "Segunda — Sexta",
+    "saturday": "Sábado",
+    "sunday": "Domingo",
+    "closed": "Fechado",
+    "formTitle": "Envia-nos uma Mensagem",
+    "formSubtitle": "Preenche o formulário abaixo e entraremos em contacto em 24 horas.",
+    "nameInput": "O teu nome",
+    "emailInput": "Endereço de email",
+    "phoneInput": "Número de telefone (Opcional)",
+    "messageInput": "Fala-nos sobre a tua ideia de tatuagem",
+    "errorName": "O nome é obrigatório.",
+    "errorEmailRequired": "O email é obrigatório.",
+    "errorEmailInvalid": "Introduz um email válido.",
+    "errorMessage": "Por favor descreve a tua ideia de tatuagem.",
+    "errorSubmit": "Algo correu mal. Tenta novamente ou contacta-nos pelo WhatsApp.",
+    "submitBtn": "Enviar Mensagem",
+    "successTitle": "Mensagem enviada!",
+    "successSubtitle": "Entraremos em contacto em 24 horas.",
+    "sendAnother": "Enviar outra",
+    "whatsappTitle": "Preferes WhatsApp?",
+    "whatsappDesc": "Fala connosco diretamente para respostas rápidas e marcação imediata.",
+    "whatsappBtn": "Abrir WhatsApp"
+  },
+  "gallery": {
+    "label": "Portfólio",
+    "title": "Alguns dos meus trabalhos",
+    "description": "Uma seleção de tatuagens recentes — anime, gaming, trabalhos originais e tudo o que há entre eles.",
+    "shuffle": "Misturar",
+    "closeImage": "Fechar imagem",
+    "prevImage": "Imagem anterior",
+    "nextImage": "Próxima imagem"
+  },
+  "blog": {
+    "label": "Notas do Estúdio",
+    "title": "O Blog",
+    "description": "Dicas de cuidados, reflexões sobre estilos e tudo o que apareça.",
+    "filterAll": "Todos",
+    "featured": "Destaque",
+    "readArticle": "Ler artigo",
+    "morePosts_one": "{{count}} mais artigo",
+    "morePosts_other": "{{count}} mais artigos",
+    "noPostsInCategory": "Ainda não há artigos nesta categoria.",
+    "backToBlog": "Voltar ao Blog",
+    "readMore": "Leia Mais"
+  },
+  "about": {
+    "subtitle": "Tatuador · Est. 2016",
+    "bio": "Oriundo de São Luís, Brasil. Comecei a tatuar no final de 2017 depois de me mudar para Goiânia, onde fiz o meu primeiro aprendizado. Regressei a São Luís em 2018, abri o meu próprio estúdio e passei alguns anos a aperfeiçoar o meu ofício — ganhei quatro prémios em convenções ao longo desse percurso. Em 2024 mudei-me para a Europa, trabalhando primeiro em Espanha antes de me instalar no Porto no início de 2025. Atualmente tatuo no Asgard Tattoo Barber Studio, no Porto, e pontualmente em Espanha.",
+    "sectionIntroduction": "Introdução",
+    "sectionWorkExperience": "Experiência",
+    "sectionTraining": "Formação",
+    "sectionContests": "Prémios",
+    "workExperienceLabel": "Experiência Profissional",
+    "trainingLabel": "Formação",
+    "contestsLabel": "Concursos e Prémios",
+    "current": "Atual",
+    "prizeImagesLabel": "Das convenções"
+  },
+  "info": {
+    "label": "Os Detalhes",
+    "title": "Tudo o Que\nPrecisas de Saber",
+    "description": "Localizações, processo de marcação, pagamento e o que esperar — tudo num só lugar.",
+    "locationsLabel": "Localizações",
+    "locationsTitle": "Onde Me Podes Encontrar",
+    "mainStudio": "Estúdio Principal",
+    "comingSoon": "Em Breve",
+    "guestSpotHours": "Visitas pontuais, confirmar por mensagem",
+    "viewMaps": "Ver no Google Maps →",
+    "portugal": "Portugal",
+    "spain": "Espanha",
+    "processLabel": "Processo",
+    "processTitle": "Como Funciona",
+    "steps": {
+      "1": {
+        "title": "Entra em contacto",
+        "body": "Envia uma mensagem pelo WhatsApp ou pelo formulário de contacto. Descreve a tua ideia, o posicionamento e o tamanho aproximado que tens em mente. Fotos e referências são sempre bem-vindas."
+      },
+      "2": {
+        "title": "Consulta",
+        "body": "Falamos sobre o teu conceito, estilo, referências, posicionamento e o que funciona melhor para o teu corpo."
+      },
+      "3": {
+        "title": "Design e Depósito",
+        "body": "É necessário um depósito para confirmar a marcação e cobrir o tempo de design. Este valor é descontado no preço final."
+      },
+      "4": {
+        "title": "A Tua Sessão",
+        "body": "As sessões são apenas por marcação. Traz um lanche se quiseres — peças maiores podem precisar de uma pausa."
+      },
+      "5": {
+        "title": "Cuidados",
+        "body": "Os cuidados corretos afetam a forma como a tua tatuagem cicatriza. Instruções completas fornecidas no final da sessão."
+      }
+    },
+    "paymentLabel": "Pagamento",
+    "paymentTitle": "Depósito e Preços",
+    "paymentCards": {
+      "1": {
+        "title": "Discussão de Preço",
+        "body": "Na consulta falamos sobre a tua peça e acordamos um preço. Os preços são por projeto, não por hora, e variam conforme o tamanho, detalhe, estilo e posicionamento."
+      },
+      "2": {
+        "title": "Depósito Inicial",
+        "body": "Após o acordo de preço, é necessário um depósito não reembolsável para confirmar a marcação. Este cobre o tempo de design e assegura o teu lugar. O depósito é descontado no total final."
+      },
+      "3": {
+        "title": "Pagamento Final",
+        "body": "O saldo restante é pago no próprio dia, após a conclusão da tatuagem. Aceita-se dinheiro ou transferência bancária."
+      }
+    },
+    "beforeAfterLabel": "Preparação e Cuidados",
+    "beforeAfterTitle": "Antes e Depois da Sessão",
+    "beforeTitle": "Antes da Tua Sessão",
+    "afterTitle": "Cuidados",
+    "before": [
+      "Faz uma refeição completa antes da marcação",
+      "Mantém-te bem hidratado no dia anterior e no próprio dia",
+      "Usa roupa que facilite o acesso à área",
+      "Evita álcool pelo menos 24 horas antes",
+      "Dorme bem na noite anterior",
+      "Raspa a área se necessário (ou pede-nos para o fazer)"
+    ],
+    "after": [
+      "Mantém a tatuagem limpa, lava suavemente com sabão neutro",
+      "Aplica uma fina camada de hidratante sem perfume",
+      "Evita a exposição solar e banhos de imersão durante 2 a 3 semanas",
+      "Não coces, não arranques nem esfregues a zona em cicatrização",
+      "Evita piscinas, mar ou saunas durante a cicatrização",
+      "Contacta-nos se algo parecer estranho"
+    ],
+    "floatingLabel": "Portugal · Espanha"
+  }
+}

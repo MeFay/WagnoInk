@@ -1,10 +1,81 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt">
   <head>
     <meta charset="UTF-8" />
+
+    <!-- ── Favicon ───────────────────────────────────────────────────────
+         TODO: replace with a real favicon once Wagno has a logo/icon.
+         Recommended sizes: 32×32 .ico + 180×180 apple-touch-icon.png
+    ──────────────────────────────────────────────────────────────────── -->
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wagno Tattoo</title>
+
+    <!-- ── Primary SEO ───────────────────────────────────────────────── -->
+    <title>Wagno Ink | Tatuador em Porto, Portugal</title>
+    <meta
+      name="description"
+      content="Wagno Ink — Tatuador em Porto, Portugal. Especializado em anime, gaming, realismo e blackwork. Tattoo artist in Porto offering custom tattoos in Portugal and Spain. Book your free consultation."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://wagno.ink/" />
+
+    <!-- ── Open Graph (WhatsApp, Facebook, LinkedIn previews) ────────── -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:site_name"   content="Wagno Ink" />
+    <meta property="og:title"       content="Wagno Ink | Tatuador em Porto, Portugal" />
+    <meta
+      property="og:description"
+      content="Tatuador em Porto especializado em anime, gaming, realismo e blackwork. Custom tattoos in Portugal and Spain."
+    />
+    <meta property="og:image"       content="https://wagno.ink/artist-images/Tattoos/28.webp" />
+    <meta property="og:image:width"  content="600" />
+    <meta property="og:image:height" content="800" />
+    <meta property="og:url"         content="https://wagno.ink/" />
+    <meta property="og:locale"      content="pt_PT" />
+    <meta property="og:locale:alternate" content="en_GB" />
+    <meta property="og:locale:alternate" content="es_ES" />
+
+    <!-- ── JSON-LD — Local Business structured data ──────────────────────
+         TattooParlor is a schema.org subtype of LocalBusiness.
+         This is the single most impactful thing for local Google ranking.
+         TODO: add the real street address / Maps URL once confirmed by client.
+    ──────────────────────────────────────────────────────────────────── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "TattooParlor",
+      "@id": "https://wagno.ink/",
+      "name": "Wagno Ink",
+      "description": "Tatuador em Porto especializado em anime, gaming, realismo e blackwork. Tattoo artist in Porto, Portugal.",
+      "url": "https://wagno.ink",
+      "telephone": "+351910848391",
+      "email": "Wagno.ink@gmail.com",
+      "image": "https://wagno.ink/artist-images/Tattoos/28.webp",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua de Santa Catarina",
+        "addressLocality": "Rio Tinto",
+        "addressRegion": "Porto",
+        "addressCountry": "PT"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday", "Tuesday", "Wednesday",
+          "Thursday", "Friday", "Saturday"
+        ],
+        "opens": "09:30",
+        "closes": "20:00"
+      },
+      "priceRange": "€€",
+      "currenciesAccepted": "EUR",
+      "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+      "sameAs": ["https://www.instagram.com/wagno.ink/"]
+    }
+    </script>
+
+    <!-- ── Fonts ─────────────────────────────────────────────────────── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

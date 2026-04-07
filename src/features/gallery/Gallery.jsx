@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import CloseIcon from "@mui/icons-material/Close";
+import { useTranslation } from "react-i18next";
 import { typeScale } from "../../styles/theme";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -16,158 +17,174 @@ const images = [
   {
     src: "/artist-images/Tattoos/7.webp",
     category: "Realism",
-    title: "Character Sleeve",
+    title: "Star Guardian — League of Legends",
   },
   {
     src: "/artist-images/Tattoos/16.webp",
     category: "Realism",
-    title: "Portrait",
+    title: "Attack on Titan — Levi Ackerman",
   },
   {
     src: "/artist-images/Tattoos/34.webp",
     category: "Blackwork",
-    title: "Geometric Piece",
+    title: "Black Dragon Shoulder",
   },
   {
     src: "/artist-images/Tattoos/33.webp",
-    category: "Fine Line",
-    title: "Fine Line Floral",
+    category: "Realism",
+    title: "Greek Temple Sleeve",
   },
   {
     src: "/artist-images/Tattoos/17.webp",
-    category: "Blackwork",
-    title: "Dark Sleeve",
+    category: "Realism",
+    title: "Dark Character Portrait",
   },
   {
     src: "/artist-images/Tattoos/18.webp",
     category: "Realism",
-    title: "Realistic Bear",
+    title: "Elden Ring - Malenia",
   },
   {
     src: "/artist-images/Tattoos/29.webp",
-    category: "Fine Line",
-    title: "Minimal Line Work",
+    category: "Blackwork",
+    title: "Crystal Spider & Web",
   },
   {
     src: "/artist-images/Tattoos/26.webp",
     category: "Realism",
-    title: "Full Back Piece",
+    title: "Warrior",
   },
   {
     src: "/artist-images/Tattoos/31.webp",
-    category: "Blackwork",
-    title: "Tribal Design",
+    category: "Realism",
+    title: "Fantasy Anime Duo",
   },
   {
     src: "/artist-images/Tattoos/32.webp",
-    category: "Fine Line",
-    title: "Script Tattoo",
+    category: "Realism",
+    title: "Warrior Leg Sleeve",
   },
   {
     src: "/artist-images/Tattoos/21.webp",
-    category: "Realism",
-    title: "Animal Portrait",
+    category: "Fine Line",
+    title: "Dagger & Butterfly",
   },
   {
     src: "/artist-images/Tattoos/2.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Portrait & Rose",
   },
   {
     src: "/artist-images/Tattoos/6.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Warrior Portrait",
   },
   {
     src: "/artist-images/Tattoos/3.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Fine Line",
+    title: "Snake & Peonies",
   },
   {
     src: "/artist-images/Tattoos/8.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "Rose & Mandala Shoulder",
   },
   {
     src: "/artist-images/Tattoos/9.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "Manga Panel Ankle Band",
   },
   {
     src: "/artist-images/Tattoos/10.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Princess Zelda — Legend of Zelda",
   },
   {
     src: "/artist-images/Tattoos/12.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Lilith — Diablo IV",
   },
   {
     src: "/artist-images/Tattoos/25.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Veiled Mystical Portrait",
   },
   {
     src: "/artist-images/Tattoos/28.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Armored Warrior",
   },
   {
     src: "/artist-images/Tattoos/30.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Anime Character",
   },
   {
     src: "/artist-images/Tattoos/14.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "Attack on Titan — Eren Armband",
   },
   {
     src: "/artist-images/Tattoos/23.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "Lotus Mandala Hand",
   },
   {
     src: "/artist-images/Tattoos/27.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Demon Slayer Character",
   },
   {
     src: "/artist-images/Tattoos/4.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "Jujutsu Kaisen — Toji Fushiguro",
   },
   {
     src: "/artist-images/Tattoos/5.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "Dragon Ball — Super Saiyans",
   },
   {
     src: "/artist-images/Tattoos/11.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "Umbreon — Pokémon",
   },
   {
     src: "/artist-images/Tattoos/20.webp",
     category: "Blackwork",
-    title: "Dark Illustration",
+    title: "One Piece — Monkey D. Luffy",
   },
   {
     src: "/artist-images/Tattoos/24.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Portrait with Cherry Blossoms",
   },
   {
     src: "/artist-images/Tattoos/13.webp",
-    category: "Blackwork",
-    title: "Dark Illustration",
+    category: "Realism",
+    title: "Jujutsu Kaisen — Toji Fushiguro",
+  },
+  {
+    src: "/artist-images/Tattoos/15.webp",
+    category: "Realism",
+    title: "Person & Dog at Sunset",
   },
 ];
 
 // ── Lightbox ─────────────────────────────────────────────────────────
 const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
   const img = images[index];
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") onPrev();
+      else if (e.key === "ArrowRight") onNext();
+      else if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [onClose, onPrev, onNext]);
+
   return createPortal(
     <AnimatePresence>
       <MotionBox
@@ -191,6 +208,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         {/* Close */}
         <Box
           component="button"
+          aria-label="Close image"
           onClick={onClose}
           sx={{
             position: "absolute",
@@ -217,6 +235,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         {/* Prev */}
         <Box
           component="button"
+          aria-label="Previous image"
           onClick={(e) => {
             e.stopPropagation();
             onPrev();
@@ -247,6 +266,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
         {/* Next */}
         <Box
           component="button"
+          aria-label="Next image"
           onClick={(e) => {
             e.stopPropagation();
             onNext();
@@ -314,6 +334,7 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
 // ── Gallery ───────────────────────────────────────────────────────────
 const Gallery = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [shuffledOrder, setShuffledOrder] = useState(() =>
     images.map((_, i) => i),
   );
@@ -489,10 +510,10 @@ const Gallery = () => {
                 textTransform: "uppercase",
               }}
             >
-              Portfolio
+              {t("gallery.label")}
             </Typography>
             <Typography variant="h2" sx={{ fontWeight: 900, lineHeight: 1.05 }}>
-              Some of my work
+              {t("gallery.title")}
             </Typography>
             <Typography
               sx={{
@@ -502,8 +523,7 @@ const Gallery = () => {
                 maxWidth: 480,
               }}
             >
-              A selection of recent tattoos,anime, gaming, original work, and
-              everything in between.
+              {t("gallery.description")}
             </Typography>
           </MotionBox>
 
@@ -534,7 +554,7 @@ const Gallery = () => {
               },
             }}
           >
-            <ShuffleIcon sx={{ fontSize: 16 }} /> Shuffle
+            <ShuffleIcon sx={{ fontSize: 16 }} /> {t("gallery.shuffle")}
           </Box>
         </Box>
 
@@ -621,6 +641,7 @@ const Gallery = () => {
                 component="img"
                 src={f.src}
                 alt=""
+                loading="lazy"
                 sx={{
                   width: "100%",
                   height: "100%",

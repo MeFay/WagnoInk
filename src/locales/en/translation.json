@@ -1,0 +1,207 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "gallery": "Gallery",
+    "blog": "Blog",
+    "info": "Info",
+    "bookNow": "Book Now"
+  },
+  "footer": {
+    "copyright": "© {{year}} Wagno Tattoo. All rights reserved.",
+    "builtBy": "Built by"
+  },
+  "hero": {
+    "location": "Porto, Portugal · Since 2016",
+    "subtitle": "Tattoo Artist",
+    "tagline": "Based mainly in Porto. Let's create something you'll love. Your idea, my craft, together we make it happen.",
+    "cta1": "See my work",
+    "cta2": "Book a consultation",
+    "stat1Label": "Years of experience",
+    "stat3Label": "Custom adapted to you",
+    "scroll": "Scroll"
+  },
+  "featuredWork": {
+    "label": "Featured Work",
+    "title": "Recent\npieces",
+    "description": "A look at some recent tattoos. Want to see more? Head over to the full gallery.",
+    "ghostTitle": "More work in the gallery",
+    "viewAll": "View all"
+  },
+  "artistIntro": {
+    "label": "About me",
+    "bio1": "Born in Brazil, based in Porto. I picked up a machine eight years ago and never looked back. My work lives somewhere between realism and feeling, technically solid, but always built around the person wearing it.",
+    "bio2": "I specialize in anime, gaming, and character tattoos. Whipshading, fine line, and blackwork are where I'm most at home.",
+    "awardLabel": "Award winner",
+    "awardSub": "4 conventions",
+    "readMore": "Read more"
+  },
+  "process": {
+    "watermark": "Process",
+    "label": "How It Works",
+    "title": "From Idea to Ink",
+    "description": "A simple process built around your vision, from first conversation to finished piece.",
+    "step1Title": "Consult",
+    "step1Desc": "We talk through your idea, placement, size, and style. No pressure, just an honest conversation about what'll work best on your skin.",
+    "step2Title": "Design",
+    "step2Desc": "Every piece is drawn from scratch for you. You'll see the design before we ever touch a needle, adjustments welcome.",
+    "step3Title": "Ink",
+    "step3Desc": "Session day. Clean studio, focused work, no rush. Aftercare instructions included so your tattoo heals exactly as it should.",
+    "readyLabel": "Ready to start?",
+    "ctaBtn": "Book a consultation"
+  },
+  "blogSection": {
+    "label": "Insights & Stories",
+    "title": "Latest from the Blog",
+    "description": "Expert advice, tattoo care tips, and stories from the studio.",
+    "viewAll": "View All Posts"
+  },
+  "homeCTA": {
+    "label": "Ready to Begin?",
+    "title": "Every Tattoo Starts\nwith a Conversation.",
+    "description": "Tell me your idea — I'll handle everything from design to ink.",
+    "whatsappBtn": "Open WhatsApp",
+    "infoBtn": "Contact & Info"
+  },
+  "contact": {
+    "introDescription": "Ready to bring your vision to life? Reach out to discuss your next tattoo.",
+    "label": "Get in Touch",
+    "title": "Let's Create\nSomething Amazing",
+    "locationLabel": "Main Studio Location",
+    "phoneLabel": "Phone",
+    "emailLabel": "Email",
+    "instagramLabel": "Instagram",
+    "hoursTitle": "Studio Hours",
+    "mon_fri": "Monday — Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "closed": "Closed",
+    "formTitle": "Send us a Message",
+    "formSubtitle": "Fill out the form below and we'll get back to you within 24 hours.",
+    "nameInput": "Your Name",
+    "emailInput": "Email Address",
+    "phoneInput": "Phone Number (Optional)",
+    "messageInput": "Tell us about your tattoo idea",
+    "errorName": "Name is required.",
+    "errorEmailRequired": "Email is required.",
+    "errorEmailInvalid": "Enter a valid email.",
+    "errorMessage": "Please describe your tattoo idea.",
+    "errorSubmit": "Something went wrong. Please try again or contact us via WhatsApp.",
+    "submitBtn": "Send Message",
+    "successTitle": "Message sent!",
+    "successSubtitle": "We'll get back to you within 24 hours.",
+    "sendAnother": "Send another",
+    "whatsappTitle": "Prefer WhatsApp?",
+    "whatsappDesc": "Chat with us directly for faster responses and instant booking.",
+    "whatsappBtn": "Open WhatsApp"
+  },
+  "gallery": {
+    "label": "Portfolio",
+    "title": "Some of my work",
+    "description": "A selection of recent tattoos, anime, gaming, original work, and everything in between.",
+    "shuffle": "Shuffle",
+    "closeImage": "Close image",
+    "prevImage": "Previous image",
+    "nextImage": "Next image"
+  },
+  "blog": {
+    "label": "Notes from the studio",
+    "title": "The Blog",
+    "description": "Aftercare tips, thoughts on style, and whatever else comes up.",
+    "filterAll": "All",
+    "featured": "Featured",
+    "readArticle": "Read article",
+    "morePosts_one": "{{count}} more post",
+    "morePosts_other": "{{count}} more posts",
+    "noPostsInCategory": "No posts in this category yet.",
+    "backToBlog": "Back to Blog",
+    "readMore": "Read More"
+  },
+  "about": {
+    "subtitle": "Tattoo Artist · Est. 2016",
+    "bio": "Originally from São Luís, Brazil. Started tattooing in late 2017 after moving to Goiânia, where I did my first apprenticeship. Returned to São Luís in 2018, opened my own studio, and spent a few years refining my craft, picked up four convention awards along the way. In 2024 I made the move to Europe, working first in Spain before settling in Porto in early 2025. Now tattooing at Asgard Tattoo Barber Studio in Porto, and sometimes in Spain.",
+    "sectionIntroduction": "Introduction",
+    "sectionWorkExperience": "Work Experience",
+    "sectionTraining": "Training",
+    "sectionContests": "Contests",
+    "workExperienceLabel": "Work Experience",
+    "trainingLabel": "Training",
+    "contestsLabel": "Contests & Awards",
+    "current": "Current",
+    "prizeImagesLabel": "From the conventions"
+  },
+  "info": {
+    "label": "The Details",
+    "title": "Everything You\nNeed to Know",
+    "description": "Locations, booking process, payment, and what to expect, all in one place.",
+    "locationsLabel": "Locations",
+    "locationsTitle": "Where You Can Find Me",
+    "mainStudio": "Main Studio",
+    "comingSoon": "Coming Soon",
+    "guestSpotHours": "Guest spots, message to confirm",
+    "viewMaps": "View on Google Maps →",
+    "portugal": "Portugal",
+    "spain": "Spain",
+    "processLabel": "Process",
+    "processTitle": "How It Works",
+    "steps": {
+      "1": {
+        "title": "Get in touch",
+        "body": "Send a message via WhatsApp or the contact form. Describe your idea, the placement, and your rough size in mind. Photos and references are always welcome."
+      },
+      "2": {
+        "title": "Consultation",
+        "body": "We talk through your concept, style, references, placement, and what works best for your body."
+      },
+      "3": {
+        "title": "Design & Deposit",
+        "body": "A deposit is required to secure your appointment and cover design time. This comes off the final price."
+      },
+      "4": {
+        "title": "Your Session",
+        "body": "Sessions are by appointment only. Bring a snack if you would like, longer pieces may need a break."
+      },
+      "5": {
+        "title": "Aftercare",
+        "body": "Proper aftercare affects how your tattoo heals. Full instructions given at the end of your session."
+      }
+    },
+    "paymentLabel": "Payment",
+    "paymentTitle": "Deposit & Pricing",
+    "paymentCards": {
+      "1": {
+        "title": "Price Discussion",
+        "body": "During the consultation we talk through your piece and agree on a price. Pricing is per project, not per hour, based on size, detail, style, and placement."
+      },
+      "2": {
+        "title": "Upfront Deposit",
+        "body": "Once the price is agreed, a non-refundable deposit is required to confirm the booking. This covers design time and secures your spot. The deposit is deducted from the final total."
+      },
+      "3": {
+        "title": "Final Payment",
+        "body": "The remaining balance is paid on the day, once the tattoo is finished. Cash or bank transfer accepted."
+      }
+    },
+    "beforeAfterLabel": "Preparation & Aftercare",
+    "beforeAfterTitle": "Before & After Your Session",
+    "beforeTitle": "Before Your Session",
+    "afterTitle": "Aftercare",
+    "before": [
+      "Eat a full meal before your appointment",
+      "Stay well hydrated the day before and day of",
+      "Wear clothing that gives easy access to the area",
+      "Avoid alcohol for at least 24 hours beforehand",
+      "Get a good night's sleep",
+      "Shave the area if needed (or ask us to)"
+    ],
+    "after": [
+      "Keep the tattoo clean, wash gently with mild soap",
+      "Apply a thin layer of fragrance-free moisturiser",
+      "Avoid sun exposure and soaking for 2–3 weeks",
+      "Do not scratch, pick, or rub the healing area",
+      "No swimming pools, sea, or saunas during healing",
+      "Reach out if something looks off"
+    ],
+    "floatingLabel": "Portugal · Spain"
+  }
+}

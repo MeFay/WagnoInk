@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { typeScale } from "../styles/theme";
+import { WHATSAPP_URL } from "../config/contact";
+import { useTranslation } from "react-i18next";
 import LanguageIcon from "@mui/icons-material/Language";
 import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
@@ -22,17 +24,17 @@ import { motion } from "framer-motion";
 
 const MotionBox = motion(Box);
 
-const NAV_ITEMS = [
-  { path: "/", label: "Home", icon: HomeIcon },
-  { path: "/about", label: "About", icon: PersonIcon },
-  { path: "/gallery", label: "Gallery", icon: CollectionsIcon },
-  { path: "/blog", label: "Blog", icon: ArticleIcon },
-  { path: "/info", label: "Info", icon: InfoOutlinedIcon },
+const NAV_ITEM_KEYS = [
+  { path: "/", labelKey: "navbar.home", icon: HomeIcon },
+  { path: "/about", labelKey: "navbar.about", icon: PersonIcon },
+  { path: "/gallery", labelKey: "navbar.gallery", icon: CollectionsIcon },
+  { path: "/blog", labelKey: "navbar.blog", icon: ArticleIcon },
+  { path: "/info", labelKey: "navbar.info", icon: InfoOutlinedIcon },
 ];
 
 const LANGUAGES = [
-  { code: "EN", label: "English" },
   { code: "PT", label: "Português" },
+  { code: "EN", label: "English" },
   { code: "ES", label: "Español" },
 ];
 
@@ -40,9 +42,10 @@ const Navbar = () => {
   const theme = useTheme();
   const location = useLocation();
   const nav = theme.navigation;
+  const { t, i18n } = useTranslation();
 
   const [languageAnchor, setLanguageAnchor] = useState(null);
-  const [currentLanguage, setCurrentLanguage] = useState("EN");
+  const currentLanguage = i18n.language?.slice(0, 2).toUpperCase() || "PT";
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -68,6 +71,11 @@ const Navbar = () => {
     transition: "all 0.2s ease",
     cursor: "pointer",
     textDecoration: "none",
+    "&:focus-visible": {
+      outline: "2px solid",
+      outlineColor: "accent.main",
+      outlineOffset: "4px",
+    },
   };
 
   const mobileIconBtn = {
@@ -81,6 +89,11 @@ const Navbar = () => {
     transition: "all 0.2s ease",
     textDecoration: "none",
     cursor: "pointer",
+    "&:focus-visible": {
+      outline: "2px solid",
+      outlineColor: "accent.main",
+      outlineOffset: "4px",
+    },
   };
 
   return (
@@ -131,9 +144,9 @@ const Navbar = () => {
               bgcolor: scrolled ? containerBg : "transparent",
             }}
           >
-            {NAV_ITEMS.map((item, i) => {
+            {NAV_ITEM_KEYS.map((item, i) => {
               const isActive = location.pathname === item.path;
-              const showDividerAfter = i === 0 || i === NAV_ITEMS.length - 1;
+              const showDividerAfter = i === 0 || i === NAV_ITEM_KEYS.length - 1;
               const Icon = item.icon;
               return (
                 <React.Fragment key={item.path}>
@@ -147,7 +160,7 @@ const Navbar = () => {
                     }}
                   >
                     <Icon sx={{ fontSize: "1rem", flexShrink: 0 }} />
-                    {item.label}
+                    {t(item.labelKey)}
                   </Box>
                   {showDividerAfter && (
                     <Box sx={{ width: "1px", height: 20, bgcolor: dividerColor }} />
@@ -161,6 +174,7 @@ const Navbar = () => {
               role="button"
               tabIndex={0}
               onClick={(e) => setLanguageAnchor(e.currentTarget)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLanguageAnchor(e.currentTarget); } }}
               sx={{
                 ...navItemBase,
                 width: 72,
@@ -180,11 +194,11 @@ const Navbar = () => {
           <Box sx={{ display: { xs: "none", lg: "flex" } }}>
             <CustomButton
               size="medium"
-              href="https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem."
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Book Now <ArrowForwardIcon sx={{ fontSize: 18 }} />
+              {t("navbar.bookNow")} <ArrowForwardIcon sx={{ fontSize: 18 }} />
             </CustomButton>
           </Box>
         </Box>
@@ -215,7 +229,7 @@ const Navbar = () => {
         {LANGUAGES.map((lang) => (
           <MenuItem
             key={lang.code}
-            onClick={() => { setCurrentLanguage(lang.code); setLanguageAnchor(null); }}
+            onClick={() => { i18n.changeLanguage(lang.code.toLowerCase()); setLanguageAnchor(null); }}
             selected={currentLanguage === lang.code}
             sx={{
               fontSize: typeScale.caption,
@@ -272,12 +286,12 @@ const Navbar = () => {
             boxShadow: "0 8px 40px rgba(0,0,0,0.7)",
           }}
         >
-          {NAV_ITEMS.map((item, i) => {
+          {NAV_ITEM_KEYS.map((item, i) => {
             const isActive = location.pathname === item.path;
             const Icon = item.icon;
             return (
               <React.Fragment key={item.path}>
-                <Tooltip title={item.label} placement="top" arrow>
+                <Tooltip title={t(item.labelKey)} placement="top" arrow>
                   <Box
                     component={Link}
                     to={item.path}
@@ -305,7 +319,7 @@ const Navbar = () => {
                     )}
                   </Box>
                 </Tooltip>
-                {(i === 0 || i === NAV_ITEMS.length - 1) && (
+                {(i === 0 || i === NAV_ITEM_KEYS.length - 1) && (
                   <Box sx={{ width: "1px", height: 20, bgcolor: dividerColor, mx: 0.5 }} />
                 )}
               </React.Fragment>
@@ -318,6 +332,7 @@ const Navbar = () => {
               role="button"
               tabIndex={0}
               onClick={(e) => setLanguageAnchor(e.currentTarget)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setLanguageAnchor(e.currentTarget); } }}
               sx={{
                 ...mobileIconBtn,
                 color: "white",

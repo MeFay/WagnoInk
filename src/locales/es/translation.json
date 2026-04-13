@@ -115,7 +115,69 @@
     "morePosts_other": "{{count}} artículos más",
     "noPostsInCategory": "Aún no hay artículos en esta categoría.",
     "backToBlog": "Volver al Blog",
-    "readMore": "Leer Más"
+    "readMore": "Leer Más",
+    "category": {
+      "Aftercare": "Cuidados",
+      "Guide": "Guía",
+      "Art & Culture": "Arte y Cultura"
+    }
+  },
+  "blogPosts": {
+    "aftercare": {
+      "title": "La Guía Completa para el Cuidado del Tatuaje",
+      "excerpt": "Todo lo que necesitas saber sobre cómo cuidar tu nuevo tatuaje para que cicatrice perfectamente y conserve su viveza durante años.",
+      "category": "Cuidados",
+      "date": "3 de marzo de 2026",
+      "readTime": "5 min de lectura",
+      "content": [
+        { "type": "paragraph", "text": "Hacerse un tatuaje es solo la mitad del proceso. Cómo lo cuidas en los días y semanas siguientes determina si cicatriza bien, conserva su color y se mantiene nítido durante años. Aquí está todo lo que necesitas saber." },
+        { "type": "heading", "text": "Las primeras 24 horas" },
+        { "type": "paragraph", "text": "Tu artista cubrirá el tatuaje con un vendaje o film. Déjalo puesto el tiempo que te recomiende, normalmente entre 2 y 4 horas, o hasta 24 horas si utilizó una second skin. Al retirarlo, lava la zona suavemente con las manos limpias, agua tibia y jabón sin fragancia. Seca con un papel de cocina limpio, nunca frotes." },
+        { "type": "quote", "text": "Un tatuaje es una herida abierta. Trátalo como tal." },
+        { "type": "heading", "text": "Días 2 a 7: La fase de cicatrización" },
+        { "type": "paragraph", "text": "Aplica una capa fina de hidratante sin fragancia 2 o 3 veces al día. Menos es más, una capa gruesa retiene la humedad y puede causar problemas. El tatuaje empezará a descamarse, lo cual es completamente normal. No lo arranques ni te rasques. Mantenlo alejado de la luz solar directa y evita nadar, los baños de inmersión o cualquier tipo de remojo prolongado." },
+        { "type": "heading", "text": "Qué evitar" },
+        { "type": "paragraph", "text": "La exposición solar es el mayor enemigo de un tatuaje reciente. La radiación UV degrada los pigmentos de la tinta, haciendo que los colores se desvanezcan y los trazos pierdan nitidez. Una vez cicatrizado por completo, aplica siempre SPF 50 antes de exponerte al sol. Evita la ropa ajustada sobre la zona, el ejercicio intenso durante la primera semana y los productos con fragancia o alcohol." },
+        { "type": "paragraph", "text": "Si notas enrojecimiento excesivo, hinchazón o secreción pasados los primeros días, consulta a un médico, aunque las infecciones son poco frecuentes cuando se siguen los cuidados correctamente." }
+      ]
+    },
+    "first-tattoo": {
+      "title": "Cómo Elegir tu Primer Tatuaje",
+      "excerpt": "Una guía para principiantes sobre cómo tomar la decisión correcta para tu primera obra de arte permanente.",
+      "category": "Guía",
+      "date": "1 de marzo de 2026",
+      "readTime": "7 min de lectura",
+      "content": [
+        { "type": "paragraph", "text": "Tu primer tatuaje es una decisión que llevarás para siempre. Eso no es razón para tener miedo, es razón para ser intencional. Así es como debes afrontarlo." },
+        { "type": "heading", "text": "Empieza por el significado, no por la tendencia" },
+        { "type": "paragraph", "text": "Las tendencias van y vienen. Los tatuajes fine line y minimalistas están por todas partes ahora mismo, pero dentro de diez años el panorama será diferente. Pregúntate: ¿esta imagen, símbolo o frase significa algo para mí independientemente de si está de moda? Si la respuesta es sí, es un buen punto de partida." },
+        { "type": "heading", "text": "La ubicación importa tanto como el diseño" },
+        { "type": "paragraph", "text": "Las distintas partes del cuerpo envejecen de forma diferente, se mueven de forma diferente y tienen diferente visibilidad. Un tatuaje en el antebrazo se verá todos los días. Uno en las costillas será prácticamente privado. Piensa cómo encaja la ubicación en tu vida, profesional y personalmente. Ten en cuenta también el dolor: las costillas, los pies y la columna son notoriamente más dolorosos que los brazos o los muslos." },
+        { "type": "quote", "text": "La ubicación correcta convierte un buen tatuaje en uno excelente. La incorrecta hace que un gran diseño sea olvidable.", "author": "Wagno" },
+        { "type": "heading", "text": "Elige al artista adecuado para tu estilo" },
+        { "type": "paragraph", "text": "No todos los artistas dominan todos los estilos. Si quieres realismo, busca un artista cuyo portafolio esté lleno de realismo. Si quieres fine line, busca un especialista. Ver el trabajo más reciente del artista, no su mejor trabajo de hace tres años, te da la imagen más precisa de lo que obtendrás." },
+        { "type": "heading", "text": "Confía en la consulta" },
+        { "type": "paragraph", "text": "Un buen tatuador hará preguntas antes de coger la máquina. Puede que sugiera cambios en tu idea, un tamaño diferente, otra ubicación o una adaptación de estilo que funcione mejor en la piel. No está ignorando tu visión. Es experiencia. Confía en ella." }
+      ]
+    },
+    "tattoo-styles": {
+      "title": "La Evolución de los Estilos de Tatuaje",
+      "excerpt": "Del tradicional al contemporáneo, descubre cómo el arte del tatuaje se ha transformado a lo largo de las décadas.",
+      "category": "Arte y Cultura",
+      "date": "28 de febrero de 2026",
+      "readTime": "6 min de lectura",
+      "content": [
+        { "type": "paragraph", "text": "El tatuaje es una de las formas de arte más antiguas de la historia de la humanidad, con evidencias que se remontan a miles de años. Pero los estilos que reconocemos hoy son en gran medida un producto del último siglo, moldeados por la cultura, la tecnología y una serie de artistas que rompieron fronteras." },
+        { "type": "heading", "text": "Tradicional (Old School)" },
+        { "type": "paragraph", "text": "Contornos en negrita, paletas de colores limitadas e imágenes icónicas: anclas, rosas, águilas, dagas. El tatuaje tradicional llegó a Occidente de la mano de los marineros y fue popularizado por artistas como Norman Collins (Sailor Jerry) a mediados del siglo XX. Su durabilidad proviene de su simplicidad: diseños que envejecen bien porque fueron construidos para durar." },
+        { "type": "heading", "text": "Realismo" },
+        { "type": "paragraph", "text": "El realismo surgió cuando los artistas se propusieron ver hasta qué punto un tatuaje podía replicar una fotografía. Retratos, animales, paisajes, reproducidos con un sombreado meticuloso y sin contornos. Exige dominio técnico y es uno de los estilos más exigentes: no hay dónde esconder la imprecisión." },
+        { "type": "heading", "text": "Fine Line" },
+        { "type": "paragraph", "text": "Un desarrollo relativamente reciente, el tatuaje fine line utiliza técnicas de aguja única para crear diseños delicados e intrincados con tinta mínima. Ha explotado en popularidad en parte porque fotografía de maravilla y resulta elegante en tamaños pequeños. La contrapartida es la longevidad: las líneas finas requieren más cuidado y pueden necesitar retoques con el tiempo." },
+        { "type": "heading", "text": "Hacia dónde se dirige" },
+        { "type": "paragraph", "text": "El panorama actual del tatuaje es una mezcla de todo: artistas que combinan estilos libremente, bebiendo de la ilustración, el diseño gráfico y las bellas artes. Los límites entre estilos se están disolviendo. Lo que importa ahora no es la categoría sino la ejecución: un tatuaje que sea inconfundiblemente el trabajo de un artista específico, realizado con intención y oficio." }
+      ]
+    }
   },
   "about": {
     "subtitle": "Tatuador · Est. 2016",

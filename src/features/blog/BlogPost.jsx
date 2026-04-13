@@ -85,6 +85,16 @@ const BlogPost = () => {
   // Related posts — other posts excluding current
   const related = blogPosts.filter((p) => p.slug !== slug).slice(0, 2);
 
+  const translatedPost = {
+    ...post,
+    title:    t(`blogPosts.${slug}.title`,    { defaultValue: post.title }),
+    excerpt:  t(`blogPosts.${slug}.excerpt`,  { defaultValue: post.excerpt }),
+    category: t(`blogPosts.${slug}.category`, { defaultValue: post.category }),
+    date:     t(`blogPosts.${slug}.date`,     { defaultValue: post.date }),
+    readTime: t(`blogPosts.${slug}.readTime`, { defaultValue: post.readTime }),
+    content:  t(`blogPosts.${slug}.content`,  { returnObjects: true, defaultValue: post.content }),
+  };
+
   return (
     <Box id="page-blog-post" sx={{ minHeight: "100vh", pt: { xs: "88px", md: "96px" }, pb: { xs: 6, md: 8 }, px: { xs: 3, sm: 5, md: 8, lg: 10 } }}>
       <Box sx={{ maxWidth: 760, mx: "auto", display: "flex", flexDirection: "column", gap: { xs: 5, md: 6 } }}>
@@ -118,24 +128,24 @@ const BlogPost = () => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 2, flexWrap: "wrap" }}>
             <Box sx={{ px: 1.5, py: 0.4, borderRadius: 999, bgcolor: alpha(theme.palette.primary.main, 0.15), border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}` }}>
               <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, color: "primary.main", letterSpacing: 1, textTransform: "uppercase" }}>
-                {post.category}
+                {translatedPost.category}
               </Typography>
             </Box>
-            <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary" }}>{post.date}</Typography>
+            <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary" }}>{translatedPost.date}</Typography>
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               <AccessTimeIcon sx={{ fontSize: typeScale.body, color: "text.secondary" }} />
-              <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary" }}>{post.readTime}</Typography>
+              <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary" }}>{translatedPost.readTime}</Typography>
             </Box>
           </Box>
 
           {/* Title */}
           <Typography variant="h1" sx={{ fontSize: { xs: "2rem", md: "2.8rem" }, fontWeight: 900, lineHeight: 1.1 }}>
-            {post.title}
+            {translatedPost.title}
           </Typography>
 
           {/* Excerpt */}
           <Typography sx={{ fontSize: typeScale.body, color: "text.secondary", lineHeight: 1.7, fontStyle: "italic" }}>
-            {post.excerpt}
+            {translatedPost.excerpt}
           </Typography>
         </MotionBox>
 
@@ -147,14 +157,14 @@ const BlogPost = () => {
           <Box
             component="img"
             src={post.coverImage}
-            alt={post.title}
+            alt={translatedPost.title}
             sx={{ width: "100%", display: "block", maxHeight: 480, objectFit: "cover" }}
           />
         </MotionBox>
 
         {/* Content */}
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {post.content.map((block, i) => (
+          {translatedPost.content.map((block, i) => (
             <ContentBlock key={i} block={block} index={i} />
           ))}
         </Box>
@@ -169,7 +179,11 @@ const BlogPost = () => {
               {t("blog.readMore")}
             </Typography>
             <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" }, gap: 3 }}>
-              {related.map((p) => (
+              {related.map((p) => {
+                const relTitle    = t(`blogPosts.${p.slug}.title`,    { defaultValue: p.title });
+                const relCategory = t(`blogPosts.${p.slug}.category`, { defaultValue: p.category });
+                const relDate     = t(`blogPosts.${p.slug}.date`,     { defaultValue: p.date });
+                return (
                 <Box
                   key={p.slug}
                   component={Link}
@@ -188,14 +202,15 @@ const BlogPost = () => {
                     <Box sx={{ width: "100%", height: "100%", backgroundImage: `url(${p.coverImage})`, backgroundSize: "cover", backgroundPosition: "center" }} />
                   </Box>
                   <Typography sx={{ fontSize: typeScale.label, color: "primary.main", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase" }}>
-                    {p.category}
+                    {relCategory}
                   </Typography>
                   <Typography sx={{ fontSize: typeScale.body, fontWeight: 700, color: "white", lineHeight: 1.3 }}>
-                    {p.title}
+                    {relTitle}
                   </Typography>
-                  <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{p.date}</Typography>
+                  <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{relDate}</Typography>
                 </Box>
-              ))}
+                );
+              })}
             </Box>
           </Box>
         )}

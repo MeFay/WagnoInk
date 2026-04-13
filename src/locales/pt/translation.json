@@ -115,7 +115,69 @@
     "morePosts_other": "{{count}} mais artigos",
     "noPostsInCategory": "Ainda não há artigos nesta categoria.",
     "backToBlog": "Voltar ao Blog",
-    "readMore": "Leia Mais"
+    "readMore": "Leia Mais",
+    "category": {
+      "Aftercare": "Pós-Cuidados",
+      "Guide": "Guia",
+      "Art & Culture": "Arte e Cultura"
+    }
+  },
+  "blogPosts": {
+    "aftercare": {
+      "title": "O Guia Completo para os Cuidados com a Tatuagem",
+      "excerpt": "Tudo o que precisas de saber sobre como cuidar da tua nova tatuagem para garantir que cicatriza perfeitamente e mantém a vivacidade durante anos.",
+      "category": "Pós-Cuidados",
+      "date": "3 de março de 2026",
+      "readTime": "5 min de leitura",
+      "content": [
+        { "type": "paragraph", "text": "Fazer uma tatuagem é apenas metade da jornada. A forma como cuidas dela nos dias e semanas seguintes determina se cicatriza bem, mantém a cor e fica nítida durante anos. Aqui está tudo o que precisas de saber." },
+        { "type": "heading", "text": "As primeiras 24 horas" },
+        { "type": "paragraph", "text": "O teu artista vai cobrir a tatuagem com uma ligadura ou película. Deixa-a durante o tempo que ele recomendar, normalmente 2 a 4 horas, ou até 24 horas se usou uma second skin. Quando a retirares, lava a área suavemente com as mãos limpas, água morna e sabão sem perfume. Seca com papel absorvente limpo, nunca esfregues." },
+        { "type": "quote", "text": "Uma tatuagem é uma ferida aberta. Trata-a como tal." },
+        { "type": "heading", "text": "Dias 2 a 7: A fase de cicatrização" },
+        { "type": "paragraph", "text": "Aplica uma camada fina de hidratante sem perfume 2 a 3 vezes por dia. Menos é mais, uma camada espessa retém humidade e pode causar problemas. A tatuagem vai começar a descamar, o que é completamente normal. Não arranques nem coces. Mantém-na fora da luz solar direta e evita nadar, banhos de imersão ou qualquer tipo de molhagem prolongada." },
+        { "type": "heading", "text": "O que evitar" },
+        { "type": "paragraph", "text": "A exposição solar é o maior inimigo de uma tatuagem recente. A radiação UV degrada os pigmentos da tinta, fazendo as cores desbotar e os contornos perderem nitidez. Depois de cicatrizar por completo, aplica sempre SPF 50 antes de te expores ao sol. Evita roupa apertada sobre a área, exercício intenso na primeira semana e produtos com perfume ou álcool." },
+        { "type": "paragraph", "text": "Se notares vermelhidão excessiva, inchaço ou secreção após os primeiros dias, consulta um médico, embora as infeções sejam raras quando os cuidados são seguidos corretamente." }
+      ]
+    },
+    "first-tattoo": {
+      "title": "Como Escolher a Tua Primeira Tatuagem",
+      "excerpt": "Um guia para iniciantes sobre como fazer a escolha certa para a tua primeira obra de arte permanente.",
+      "category": "Guia",
+      "date": "1 de março de 2026",
+      "readTime": "7 min de leitura",
+      "content": [
+        { "type": "paragraph", "text": "A tua primeira tatuagem é uma decisão que vais carregar para sempre. Isso não é razão para ter medo, é razão para ser intencional. Aqui está como abordar essa decisão." },
+        { "type": "heading", "text": "Começa pelo significado, não pela tendência" },
+        { "type": "paragraph", "text": "As tendências vêm e vão. As tatuagens fine line e minimalistas estão em todo o lado agora, mas daqui a dez anos o panorama será diferente. Pergunta a ti mesmo: esta imagem, símbolo ou frase significa algo para mim independentemente de estar na moda? Se sim, é um bom ponto de partida." },
+        { "type": "heading", "text": "A localização importa tanto quanto o design" },
+        { "type": "paragraph", "text": "Diferentes partes do corpo envelhecem de forma diferente, movem-se de forma diferente e têm visibilidade diferente. Uma tatuagem no antebraço será vista todos os dias. Uma nas costelas será praticamente privada. Considera como a localização se encaixa na tua vida, profissional e pessoalmente. Considera também a dor: costelas, pés e coluna são notoriamente mais dolorosos do que braços ou coxas." },
+        { "type": "quote", "text": "A localização certa transforma uma boa tatuagem numa tatuagem excepcional. A errada torna um bom design esquecível.", "author": "Wagno" },
+        { "type": "heading", "text": "Escolhe o artista certo para o teu estilo" },
+        { "type": "paragraph", "text": "Nem todos os artistas trabalham bem todos os estilos. Se queres realismo, procura um artista cujo portfólio esteja cheio de realismo. Se queres fine line, procura um especialista. Olhar para o trabalho mais recente do artista, não para o seu melhor trabalho de há três anos, dá-te a imagem mais precisa do que vais obter." },
+        { "type": "heading", "text": "Confia na consulta" },
+        { "type": "paragraph", "text": "Um bom tatuador fará perguntas antes de pegar na máquina. Pode sugerir alterações à tua ideia, um tamanho diferente, outra localização ou uma adaptação de estilo que funcione melhor na pele. Não está a ignorar a tua visão. É experiência. Confia nela." }
+      ]
+    },
+    "tattoo-styles": {
+      "title": "A Evolução dos Estilos de Tatuagem",
+      "excerpt": "Do tradicional ao contemporâneo, descobre como a arte da tatuagem se transformou ao longo das décadas.",
+      "category": "Arte e Cultura",
+      "date": "28 de fevereiro de 2026",
+      "readTime": "6 min de leitura",
+      "content": [
+        { "type": "paragraph", "text": "A tatuagem é uma das formas de arte mais antigas da história da humanidade, com evidências que remontam a milhares de anos. Mas os estilos que reconhecemos hoje são em grande parte um produto do último século, moldados pela cultura, pela tecnologia e por artistas que empurraram os limites." },
+        { "type": "heading", "text": "Tradicional (Old School)" },
+        { "type": "paragraph", "text": "Contornos a negrito, paletas de cores limitadas e imagens icónicas: âncoras, rosas, águias, punhais. A tatuagem tradicional chegou ao Ocidente com os marinheiros e foi popularizada por artistas como Norman Collins (Sailor Jerry) a meados do século XX. A sua longevidade vem da simplicidade: designs que envelhecem bem porque foram feitos para durar." },
+        { "type": "heading", "text": "Realismo" },
+        { "type": "paragraph", "text": "O realismo surgiu à medida que os artistas tentavam perceber até onde uma tatuagem conseguia replicar uma fotografia. Retratos, animais, paisagens, reproduzidos com sombreado meticuloso e sem contornos. Exige domínio técnico e é um dos estilos mais exigentes: não há onde esconder imprecisões." },
+        { "type": "heading", "text": "Fine Line" },
+        { "type": "paragraph", "text": "Um desenvolvimento relativamente recente, a tatuagem fine line usa técnicas de agulha única para criar designs delicados e intrincados com tinta mínima. Explodiu em popularidade em parte porque fotografa lindamente e parece elegante em tamanhos pequenos. A contrapartida é a longevidade: as linhas finas exigem mais cuidado e podem precisar de retoques ao longo do tempo." },
+        { "type": "heading", "text": "Para onde caminha" },
+        { "type": "paragraph", "text": "O panorama atual da tatuagem é uma mistura de tudo: artistas que combinam estilos livremente, bebendo da ilustração, do design gráfico e das belas artes. As fronteiras entre estilos estão a dissolver-se. O que importa agora não é a categoria, mas a execução: uma tatuagem que seja inconfundivelmente o trabalho de um artista específico, feita com intenção e ofício." }
+      ]
+    }
   },
   "about": {
     "subtitle": "Tatuador · Est. 2016",

@@ -63,7 +63,7 @@ const CategoryFilter = ({ categories, active, onChange }) => {
             "&:hover": { borderColor: "rgba(255,255,255,0.35)", color: "text.primary" },
           }}
         >
-          {cat === ALL ? t("blog.filterAll") : cat}
+          {cat === ALL ? t("blog.filterAll") : t(`blog.category.${cat}`, { defaultValue: cat })}
         </Box>
       ))}
     </Box>
@@ -74,6 +74,11 @@ const CategoryFilter = ({ categories, active, onChange }) => {
 const FeaturedCard = ({ post }) => {
   const theme = useTheme();
   const { t } = useTranslation();
+  const title    = t(`blogPosts.${post.slug}.title`,    { defaultValue: post.title });
+  const excerpt  = t(`blogPosts.${post.slug}.excerpt`,  { defaultValue: post.excerpt });
+  const category = t(`blogPosts.${post.slug}.category`, { defaultValue: post.category });
+  const date     = t(`blogPosts.${post.slug}.date`,     { defaultValue: post.date });
+  const readTime = t(`blogPosts.${post.slug}.readTime`, { defaultValue: post.readTime });
   return (
   <MotionBox
     initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
@@ -95,18 +100,18 @@ const FeaturedCard = ({ post }) => {
             <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, color: "text.secondary", letterSpacing: 2, textTransform: "uppercase" }}>{t("blog.featured")}</Typography>
           </Box>
           <Box sx={{ px: 1.5, py: 0.5, borderRadius: 999, bgcolor: alpha(theme.palette.primary.main, 0.9) }}>
-            <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, color: "text.primary" }}>{post.category}</Typography>
+            <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, color: "text.primary" }}>{category}</Typography>
           </Box>
         </Box>
-        <Typography sx={{ fontSize: { xs: "1.6rem", md: "2rem" }, fontWeight: 900, color: "text.primary", lineHeight: 1.15 }}>{post.title}</Typography>
-        <Typography sx={{ fontSize: typeScale.body, color: "text.secondary", lineHeight: 1.8 }}>{post.excerpt}</Typography>
+        <Typography sx={{ fontSize: { xs: "1.6rem", md: "2rem" }, fontWeight: 900, color: "text.primary", lineHeight: 1.15 }}>{title}</Typography>
+        <Typography sx={{ fontSize: typeScale.body, color: "text.secondary", lineHeight: 1.8 }}>{excerpt}</Typography>
       </Box>
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{post.date}</Typography>
+          <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{date}</Typography>
           <Box sx={{ width: 3, height: 3, borderRadius: "50%", bgcolor: "text.disabled" }} />
           <AccessTimeIcon sx={{ fontSize: typeScale.caption, color: "text.disabled" }} />
-          <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{post.readTime}</Typography>
+          <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{readTime}</Typography>
         </Box>
         <Box sx={{ display: "inline-flex", alignItems: "center", gap: 1, color: "primary.main", fontWeight: 700, fontSize: typeScale.body }}>
           {t("blog.readArticle")}
@@ -115,7 +120,7 @@ const FeaturedCard = ({ post }) => {
       </Box>
     </Box>
     <Box sx={{ position: "relative", overflow: "hidden", height: { xs: 240, md: "auto" }, order: { xs: 1, md: 2 } }}>
-      <Box component="img" src={post.coverImage} alt={post.title} className="feat-img"
+      <Box component="img" src={post.coverImage} alt={title} className="feat-img"
         sx={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", display: "block", transition: "transform 0.8s cubic-bezier(0.4,0,0.2,1)" }}
       />
     </Box>
@@ -126,6 +131,11 @@ const FeaturedCard = ({ post }) => {
 // ── Post card ──────────────────────────────────────────────────────────
 const PostCard = ({ post, index }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
+  const title    = t(`blogPosts.${post.slug}.title`,    { defaultValue: post.title });
+  const excerpt  = t(`blogPosts.${post.slug}.excerpt`,  { defaultValue: post.excerpt });
+  const category = t(`blogPosts.${post.slug}.category`, { defaultValue: post.category });
+  const readTime = t(`blogPosts.${post.slug}.readTime`, { defaultValue: post.readTime });
   return (
   <MotionBox
     initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
@@ -140,22 +150,22 @@ const PostCard = ({ post, index }) => {
     }}
   >
     <Box sx={{ width: { xs: 110, md: "100%" }, height: { xs: "auto", md: 200 }, flexShrink: 0, overflow: "hidden", position: "relative" }}>
-      <Box component="img" src={post.coverImage} alt={post.title} className="card-img"
+      <Box component="img" src={post.coverImage} alt={title} className="card-img"
         sx={{ width: "100%", height: { xs: "100%", md: 200 }, objectFit: "cover", objectPosition: "center", display: "block", transition: "transform 0.7s cubic-bezier(0.4,0,0.2,1)" }}
       />
       <Box sx={{ display: { xs: "none", md: "flex" }, position: "absolute", top: 12, left: 12, px: 1.5, py: 0.4, borderRadius: 999, bgcolor: alpha(theme.palette.primary.main, 0.85), backdropFilter: "blur(8px)" }}>
-        <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, color: "text.primary" }}>{post.category}</Typography>
+        <Typography sx={{ fontSize: typeScale.label, fontWeight: 700, color: "text.primary" }}>{category}</Typography>
       </Box>
     </Box>
     <Box sx={{ p: { xs: 2, md: 3 }, display: "flex", flexDirection: "column", gap: { xs: 1, md: 1.5 }, flexGrow: 1 }}>
       <Typography sx={{ display: { xs: "block", md: "none" }, fontSize: typeScale.label, fontWeight: 700, color: "primary.main", textTransform: "uppercase", letterSpacing: 1 }}>
-        {post.category}
+        {category}
       </Typography>
-      <Typography sx={{ fontSize: typeScale.body, fontWeight: 800, color: "text.primary", lineHeight: 1.25 }}>{post.title}</Typography>
-      <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary", lineHeight: 1.7, display: { xs: "none", md: "block" }, flexGrow: 1 }}>{post.excerpt}</Typography>
+      <Typography sx={{ fontSize: typeScale.body, fontWeight: 800, color: "text.primary", lineHeight: 1.25 }}>{title}</Typography>
+      <Typography sx={{ fontSize: typeScale.caption, color: "text.secondary", lineHeight: 1.7, display: { xs: "none", md: "block" }, flexGrow: 1 }}>{excerpt}</Typography>
       <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: "auto" }}>
         <AccessTimeIcon sx={{ fontSize: typeScale.caption, color: "text.disabled" }} />
-        <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{post.readTime}</Typography>
+        <Typography sx={{ fontSize: typeScale.caption, color: "text.disabled" }}>{readTime}</Typography>
       </Box>
     </Box>
   </MotionBox>

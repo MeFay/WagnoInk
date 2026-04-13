@@ -1,7 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../components/UI/Button";
 import { typeScale } from "../../styles/theme";
@@ -15,12 +14,6 @@ const VIDEO_SRC = "/video/HeroVideoCropped.mp4";
 const HeroSection = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  // React doesn't reliably apply the `muted` boolean attribute to video DOM elements via JSX,
-  // so I set it directly on the element after it mounts using a ref.
-  const videoRef = useRef(null);
-  useEffect(() => {
-    if (videoRef.current) videoRef.current.muted = true;
-  }, []);
 
   const stats = [
     { value: "8+",   label: t("hero.stat1Label") },
@@ -50,7 +43,6 @@ const HeroSection = () => {
           preload="none" means the video won't be downloaded until the page loads — saves bandwidth.
           playsInline is required on iOS to prevent the video from going fullscreen automatically. */}
       <Box
-        ref={videoRef}
         component="video"
         src={VIDEO_SRC}
         autoPlay

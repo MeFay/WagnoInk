@@ -18,9 +18,9 @@ const featuredProjects = [
   },
   {
     title: "Realistic Profile",
-    category: "Leg Tattoo",
-    image: "/artist-images/Tattoos/6.webp",
-    link: "https://www.instagram.com/p/C_TIlKOpS77/",
+    category: "Arm Tattoo",
+    image: "/artist-images/Tattoos/33.webp",
+    link: "https://www.instagram.com/p/DQ6vVAvjPQK/",
   },
 ];
 

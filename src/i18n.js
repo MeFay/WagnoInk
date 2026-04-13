@@ -19,8 +19,9 @@ i18n
     supportedLngs: ["pt", "en", "es"],
     interpolation: { escapeValue: false },
     detection: {
-      // Only read from localStorage — no navigator sniffing.
-      // If nothing is saved, fallbackLng kicks in and defaults to "pt".
+      // I only check localStorage, not the browser's language.
+      // This way the user's language choice stays saved between visits.
+      // If nothing is stored yet, fallbackLng kicks in and defaults to Portuguese.
       order: ["localStorage"],
       lookupLocalStorage: "wagno-lang",
       caches: ["localStorage"],

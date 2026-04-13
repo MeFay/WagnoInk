@@ -1,15 +1,18 @@
+// I define all colours, font sizes, spacing, and component overrides here
+// so they stay consistent across the whole site. Changing a value here updates it everywhere.
 import { createTheme, alpha } from "@mui/material/styles";
 
-const AMBER = "#c8923a";
-const PRIMARY_RED = "#c62828";
+// Brand colours — I keep them as constants so I can reuse them below without repeating the hex
+const AMBER = "#c8923a";           // accent: used for awards, highlights, warm details
+const PRIMARY_RED = "#c62828";     // brand primary: CTAs, active states, glow effects
 const PRIMARY_RED_DARK = "#8e0000";
 
-// Soft off-white — not pure #fff, warmer and easier on the eyes
+// Soft off-white — not pure #fff, slightly warm so it feels less harsh on dark backgrounds
 const SOFT_WHITE = "#e8e4df";
 
 // ── Type scale ────────────────────────────────────────────────────────
-// Single source of truth for all font sizes across the app.
-// Import { typeScale } from "styles/theme" and use in sx={{ fontSize: typeScale.X }}
+// I centralise all font sizes here instead of hardcoding px values in each component.
+// Usage: import { typeScale } from "styles/theme" then sx={{ fontSize: typeScale.body }}
 export const typeScale = {
   label:   "0.6875rem",               // overlines, badges, micro labels (11px)
   caption: "0.75rem",                 // meta, dates, chips, links (12px)
@@ -146,7 +149,8 @@ let theme = createTheme({
 });
 
 // ── Responsive typography overrides ──────────────────────────────────
-// Applied in a second pass so we can reference theme.breakpoints.
+// I apply these in a second pass because the first createTheme call needs to finish
+// before I can reference theme.breakpoints inside the overrides.
 theme = createTheme(theme, {
   components: {
     MuiTypography: {

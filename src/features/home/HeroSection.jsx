@@ -38,7 +38,10 @@ const HeroSection = () => {
         },
       }}
     >
-      {/* Video background */}
+      {/* objectFit: cover makes the video always fill the full screen without stretching,
+          regardless of the screen size or aspect ratio.
+          preload="none" means the video won't be downloaded until the page loads — saves bandwidth.
+          playsInline is required on iOS to prevent the video from going fullscreen automatically. */}
       <Box
         component="video"
         src={VIDEO_SRC}
@@ -59,7 +62,8 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Overlay */}
+      {/* Gradient overlay — darkens the top and bottom of the video
+          so the navbar and page content below don't clash with the footage */}
       <Box
         sx={{
           position: "absolute",
@@ -75,7 +79,8 @@ const HeroSection = () => {
         }}
       />
 
-      {/* Main content */}
+      {/* Each child inside here has a different delay on its animation,
+          so the location label, name, tagline, and buttons appear one after another */}
       <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -94,7 +99,6 @@ const HeroSection = () => {
           maxWidth: 960,
         }}
       >
-        {/* Overline */}
         <MotionTypography
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -110,7 +114,6 @@ const HeroSection = () => {
           {t("hero.location")}
         </MotionTypography>
 
-        {/* Main heading */}
         <MotionBox
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -144,7 +147,6 @@ const HeroSection = () => {
           </Typography>
         </MotionBox>
 
-        {/* Tagline */}
         <MotionTypography
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -160,7 +162,6 @@ const HeroSection = () => {
           {t("hero.tagline")}
         </MotionTypography>
 
-        {/* CTAs */}
         <MotionBox
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -185,7 +186,6 @@ const HeroSection = () => {
           </CustomButton>
         </MotionBox>
 
-        {/* Stats */}
         <MotionBox
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -233,7 +233,8 @@ const HeroSection = () => {
         </MotionBox>
       </MotionBox>
 
-      {/* Scroll indicator */}
+      {/* Animated line that pulses up and down to hint the user can scroll.
+          The @keyframes animation is defined in the parent Box's sx above. */}
       <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

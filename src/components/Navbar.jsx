@@ -98,7 +98,6 @@ const Navbar = () => {
 
   return (
     <>
-      {/* ── Fixed top navbar ──────────────────────────────────────── */}
       <Box
         component="nav"
         sx={{
@@ -117,7 +116,6 @@ const Navbar = () => {
         }}
       >
         <Box display="flex" alignItems="center" justifyContent="space-between" width="100%" maxWidth={1400} mx="auto">
-          {/* Logo */}
           <Typography
             component={Link}
             to="/"
@@ -133,7 +131,6 @@ const Navbar = () => {
             Wagno Ink
           </Typography>
 
-          {/* Desktop nav */}
           <Box
             sx={{
               display: { xs: "none", lg: "flex" },
@@ -169,7 +166,8 @@ const Navbar = () => {
               );
             })}
 
-            {/* Language selector */}
+            {/* I added keyboard support here so the language menu can be opened
+                with Enter or Space, not just a mouse click — for accessibility */}
             <Box
               role="button"
               tabIndex={0}
@@ -190,7 +188,6 @@ const Navbar = () => {
             </Box>
           </Box>
 
-          {/* Desktop Book Now */}
           <Box sx={{ display: { xs: "none", lg: "flex" } }}>
             <CustomButton
               size="medium"
@@ -204,7 +201,6 @@ const Navbar = () => {
         </Box>
       </Box>
 
-      {/* ── Language menu ────────────────────────────────────────── */}
       <Menu
         anchorEl={languageAnchor}
         open={Boolean(languageAnchor)}
@@ -254,7 +250,7 @@ const Navbar = () => {
         ))}
       </Menu>
 
-      {/* ── Mobile bottom pill nav ────────────────────────────────── */}
+      {/* On mobile, the navbar moves to the bottom of the screen as a floating pill */}
       <Box
         sx={{
           display: { xs: "flex", lg: "none" },
@@ -326,7 +322,7 @@ const Navbar = () => {
             );
           })}
 
-          {/* Language icon */}
+          {/* Same keyboard support as the desktop language button */}
           <Tooltip title={currentLanguage} placement="top" arrow>
             <Box
               role="button"

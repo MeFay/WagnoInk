@@ -9,7 +9,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import HealingIcon from "@mui/icons-material/Healing";
 import { useTranslation } from "react-i18next";
-import ContactSection from "../home/ContactForm";
+import ContactSection from "./ContactForm";
 import { typeScale } from "../../styles/theme";
 
 const MotionBox = motion(Box);
@@ -21,14 +21,15 @@ const fade = (delay = 0) => ({
   viewport: { once: true },
 });
 
-// ── Static location data (addresses & URLs don't need translation) ─────
+// Addresses and map URLs are static — they don't change per language,
+// so I keep them here instead of in the translation files.
 const LOCATION_DATA = [
   {
     city: "Rio Tinto, Porto",
     countryKey: "info.portugal",
-    address: "Rua de Santa Catarina, Porto",
-    mapsUrl: "#",
-    hours: "Mon - Sat 9:30–20:00",
+    address: "Av. Dr. Domingos Gonçalves de Sá 286, 4435-213 Rio Tinto",
+    mapsUrl: "https://share.google/WFAZXwRfQZXlClhF8",
+    hours: "Mon - Sat 09:30 – 20:00",
     main: true,
   },
   {
@@ -50,8 +51,6 @@ const LOCATION_DATA = [
 ];
 
 const STEP_ICONS = [ChatIcon, PaletteIcon, PaymentsIcon, EventAvailableIcon, HealingIcon];
-
-// ── Sub-components ────────────────────────────────────────────────────
 
 const SectionLabel = ({ children }) => (
   <Typography
@@ -82,8 +81,8 @@ const Card = ({ children, sx = {} }) => (
   </Box>
 );
 
-// ── Header decoration — floating rings ────────────────────────────────
-
+// I extracted the animated rings into their own component to keep the main Info component clean.
+// It's only rendered on desktop (display: none on mobile) since the animation is decorative.
 const HeaderDecoration = () => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -98,7 +97,6 @@ const HeaderDecoration = () => {
         justifyContent: "center",
       }}
     >
-      {/* Outer slow-rotating ring */}
       <MotionBox
         animate={{ rotate: 360 }}
         transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
@@ -111,7 +109,6 @@ const HeaderDecoration = () => {
         }}
       />
 
-      {/* Middle counter-rotating ring */}
       <MotionBox
         animate={{ rotate: -360 }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
@@ -124,7 +121,6 @@ const HeaderDecoration = () => {
         }}
       />
 
-      {/* Inner pulsing ring */}
       <MotionBox
         animate={{ scale: [1, 1.06, 1], opacity: [0.4, 0.7, 0.4] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
@@ -137,7 +133,7 @@ const HeaderDecoration = () => {
         }}
       />
 
-      {/* Orbiting amber dot on outer ring */}
+      {/* I wrap the dot inside a rotating box so it orbits along the ring's path */}
       <MotionBox
         animate={{ rotate: 360 }}
         transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
@@ -163,7 +159,6 @@ const HeaderDecoration = () => {
         />
       </MotionBox>
 
-      {/* Orbiting red dot on middle ring */}
       <MotionBox
         animate={{ rotate: -360 }}
         transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
@@ -189,7 +184,6 @@ const HeaderDecoration = () => {
         />
       </MotionBox>
 
-      {/* Center glow */}
       <MotionBox
         animate={{ opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -202,7 +196,6 @@ const HeaderDecoration = () => {
         }}
       />
 
-      {/* Center dot */}
       <Box
         sx={{
           position: "absolute",
@@ -214,7 +207,6 @@ const HeaderDecoration = () => {
         }}
       />
 
-      {/* Floating label */}
       <MotionBox
         animate={{ y: [-4, 4, -4] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
@@ -245,15 +237,14 @@ const HeaderDecoration = () => {
   );
 };
 
-// ── Page ─────────────────────────────────────────────────────────────
-
 const Info = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const px = { xs: 3, sm: 5, md: 8, lg: 10 };
   const sectionGap = { xs: 6, md: 8 };
 
-  // Build translated data inside component
+  // returnObjects: true tells i18next to return the full array from the translation file
+  // instead of a joined string — needed because these are lists of bullet points.
   const BEFORE = t("info.before", { returnObjects: true });
   const AFTER = t("info.after", { returnObjects: true });
 
@@ -262,7 +253,6 @@ const Info = () => {
       id="page-info"
       sx={{ minHeight: "100vh", pt: { xs: "88px", md: "96px" }, px }}
     >
-      {/* ── Header ──────────────────────────────────────────────────── */}
       <Box
         id="info-header"
         sx={{
@@ -313,7 +303,6 @@ const Info = () => {
         </Box>
       </Box>
 
-      {/* ── Locations ───────────────────────────────────────────────── */}
       <Box
         id="info-locations"
         sx={{ py: sectionGap, maxWidth: 1400, mx: "auto" }}
@@ -415,7 +404,12 @@ const Info = () => {
                 )}
 
                 <Box
-                  sx={{ display: "flex", flexDirection: "column", gap: 2.5 }}
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2.5,
+                    pt: (loc.main || loc.comingSoon) ? 3 : 0,
+                  }}
                 >
                   <Box
                     sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}
@@ -513,7 +507,6 @@ const Info = () => {
         </Box>
       </Box>
 
-      {/* ── How It Works ────────────────────────────────────────────── */}
       <Box
         id="info-how-it-works"
         sx={{ py: sectionGap, maxWidth: 1400, mx: "auto" }}
@@ -620,7 +613,6 @@ const Info = () => {
         </Box>
       </Box>
 
-      {/* ── Payment ─────────────────────────────────────────────────── */}
       <Box
         id="info-payment"
         sx={{ py: sectionGap, maxWidth: 1400, mx: "auto" }}
@@ -694,7 +686,6 @@ const Info = () => {
         </Box>
       </Box>
 
-      {/* ── Before & After ──────────────────────────────────────────── */}
       <Box
         id="info-before-after"
         sx={{ py: sectionGap, maxWidth: 1400, mx: "auto" }}
@@ -724,7 +715,6 @@ const Info = () => {
             gap: { xs: 3, md: 4 },
           }}
         >
-          {/* Before */}
           <MotionBox {...fade(0)}>
             <Card
               sx={{
@@ -773,7 +763,6 @@ const Info = () => {
             </Card>
           </MotionBox>
 
-          {/* After */}
           <MotionBox {...fade(0.1)}>
             <Card
               sx={{
@@ -824,7 +813,6 @@ const Info = () => {
         </Box>
       </Box>
 
-      {/* ── Contact ─────────────────────────────────────────────────── */}
       <ContactSection
         id="info-contact"
         sx={{ px: 0 }}

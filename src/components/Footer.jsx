@@ -19,6 +19,7 @@ const navLinks = [
 const Footer = () => {
   const theme = useTheme();
   const { t } = useTranslation();
+  // behavior: "smooth" makes it animate instead of jumping instantly
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const socialLinks = [

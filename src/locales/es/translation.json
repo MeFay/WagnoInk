@@ -14,7 +14,7 @@
   "hero": {
     "location": "Oporto, Portugal · Desde 2016",
     "subtitle": "Tatuador",
-    "tagline": "Afincado principalmente en Oporto. Vamos a crear algo que vas a amar. Tu idea, mi oficio — juntos lo hacemos posible.",
+    "tagline": "Afincado principalmente en Oporto. Vamos a crear algo que vas a amar. Tu idea, mi oficio, juntos lo hacemos posible.",
     "cta1": "Ver mi trabajo",
     "cta2": "Reservar una consulta",
     "stat1Label": "Años de experiencia",
@@ -30,7 +30,7 @@
   },
   "artistIntro": {
     "label": "Sobre mí",
-    "bio1": "Nacido en Brasil, afincado en Oporto. Empecé a tatuar hace ocho años y nunca miré atrás. Mi trabajo vive entre el realismo y el sentimiento — técnicamente sólido, pero siempre construido alrededor de quien lo lleva.",
+    "bio1": "Nacido en Brasil, afincado en Oporto. Empecé a tatuar hace ocho años y nunca miré atrás. Mi trabajo vive entre el realismo y el sentimiento, técnicamente sólido, pero siempre construido alrededor de quien lo lleva.",
     "bio2": "Me especializo en tatuajes de anime, gaming y personajes. El whipshading, el fine line y el blackwork son donde me siento más a gusto.",
     "awardLabel": "Premiado",
     "awardSub": "4 convenciones",
@@ -40,11 +40,11 @@
     "watermark": "Proceso",
     "label": "Cómo Funciona",
     "title": "De la Idea a la Tinta",
-    "description": "Un proceso sencillo construido alrededor de tu visión — desde la primera conversación hasta la pieza terminada.",
+    "description": "Un proceso sencillo construido alrededor de tu visión, desde la primera conversación hasta la pieza terminada.",
     "step1Title": "Consulta",
     "step1Desc": "Hablamos de tu idea, la ubicación, el tamaño y el estilo. Sin presión, solo una conversación honesta sobre qué funcionará mejor en tu piel.",
     "step2Title": "Diseño",
-    "step2Desc": "Cada pieza se dibuja desde cero para ti. Verás el diseño antes de que toquemos una aguja — los ajustes son bienvenidos.",
+    "step2Desc": "Cada pieza se dibuja desde cero para ti. Verás el diseño antes de que toquemos una aguja, los ajustes son bienvenidos.",
     "step3Title": "Tinta",
     "step3Desc": "Día de sesión. Estudio limpio, trabajo concentrado, sin prisa. Instrucciones de cuidado incluidas para que tu tatuaje sane exactamente como debe.",
     "readyLabel": "¿Listo para empezar?",
@@ -59,7 +59,7 @@
   "homeCTA": {
     "label": "¿Listo para Empezar?",
     "title": "Cada Tatuaje Comienza\ncon una Conversación.",
-    "description": "Cuéntame tu idea — yo me encargo de todo, del diseño a la tinta.",
+    "description": "Cuéntame tu idea, yo me encargo de todo, del diseño a la tinta.",
     "whatsappBtn": "Abrir WhatsApp",
     "infoBtn": "Contacto e Info"
   },
@@ -98,7 +98,7 @@
   "gallery": {
     "label": "Portafolio",
     "title": "Algunos de mis trabajos",
-    "description": "Una selección de tatuajes recientes — anime, gaming, trabajos originales y todo lo que hay entre medias.",
+    "description": "Una selección de tatuajes recientes, anime, gaming, trabajos originales y todo lo que hay entre medias.",
     "shuffle": "Mezclar",
     "closeImage": "Cerrar imagen",
     "prevImage": "Imagen anterior",
@@ -119,7 +119,7 @@
   },
   "about": {
     "subtitle": "Tatuador · Est. 2016",
-    "bio": "Oriundo de São Luís, Brasil. Empecé a tatuar a finales de 2017 tras mudarme a Goiânia, donde hice mi primer aprendizaje. Regresé a São Luís en 2018, abrí mi propio estudio y pasé varios años perfeccionando mi arte — ganando cuatro premios en convenciones por el camino. En 2024 me mudé a Europa, trabajando primero en España antes de establecerme en Oporto a principios de 2025. Actualmente tatúo en el Asgard Tattoo Barber Studio en Oporto, y ocasionalmente en España.",
+    "bio": "Oriundo de São Luís, Brasil. Empecé a tatuar a finales de 2017 tras mudarme a Goiânia, donde hice mi primer aprendizaje. Regresé a São Luís en 2018, abrí mi propio estudio y pasé varios años perfeccionando mi arte, ganando cuatro premios en convenciones por el camino. En 2024 me mudé a Europa, trabajando primero en España antes de establecerme en Oporto a principios de 2025. Actualmente tatúo en el Asgard Tattoo Barber Studio en Oporto, y ocasionalmente en España.",
     "sectionIntroduction": "Introducción",
     "sectionWorkExperience": "Experiencia",
     "sectionTraining": "Formación",
@@ -133,7 +133,7 @@
   "info": {
     "label": "Los Detalles",
     "title": "Todo lo Que\nNecesitas Saber",
-    "description": "Ubicaciones, proceso de reserva, pago y qué esperar — todo en un solo lugar.",
+    "description": "Ubicaciones, proceso de reserva, pago y qué esperar, todo en un solo lugar.",
     "locationsLabel": "Ubicaciones",
     "locationsTitle": "Dónde Puedes Encontrarme",
     "mainStudio": "Estudio Principal",
@@ -159,7 +159,7 @@
       },
       "4": {
         "title": "Tu Sesión",
-        "body": "Las sesiones son solo con cita previa. Trae un snack si quieres — las piezas largas pueden necesitar un descanso."
+        "body": "Las sesiones son solo con cita previa. Trae un snack si quieres, las piezas largas pueden necesitar un descanso."
       },
       "5": {
         "title": "Cuidados",

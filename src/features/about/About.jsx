@@ -19,7 +19,8 @@ import {
 
 const MotionBox = motion(Box);
 
-// Map icon components onto the data (icons can't be serialised in a .js data file)
+// Icons are React components — they can't be stored in a plain .js data file.
+// So I keep the data file clean and inject the icon components here by matching on the label name.
 const ICON_MAP = {
   Instagram: InstagramIcon,
   WhatsApp: WhatsAppIcon,
@@ -34,7 +35,8 @@ const SECTION_LABEL_KEYS = {
   "contests": "about.sectionContests",
 };
 
-// ── Sidebar ──────────────────────────────────────────────────────────
+// SidebarNav highlights whichever section is currently visible on screen.
+// It receives activeSection as a prop and the parent updates it via IntersectionObserver.
 const SidebarNav = ({ activeSection }) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -104,7 +106,6 @@ const TrackedSection = ({ id, children }) => (
   </Box>
 );
 
-// Section label — amber line + amber cap text (matches home sections)
 const SectionLabel = ({ children }) => {
   const theme = useTheme();
   return (
@@ -138,7 +139,6 @@ const Divider = () => (
   />
 );
 
-// ── Page ─────────────────────────────────────────────────────────────
 const About = () => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -146,6 +146,10 @@ const About = () => {
   const RED = theme.palette.primary.main;
   const [activeSection, setActiveSection] = useState("introduction");
 
+  // IntersectionObserver fires a callback whenever a section enters or leaves the viewport.
+  // I use rootMargin to shrink the detection zone so a section is only "active" when
+  // it's clearly visible in the middle of the screen, not just barely peeking in.
+  // The cleanup function (return) disconnects all observers when the component unmounts.
   useEffect(() => {
     const observers = SECTIONS.map(({ id }) => {
       const el = document.getElementById(id);
@@ -193,7 +197,6 @@ const About = () => {
             minWidth: 0,
           }}
         >
-          {/* ── INTRODUCTION ─────────────────────────────────── */}
           <TrackedSection id="introduction">
             <MotionBox
               initial={{ opacity: 0, y: 24 }}
@@ -201,7 +204,6 @@ const About = () => {
               transition={{ duration: 0.7 }}
               sx={{ display: "flex", flexDirection: "column", gap: 5 }}
             >
-              {/* ── Top row: circular photo + identity ── */}
               <Box
                 sx={{
                   display: "flex",
@@ -210,7 +212,6 @@ const About = () => {
                   alignItems: { sm: "flex-start" },
                 }}
               >
-                {/* Circular photo + location label underneath */}
                 <Box
                   sx={{
                     display: "flex",
@@ -220,7 +221,6 @@ const About = () => {
                     flexShrink: 0,
                   }}
                 >
-                  {/* Outer ring — decorative amber accent */}
                   <Box
                     sx={{
                       position: "relative",
@@ -228,7 +228,6 @@ const About = () => {
                       height: { xs: 160, sm: 200 },
                     }}
                   >
-                    {/* Soft glow behind */}
                     <Box
                       sx={{
                         position: "absolute",
@@ -239,7 +238,6 @@ const About = () => {
                         pointerEvents: "none",
                       }}
                     />
-                    {/* Photo */}
                     <Box
                       role="img"
                       aria-label="Wagno — tattoo artist"
@@ -259,7 +257,6 @@ const About = () => {
                         zIndex: 1,
                       }}
                     />
-                    {/* Small amber dot accent */}
                     <Box
                       sx={{
                         position: "absolute",
@@ -290,7 +287,6 @@ const About = () => {
                   </Box>
                 </Box>
 
-                {/* Identity: name, title, socials */}
                 <Box
                   sx={{
                     display: "flex",
@@ -358,7 +354,6 @@ const About = () => {
                 </Box>
               </Box>
 
-              {/* ── Bio — full width below ── */}
               <MotionBox
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -379,11 +374,9 @@ const About = () => {
 
           <Divider />
 
-          {/* ── WORK EXPERIENCE ──────────────────────────────── */}
           <TrackedSection id="work-experience">
             <SectionLabel>{t("about.workExperienceLabel")}</SectionLabel>
 
-            {/* Timeline wrapper — vertical line on the left */}
             <Box
               sx={{
                 position: "relative",
@@ -392,7 +385,7 @@ const About = () => {
                 gap: 0,
               }}
             >
-              {/* The continuous vertical line */}
+              {/* Vertical line running through all timeline entries */}
               <Box
                 sx={{
                   position: "absolute",
@@ -418,7 +411,6 @@ const About = () => {
                     pb: i < workExperience.length - 1 ? { xs: 4, md: 6 } : 0,
                   }}
                 >
-                  {/* Left — dot + line */}
                   <Box
                     sx={{
                       display: "flex",
@@ -428,7 +420,7 @@ const About = () => {
                       zIndex: 1,
                     }}
                   >
-                    {/* Dot — red for current, white outline for past */}
+                    {/* Amber glow for the current job, plain white outline for past ones */}
                     <Box
                       sx={{
                         width: { xs: 13, sm: 15 },
@@ -450,7 +442,6 @@ const About = () => {
                     />
                   </Box>
 
-                  {/* Right — content */}
                   <Box
                     sx={{
                       display: "flex",
@@ -460,7 +451,6 @@ const About = () => {
                       minWidth: 0,
                     }}
                   >
-                    {/* Period + location — above the title */}
                     <Box
                       sx={{
                         display: "flex",
@@ -513,7 +503,6 @@ const About = () => {
                       </Typography>
                     </Box>
 
-                    {/* Studio + role */}
                     <Box
                       sx={{
                         display: "flex",
@@ -544,7 +533,6 @@ const About = () => {
                       </Typography>
                     </Box>
 
-                    {/* Highlights */}
                     <Box
                       sx={{ display: "flex", flexDirection: "column", gap: 1 }}
                     >
@@ -587,11 +575,9 @@ const About = () => {
 
           <Divider />
 
-          {/* ── TRAINING ─────────────────────────────────────── */}
           <TrackedSection id="training">
             <SectionLabel>{t("about.trainingLabel")}</SectionLabel>
 
-            {/* Same timeline layout as Work Experience */}
             <Box
               sx={{
                 position: "relative",
@@ -718,7 +704,6 @@ const About = () => {
 
           <Divider />
 
-          {/* ── CONTESTS ─────────────────────────────────────── */}
           <TrackedSection id="contests">
             <SectionLabel>{t("about.contestsLabel")}</SectionLabel>
 
@@ -829,9 +814,7 @@ const About = () => {
               })}
             </Box>
 
-            {/* ── Prize photos — asymmetric grid ── */}
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-              {/* Label */}
               <Typography
                 sx={{
                   fontSize: 11,
@@ -844,7 +827,7 @@ const About = () => {
                 {t("about.prizeImagesLabel")}
               </Typography>
 
-              {/* Grid: large left + two stacked right */}
+              {/* Asymmetric grid: 1 large image on the left spanning 2 rows, 2 smaller ones stacked on the right */}
               <Box
                 sx={{
                   display: "grid",
@@ -855,7 +838,6 @@ const About = () => {
                   isolation: "isolate",
                 }}
               >
-                {/* Large featured image */}
                 <MotionBox
                   initial={{ opacity: 0, scale: 0.97 }}
                   whileInView={{ opacity: 1, scale: 1 }}
@@ -926,7 +908,6 @@ const About = () => {
                   </Box>
                 </MotionBox>
 
-                {/* Two smaller images stacked */}
                 {prizeImages.slice(1).map((img, i) => (
                   <MotionBox
                     key={img.src}

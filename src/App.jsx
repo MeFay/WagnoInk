@@ -4,7 +4,8 @@ import { AnimatePresence, motion, MotionConfig } from "framer-motion";
 import { Box } from "@mui/material";
 import Layout from "./components/Layout";
 
-// Route-level code splitting — each page loads only when first visited
+// I lazy-load each page so the browser only downloads the code it needs when that route is first visited.
+// This keeps the initial bundle small and makes the site faster to load.
 const Home    = lazy(() => import("./features/home/Home"));
 const About   = lazy(() => import("./features/about/About"));
 const Blog    = lazy(() => import("./features/blog/Blog"));
@@ -12,7 +13,8 @@ const BlogPost = lazy(() => import("./features/blog/BlogPost"));
 const Gallery = lazy(() => import("./features/gallery/Gallery"));
 const Info    = lazy(() => import("./features/info/Info"));
 
-// Invisible fallback — matches site background so there's no flash
+// While a lazy page is loading, I show a blank box that matches the site background.
+// This prevents a white flash before the page appears.
 const PageLoader = () => (
   <Box sx={{ minHeight: "100vh", bgcolor: "#0a0a0a" }} />
 );
@@ -29,7 +31,8 @@ const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Update page title for SEO — falls back to the default set in index.html
+    // I update the page title on every navigation so each route has its own title for SEO.
+    // If a route isn't in the map, it falls back to the home title.
     const title = PAGE_TITLES[pathname] ?? PAGE_TITLES["/"];
     document.title = title;
   }, [pathname]);
@@ -72,8 +75,8 @@ const AnimatedRoutes = () => {
 
 function App() {
   return (
-    // reducedMotion="user" reads prefers-reduced-motion and disables
-    // all Framer Motion animations automatically for users who need it
+    {/* reducedMotion="user" tells Framer Motion to read the user's OS accessibility setting.
+        If they have "reduce motion" turned on in their device, all animations are disabled automatically. */}
     <MotionConfig reducedMotion="user">
       <BrowserRouter>
         <ScrollToTop />

@@ -1,19 +1,19 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// blog.data.js
+// To add a new blog post, copy one of the objects below and paste it at the TOP of the array.
+// The first post in the array is always shown as the featured post on the blog page.
 //
-// HOW TO ADD A NEW POST:
-// 1. Copy one of the objects below and paste it at the TOP of the array
-// 2. Fill in: title, slug (url-friendly, no spaces), date, readTime,
-//    category, excerpt, coverImage, and content
-// 3. Save the file and redeploy
-//
-// CONTENT FORMAT:
-// content is an array of blocks. Each block has a type:
-//   { type: "paragraph", text: "..." }
-//   { type: "heading", text: "..." }
-//   { type: "image", src: "/path/to/image.jpg", caption: "Optional caption" }
-//   { type: "quote", text: "...", author: "Optional author" }
-// ─────────────────────────────────────────────────────────────────────────────
+// Fields to fill in:
+//   title       — the post title
+//   slug        — url-friendly id, no spaces (e.g. "aftercare", "my-first-tattoo")
+//   date        — display date string (e.g. "March 03, 2026")
+//   readTime    — estimated read time (e.g. "5 min read")
+//   category    — used for the filter buttons on the blog page
+//   excerpt     — short summary shown on the blog listing card
+//   coverImage  — path to the cover photo in /public
+//   content     — array of content blocks, each with a "type":
+//     { type: "paragraph", text: "..." }
+//     { type: "heading",   text: "..." }
+//     { type: "image",     src: "/path/to/image.jpg", caption: "Optional" }
+//     { type: "quote",     text: "...", author: "Optional" }
 
 export const blogPosts = [
   {

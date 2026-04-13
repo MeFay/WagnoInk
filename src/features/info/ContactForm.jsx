@@ -26,6 +26,8 @@ import {
 
 const MotionBox = motion(Box);
 
+// I use EmailJS to send emails directly from the browser — no backend or server needed.
+// The keys are stored in .env (VITE_EMAILJS_*) so they're not exposed in the source code.
 const INITIAL_FORM = { name: "", email: "", phone: "", message: "" };
 
 const ContactSection = ({ sx, innerSx }) => {
@@ -33,18 +35,19 @@ const ContactSection = ({ sx, innerSx }) => {
   const { t } = useTranslation();
   const [form, setForm] = useState(INITIAL_FORM);
   const [errors, setErrors] = useState({});
+  // status controls what the form shows: the form itself, a loading spinner, a success message, or an error
   const [status, setStatus] = useState("idle"); // "idle" | "loading" | "success" | "error"
 
   const contactInfo = [
-    { icon: LocationOnIcon, label: t("contact.locationLabel"), value: "Porto, Portugal", link: MAPS_URL },
-    { icon: PhoneIcon, label: t("contact.phoneLabel"), value: CONTACT_PHONE, link: CONTACT_PHONE_LINK },
-    { icon: EmailIcon, label: t("contact.emailLabel"), value: CONTACT_EMAIL, link: `mailto:${CONTACT_EMAIL}` },
-    { icon: InstagramIcon, label: t("contact.instagramLabel"), value: "@wagno.ink", link: INSTAGRAM_URL },
+    { icon: LocationOnIcon, label: t("contact.locationLabel"), value: "Porto, Portugal", link: MAPS_URL,           color: theme.palette.text.secondary, hoverColor: theme.palette.primary.main },
+    { icon: PhoneIcon,      label: t("contact.phoneLabel"),    value: CONTACT_PHONE,     link: CONTACT_PHONE_LINK, color: theme.palette.text.secondary, hoverColor: theme.palette.whatsapp.main },
+    { icon: EmailIcon,      label: t("contact.emailLabel"),    value: CONTACT_EMAIL,     link: `mailto:${CONTACT_EMAIL}`, color: theme.palette.text.secondary, hoverColor: theme.palette.accent.main },
+    { icon: InstagramIcon,  label: t("contact.instagramLabel"),value: "@wagno.ink",      link: INSTAGRAM_URL,      color: theme.palette.text.secondary, hoverColor: theme.palette.instagram.main },
   ];
 
   const studioHours = [
-    { day: t("contact.mon_fri"), hours: "10:00 AM - 7:00 PM" },
-    { day: t("contact.saturday"), hours: "11:00 AM - 6:00 PM" },
+    { day: t("contact.mon_fri"), hours: "09:30 AM - 8:00 PM" },
+    { day: t("contact.saturday"), hours: "09:30 AM - 8:00 PM" },
     { day: t("contact.sunday"), hours: t("contact.closed") },
   ];
 
@@ -62,7 +65,7 @@ const ContactSection = ({ sx, innerSx }) => {
     const next = {};
     if (!form.name.trim()) next.name = t("contact.errorName");
     if (!form.email.trim()) next.email = t("contact.errorEmailRequired");
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = t("contact.errorEmailInvalid");
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = t("contact.errorEmailInvalid"); // basic email format regex
     if (!form.message.trim()) next.message = t("contact.errorMessage");
     return next;
   };
@@ -70,7 +73,7 @@ const ContactSection = ({ sx, innerSx }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined })); // clear the error for this field as the user types
   };
 
   const handleSubmit = async (e) => {
@@ -100,7 +103,6 @@ const ContactSection = ({ sx, innerSx }) => {
 
   return (
   <SectionContainer id="section-contact" sx={sx} innerSx={innerSx}>
-    {/* Header — mirrored from FeaturedWork: description bottom-left, title right */}
     <MotionBox
       initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }} viewport={{ once: true }}
@@ -112,12 +114,10 @@ const ContactSection = ({ sx, innerSx }) => {
         gap: { xs: 3, md: 4 },
       }}
     >
-      {/* Description — bottom-left */}
       <Typography sx={{ color: "text.secondary", fontSize: { xs: "0.9rem", md: "1rem" }, lineHeight: 1.7, maxWidth: 340, pb: { md: 0.5 } }}>
         {t("contact.introDescription")}
       </Typography>
 
-      {/* Title block — right */}
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2, alignItems: { xs: "flex-start", md: "flex-end" }, textAlign: { xs: "left", md: "right" } }}>
         <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
           {t("contact.label")}
@@ -130,10 +130,8 @@ const ContactSection = ({ sx, innerSx }) => {
       </Box>
     </MotionBox>
 
-    {/* Main Content Grid */}
     <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" }, gap: { xs: 4, md: 6 } }}>
 
-      {/* Left — Contact Info + Hours */}
       <MotionBox
         initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }} viewport={{ once: true }}
@@ -155,11 +153,13 @@ const ContactSection = ({ sx, innerSx }) => {
                   display: "flex", alignItems: "center", gap: 2.5, p: 3,
                   borderRadius: 3, background: "rgba(26,26,26,0.6)", backdropFilter: "blur(10px)",
                   border: "1px solid rgba(255,255,255,0.05)", textDecoration: "none", transition: "all 0.3s ease",
-                  "&:hover": { borderColor: alpha(theme.palette.primary.main, 0.3), transform: "translateX(8px)", background: "rgba(26,26,26,0.8)" },
+                  "&:hover": { borderColor: alpha(info.hoverColor, 0.3), transform: "translateX(8px)", background: "rgba(26,26,26,0.8)" },
+                  "&:hover .contact-icon-box": { background: `linear-gradient(135deg, ${alpha(info.hoverColor, 0.2)}, ${alpha(info.hoverColor, 0.08)})`, borderColor: alpha(info.hoverColor, 0.3) },
+                  "&:hover .contact-icon": { color: info.hoverColor },
                 }}
               >
-                <Box sx={{ width: 50, height: 50, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.2)}, ${alpha(theme.palette.primary.dark, 0.2)})`, border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                  <Icon sx={{ color: "primary.main", fontSize: 24 }} />
+                <Box className="contact-icon-box" sx={{ width: 50, height: 50, borderRadius: 2, background: `linear-gradient(135deg, ${alpha(info.color, 0.2)}, ${alpha(info.color, 0.08)})`, border: `1px solid ${alpha(info.color, 0.3)}`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.3s ease" }}>
+                  <Icon className="contact-icon" sx={{ color: info.color, fontSize: 24, transition: "color 0.3s ease" }} />
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", gap: 0.5 }}>
                   <Typography sx={{ fontSize: 12, color: "text.secondary", fontWeight: 500, letterSpacing: 1 }}>
@@ -174,7 +174,6 @@ const ContactSection = ({ sx, innerSx }) => {
           })}
         </Box>
 
-        {/* Studio Hours */}
         <MotionBox
           initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }} viewport={{ once: true }}
@@ -201,7 +200,6 @@ const ContactSection = ({ sx, innerSx }) => {
         </MotionBox>
       </MotionBox>
 
-      {/* Right — Form */}
       <MotionBox
         initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }} viewport={{ once: true }}
@@ -267,7 +265,6 @@ const ContactSection = ({ sx, innerSx }) => {
       </MotionBox>
     </Box>
 
-    {/* WhatsApp CTA */}
     <MotionBox
       initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.3 }} viewport={{ once: true }}

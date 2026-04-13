@@ -2,15 +2,16 @@ import { Box, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import React from "react";
 
-/**
- * CustomButton
- *
- * variant="primary"   — red glow, shimmer, gradient border on hover (default)
- * variant="secondary" — subtle, neutral border, no red — for social links, ghost CTAs
- * variant="whatsapp"  — green tinted, for WhatsApp CTAs
- *
- * size: "small" | "medium" | "large"
- */
+// I built a custom button instead of using MUI's default because I needed
+// specific visual effects (shimmer, gradient border, glow) that MUI doesn't support out of the box.
+//
+// 3 variants:
+//   primary   — red glow + shimmer animation on hover (default, used for main CTAs)
+//   secondary — subtle border, no colour — used for ghost actions and social links
+//   whatsapp  — green tinted, used only for WhatsApp links
+//
+// 3 sizes: "small" | "medium" | "large"
+// Pass fullWidth to make it stretch to 100% of its container.
 const CustomButton = React.forwardRef(
   (
     { children, size = "medium", variant = "primary", onClick, href, target, rel, fullWidth, ...props },
@@ -47,6 +48,8 @@ const CustomButton = React.forwardRef(
         transition: "opacity 0.4s ease",
       },
 
+      // ::after is the shimmer — a semi-transparent white strip that slides across on hover.
+      // It starts off the left edge (left: -100%) and slides to the right on hover (left: 100%).
       "&::after": {
         content: '""',
         position: "absolute",

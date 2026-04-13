@@ -12,7 +12,6 @@ import ShuffleIcon from "@mui/icons-material/Shuffle";
 
 const MotionBox = motion(Box);
 
-// ── Data ─────────────────────────────────────────────────────────────
 const images = [
   {
     src: "/artist-images/Tattoos/7.webp",
@@ -171,7 +170,8 @@ const images = [
   },
 ];
 
-// ── Lightbox ─────────────────────────────────────────────────────────
+// I render the lightbox with createPortal so it mounts directly on document.body.
+// This way it's always on top, outside of any overflow:hidden or z-index stacking context.
 const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
   const img = images[index];
 
@@ -205,7 +205,6 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
           justifyContent: "center",
         }}
       >
-        {/* Close */}
         <Box
           component="button"
           aria-label="Close image"
@@ -232,7 +231,6 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
           <CloseIcon sx={{ fontSize: 20 }} />
         </Box>
 
-        {/* Prev */}
         <Box
           component="button"
           aria-label="Previous image"
@@ -263,7 +261,6 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
           <ArrowBackIcon sx={{ fontSize: 20 }} />
         </Box>
 
-        {/* Next */}
         <Box
           component="button"
           aria-label="Next image"
@@ -294,7 +291,6 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
           <ArrowForwardIcon sx={{ fontSize: 20 }} />
         </Box>
 
-        {/* Image */}
         <MotionBox
           key={index}
           initial={{ opacity: 0, scale: 0.96 }}
@@ -331,7 +327,6 @@ const Lightbox = ({ images, index, onClose, onPrev, onNext }) => {
   );
 };
 
-// ── Gallery ───────────────────────────────────────────────────────────
 const Gallery = () => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -341,10 +336,9 @@ const Gallery = () => {
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const hasHistoryEntry = useRef(false);
 
-  // Listen for the phone's native back button.
-  // When the back button is pressed while the lightbox is open,
-  // the browser pops the fake history entry we pushed — we catch
-  // that here and close the lightbox instead of navigating away.
+  // I listen for the browser's popstate event (triggered by the back button on mobile).
+  // When the lightbox is open and the user presses back, this catches it and closes the lightbox
+  // instead of navigating away from the gallery page.
   useEffect(() => {
     const handlePopState = () => {
       hasHistoryEntry.current = false;
@@ -354,6 +348,9 @@ const Gallery = () => {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
+  // Fisher-Yates shuffle — I go backwards through the array and swap each item
+  // with a randomly chosen item before it. This gives a truly random order,
+  // unlike sorting by Math.random() which is biased.
   const handleShuffle = () => {
     setShuffledOrder((prev) => {
       const next = [...prev];
@@ -367,20 +364,18 @@ const Gallery = () => {
 
   const displayed = shuffledOrder.map((i) => images[i]);
 
-  // Push a fake entry onto the browser history stack when the lightbox opens.
-  // This makes the phone's back button "see" something to go back from,
-  // so it pops this entry (triggering handlePopState above) instead of
-  // leaving the gallery page entirely.
+  // When the lightbox opens, I push a fake entry into the browser history.
+  // This gives the phone's back button "something to go back from", so it closes
+  // the lightbox instead of leaving the page entirely.
   const openLightbox = (i) => {
     setLightboxIndex(i);
     window.history.pushState({ lightboxOpen: true }, "");
     hasHistoryEntry.current = true;
   };
 
-  // When closing via the UI (close button or tapping outside the image),
-  // we also need to remove the fake history entry we pushed.
-  // history.back() does that — it fires popstate, which calls setLightboxIndex(null)
-  // again (harmless no-op since it's already null).
+  // When closing via the close button, I also clean up the fake history entry.
+  // history.back() triggers popstate (handled above), which sets lightboxIndex to null —
+  // that's fine, it's already null here, so it's a harmless no-op.
   const closeLightbox = useCallback(() => {
     setLightboxIndex(null);
     if (hasHistoryEntry.current) {
@@ -422,7 +417,7 @@ const Gallery = () => {
           height: "100%",
           objectFit: "cover",
           transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
-          pointerEvents: "none", // prevents iOS long-press "Save Image" menu
+          pointerEvents: "none", // prevents the iOS long-press "Save Image" menu from appearing
         },
         "&:hover img": { transform: "scale(1.04)" },
         "&:hover .gallery-overlay": { opacity: 1 },
@@ -471,7 +466,6 @@ const Gallery = () => {
         gap: { xs: 5, md: 6 },
       }}
     >
-      {/* ── Header ── */}
       <Box
         id="gallery-header"
         sx={{
@@ -485,7 +479,6 @@ const Gallery = () => {
           px: { xs: 1, sm: 2 },
         }}
       >
-        {/* Left: text + shuffle */}
         <Box
           sx={{
             flex: 1,
@@ -527,7 +520,6 @@ const Gallery = () => {
             </Typography>
           </MotionBox>
 
-          {/* Shuffle button */}
           <Box
             component="button"
             onClick={handleShuffle}
@@ -558,7 +550,7 @@ const Gallery = () => {
           </Box>
         </Box>
 
-        {/* Right: floating photo frames */}
+        {/* Decorative floating frames on the right — desktop only, hidden on mobile */}
         <MotionBox
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -654,7 +646,8 @@ const Gallery = () => {
         </MotionBox>
       </Box>
 
-      {/* ── Masonry ── */}
+      {/* Masonry grid — images are split into columns by index % numColumns.
+          Each column is offset vertically (pt) to create the staggered brick-wall effect. */}
       <Box id="gallery-grid" sx={{ maxWidth: 1400, mx: "auto", width: "100%" }}>
         <AnimatePresence mode="wait">
           <MotionBox
@@ -664,7 +657,6 @@ const Gallery = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Desktop: 3 staggered columns */}
             <Box sx={{ display: { xs: "none", md: "flex" }, gap: 2 }}>
               {[0, 1, 2].map((ci) => (
                 <Box
@@ -689,7 +681,6 @@ const Gallery = () => {
               ))}
             </Box>
 
-            {/* Mobile: 2 staggered columns */}
             <Box sx={{ display: { xs: "flex", md: "none" }, gap: 1.5 }}>
               {[0, 1].map((ci) => (
                 <Box
@@ -717,7 +708,6 @@ const Gallery = () => {
         </AnimatePresence>
       </Box>
 
-      {/* Lightbox */}
       {lightboxIndex !== null && (
         <Lightbox
           images={displayed}

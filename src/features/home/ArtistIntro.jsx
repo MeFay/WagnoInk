@@ -29,7 +29,8 @@ const ArtistIntro = () => {
           alignItems: "stretch",
         }}
       >
-        {/* Left: photo */}
+        {/* whileInView means the animation only starts when this element enters the viewport.
+            viewport={{ once: true }} makes it animate only the first time, not every time you scroll past. */}
         <MotionBox
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -42,7 +43,6 @@ const ArtistIntro = () => {
             borderRadius: 3,
           }}
         >
-          {/* Decorative corner accent */}
           <Box
             sx={{
               position: "absolute",
@@ -59,11 +59,10 @@ const ArtistIntro = () => {
             }}
           />
 
-          {/* Photo */}
           <Box
             component="img"
             src="/artist-images/About/Wagno.webp"
-            alt="Wagno — tattoo artist based in Porto"
+            alt="Wagno Reis, tattoo artist based in Porto"
             sx={{
               position: "absolute",
               inset: 0,
@@ -75,7 +74,7 @@ const ArtistIntro = () => {
             }}
           />
 
-          {/* Award badge */}
+          {/* Award badge — slides in slightly after the photo with a scale animation */}
           <MotionBox
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -126,7 +125,7 @@ const ArtistIntro = () => {
           </MotionBox>
         </MotionBox>
 
-        {/* Right: copy */}
+        {/* Right column slides in from the opposite direction to create a split entrance effect */}
         <MotionBox
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}

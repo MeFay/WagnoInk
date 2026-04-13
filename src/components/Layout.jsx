@@ -15,6 +15,10 @@ const Layout = ({ children }) => {
           flexGrow: 1,
           position: "relative",
           pb: { xs: "96px", lg: 0 },
+          // The ::before pseudo-element creates a full-screen background effect.
+          // It combines a red radial gradient (the brand glow) with a subtle SVG noise texture.
+          // I use position: fixed so it stays in place while the user scrolls.
+          // pointerEvents: none makes sure it never blocks clicks.
           "&::before": {
             content: '""',
             position: "fixed",

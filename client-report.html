@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wagno Ink — Relatório do Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #c62828;
+      --red-light: #e53935;
+      --amber: #c8923a;
+      --amber-light: #daa95a;
+      --bg: #111111;
+      --bg-paper: #1a1a1a;
+      --bg-elevated: #222222;
+      --text: #e8e4df;
+      --text-secondary: #d8d4cf;
+      --text-muted: #aaaaaa;
+      --border: #2a2a2a;
+      --green: #25D366;
+      --instagram: #E4405F;
+    }
+
+    html { font-size: 16px; }
+
+    body {
+      font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── PRINT ─────────────────────────────────────── */
+    @media print {
+      body { background: #fff; color: #111; }
+      :root {
+        --bg: #fff; --bg-paper: #f8f8f8; --bg-elevated: #f0f0f0;
+        --text: #111; --text-secondary: #333; --text-muted: #666;
+        --border: #ddd;
+      }
+      .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
+      section { page-break-inside: avoid; }
+    }
+
+    /* ── PRINT HINT ─────────────────────────────────── */
+    .print-hint {
+      background: linear-gradient(135deg, #1a2a1a, #0a1a0a);
+      border: 1px solid #2a4a2a;
+      border-left: 4px solid var(--green);
+      padding: 14px 20px;
+      margin: 0;
+      font-size: 0.8125rem;
+      color: #a0c8a0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .print-hint strong { color: #c0e8c0; }
+
+    /* ── WRAPPER ────────────────────────────────────── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px 80px; }
+
+    /* ── COVER ──────────────────────────────────────── */
+    .cover {
+      position: relative;
+      min-height: 380px;
+      background: linear-gradient(160deg, #2a0808 0%, #1a1010 35%, #111111 65%, #0e0e08 100%);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-end;
+      padding: 60px 32px 52px;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(198,40,40,0.22) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cover::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: 30%;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(200,146,58,0.12) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .cover-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; width: 100%; }
+    .cover-overline {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 16px;
+    }
+    .cover-title {
+      font-size: clamp(3.2rem, 8vw, 5.5rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: #f0ece7;
+      text-shadow: 0 4px 32px rgba(0,0,0,0.7), 0 1px 0 rgba(255,255,255,0.05);
+      margin-bottom: 8px;
+    }
+    .cover-title .ink { font-weight: 300; color: #c8c4bf; }
+    .cover-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      letter-spacing: 0.01em;
+    }
+    .cover-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .cover-meta-item { font-size: 0.75rem; color: var(--text-muted); }
+    .cover-meta-item strong { color: var(--text-secondary); display: block; font-size: 0.875rem; margin-bottom: 2px; }
+    .cover-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border: 1px solid rgba(198,40,40,0.4);
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red-light);
+      background: rgba(198,40,40,0.08);
+      margin-bottom: 20px;
+    }
+    .cover-badge::before { content: '●'; font-size: 0.5rem; color: var(--red); }
+
+    /* ── SECTION HEADERS ────────────────────────────── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-top: 56px;
+    }
+    .section-number {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--red);
+      min-width: 28px;
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+    }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── SUBSECTION ─────────────────────────────────── */
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--amber);
+      margin: 28px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    h3::before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 14px;
+      background: var(--amber);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin: 20px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── BODY TEXT ──────────────────────────────────── */
+    p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    /* ── CARDS ──────────────────────────────────────── */
+    .card {
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .card-sm {
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .card-sm-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .card-sm-value {
+      font-size: 0.9375rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── COLOR SWATCHES ─────────────────────────────── */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .color-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+    }
+    .color-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .color-info { flex: 1; min-width: 0; }
+    .color-name { font-size: 0.8125rem; font-weight: 600; color: var(--text); }
+    .color-hex { font-size: 0.6875rem; color: var(--text-muted); font-family: monospace; letter-spacing: 0.05em; }
+    .color-meaning { font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4; margin-top: 2px; }
+
+    /* ── TABLE ──────────────────────────────────────── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin: 12px 0 20px;
+    }
+    thead { background: var(--bg-elevated); }
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 10px 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    /* ── FEATURE LIST ───────────────────────────────── */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 12px 0;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    .feature-list li::before {
+      content: '→';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── BADGE TAGS ─────────────────────────────────── */
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+    .tag {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .tag-red { background: rgba(198,40,40,0.15); color: #e57373; border: 1px solid rgba(198,40,40,0.3); }
+    .tag-amber { background: rgba(200,146,58,0.15); color: #daa95a; border: 1px solid rgba(200,146,58,0.3); }
+    .tag-green { background: rgba(37,211,102,0.12); color: #6fcf97; border: 1px solid rgba(37,211,102,0.25); }
+    .tag-blue { background: rgba(66,133,244,0.12); color: #7ab4f7; border: 1px solid rgba(66,133,244,0.25); }
+    .tag-gray { background: rgba(170,170,170,0.1); color: #aaaaaa; border: 1px solid rgba(170,170,170,0.2); }
+
+    /* ── STAT ROW ───────────────────────────────────── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .stat-box {
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+    .stat-value { font-size: 2rem; font-weight: 800; color: var(--text); letter-spacing: -0.03em; }
+    .stat-label { font-size: 0.6875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+
+    /* ── SOCIAL ROW ─────────────────────────────────── */
+    .social-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+    .social-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+    }
+    .social-instagram { background: linear-gradient(135deg, #f58529, #dd2a7b, #8134af); }
+    .social-whatsapp { background: #25D366; color: #fff; }
+    .social-email { background: var(--bg-elevated); border: 1px solid var(--border); color: var(--text-secondary); }
+
+    /* ── LANGUAGE GRID ──────────────────────────────── */
+    .lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+    .lang-card {
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+    .lang-flag { font-size: 2rem; display: block; margin-bottom: 8px; }
+    .lang-name { font-size: 0.875rem; font-weight: 600; color: var(--text); }
+    .lang-status { font-size: 0.6875rem; color: var(--green); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 4px; }
+    .lang-default { color: var(--amber); }
+
+    /* ── STEP LIST ──────────────────────────────────── */
+    .step-list { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; }
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .step-desc { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── CALLOUT ────────────────────────────────────── */
+    .callout {
+      border-left: 3px solid var(--amber);
+      background: rgba(200,146,58,0.07);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+    }
+    .callout p { margin: 0; font-size: 0.875rem; color: var(--text-secondary); }
+    .callout strong { color: var(--amber); }
+
+    /* ── PAGE GRID ──────────────────────────────────── */
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+    .page-card {
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .page-card-route {
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: var(--amber);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .page-card-title { font-size: 0.9375rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+    .page-card-desc { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ── DIVIDER ────────────────────────────────────── */
+    .divider { height: 1px; background: var(--border); margin: 40px 0; }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    .report-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+    .report-footer a { color: var(--amber); text-decoration: none; }
+
+    /* ── VISUAL FX ROW ──────────────────────────────── */
+    .fx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin: 16px 0; }
+    .fx-card {
+      background: var(--bg-paper);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+    .fx-name { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .fx-desc { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.45; }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 600px) {
+      .container { padding: 0 16px 60px; }
+      .cover { padding: 40px 16px 36px; }
+      .lang-grid { grid-template-columns: repeat(3, 1fr); }
+      .color-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PRINT HINT -->
+<div class="print-hint no-print">
+  💡 Para exportar como PDF: <strong>Ctrl + P</strong> (Windows) ou <strong>Cmd + P</strong> (Mac) → Guardar como PDF → Ativar "Gráficos de fundo"
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-badge">Entrega Final</div>
+    <div class="cover-title">WAGNO <span class="ink">INK</span></div>
+    <div class="cover-subtitle">Relatório do Website — Documentação Completa</div>
+    <div class="cover-meta">
+      <div class="cover-meta-item">
+        <strong>URL</strong>
+        wagno.ink
+      </div>
+      <div class="cover-meta-item">
+        <strong>Data</strong>
+        Abril de 2026
+      </div>
+      <div class="cover-meta-item">
+        <strong>Desenvolvido por</strong>
+        Fátima Azevedo
+      </div>
+      <div class="cover-meta-item">
+        <strong>Versão</strong>
+        1.0
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 1 — VISÃO GERAL
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2>Visão Geral do Projeto</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>O <strong>wagno.ink</strong> é um portfolio digital profissional criado para o tatuador Wagno, com base em Porto, Portugal. O objetivo do website é apresentar o trabalho artístico, atrair novos clientes, facilitar marcações e reforçar a presença online nas pesquisas do Google e nas redes sociais.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Páginas</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">34+</div>
+      <div class="stat-label">Fotos na galeria</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Idiomas</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">Mobile-ready</div>
+    </div>
+  </div>
+
+  <h3>Tecnologia utilizada</h3>
+  <p>O website foi construído com tecnologia moderna e de alto desempenho. Em linguagem simples:</p>
+  <div class="card-grid">
+    <div class="card-sm">
+      <div class="card-sm-label">Framework</div>
+      <div class="card-sm-value">React 19 + Vite</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Interface visual</div>
+      <div class="card-sm-value">Material-UI 7</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Animações</div>
+      <div class="card-sm-value">Framer Motion 12</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Email (sem servidor)</div>
+      <div class="card-sm-value">EmailJS</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Tradução</div>
+      <div class="card-sm-value">i18next (PT/EN/ES)</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Formato de imagens</div>
+      <div class="card-sm-value">WebP (mais leve)</div>
+    </div>
+  </div>
+  <div class="callout">
+    <p><strong>Nota:</strong> Este website não precisa de servidor backend próprio — as mensagens do formulário chegam diretamente ao email do artista através do serviço EmailJS. Sem custos de servidor adicionais.</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 2 — DESIGN VISUAL
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2>Design Visual — Identidade e Intenção</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>Cada decisão de design foi tomada com intenção clara: criar uma presença online que seja imediatamente reconhecível como obra do Wagno — com a mesma precisão e identidade que existe no trabalho dele.</p>
+
+  <h3>Paleta de Cores</h3>
+  <p>A paleta foi construída à volta de três pilares: <strong>o preto como base de sofisticação</strong>, <strong>o vermelho como energia e apelo à ação</strong>, e <strong>o âmbar/dourado como prestígio e conquista</strong>.</p>
+
+  <div class="color-grid">
+    <div class="color-row">
+      <div class="color-swatch" style="background:#c62828;"></div>
+      <div class="color-info">
+        <div class="color-name">Vermelho Principal</div>
+        <div class="color-hex">#c62828</div>
+        <div class="color-meaning">Energia, paixão, urgência. Usado em botões de ação (CTAs) para chamar a atenção do visitante.</div>
+      </div>
+    </div>
+    <div class="color-row">
+      <div class="color-swatch" style="background:#c8923a;"></div>
+      <div class="color-info">
+        <div class="color-name">Âmbar / Dourado</div>
+        <div class="color-hex">#c8923a</div>
+        <div class="color-meaning">Prestígio, excelência artesanal, prémios. Destaca conquistas e elementos de qualidade.</div>
+      </div>
+    </div>
+    <div class="color-row">
+      <div class="color-swatch" style="background:#111111; border:1px solid #333;"></div>
+      <div class="color-info">
+        <div class="color-name">Preto Profundo</div>
+        <div class="color-hex">#111111</div>
+        <div class="color-meaning">Sofisticação, mistério, elegância premium. Fundo dominante que faz as imagens destacarem.</div>
+      </div>
+    </div>
+    <div class="color-row">
+      <div class="color-swatch" style="background:#e8e4df;"></div>
+      <div class="color-info">
+        <div class="color-name">Branco Suave (Off-White)</div>
+        <div class="color-hex">#e8e4df</div>
+        <div class="color-meaning">Leitura confortável, calor humano. Evita o contraste agressivo do branco puro.</div>
+      </div>
+    </div>
+    <div class="color-row">
+      <div class="color-swatch" style="background:#1a1a1a; border:1px solid #333;"></div>
+      <div class="color-info">
+        <div class="color-name">Cinza Escuro (Cards)</div>
+        <div class="color-hex">#1a1a1a</div>
+        <div class="color-meaning">Fundo de cards e secções elevadas — cria hierarquia visual subtil.</div>
+      </div>
+    </div>
+    <div class="color-row">
+      <div class="color-swatch" style="background:#25D366;"></div>
+      <div class="color-info">
+        <div class="color-name">Verde WhatsApp</div>
+        <div class="color-hex">#25D366</div>
+        <div class="color-meaning">Reconhecimento instantâneo da marca WhatsApp. Facilita conversões para marcações.</div>
+      </div>
+    </div>
+    <div class="color-row">
+      <div class="color-swatch" style="background:#E4405F;"></div>
+      <div class="color-info">
+        <div class="color-name">Rosa Instagram</div>
+        <div class="color-hex">#E4405F</div>
+        <div class="color-meaning">Reconhecimento instantâneo da marca Instagram. Aumenta cliques para o perfil social.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <p><strong>Porquê esta combinação?</strong> O preto foi escolhido porque é o fundo natural da tinta — é onde o trabalho do Wagno existe. O vermelho é a cor que mais se destaca nesse fundo escuro, funcionando como o gesto direto e decisivo de quem tatua. O âmbar/dourado entra como a recompensa: o brilho da qualidade, os prémios, o reconhecimento. Em conjunto, a paleta comunica que este é um artista que leva o trabalho a sério, sem precisar de gritar por atenção.</p>
+  </div>
+
+  <h3>Tipografia — Fonte Geist</h3>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>Característica</th><th>Detalhe</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Família tipográfica</td><td>Geist (Google Fonts) — moderna e geométrica</td></tr>
+        <tr><td>Pesos disponíveis</td><td>100 a 900 — gama completa para hierarquia visual</td></tr>
+        <tr><td>Tamanhos usados</td><td>Labels 11px → Legendas 12px → Corpo 15px → Títulos 32–80px</td></tr>
+        <tr><td>Line-height</td><td>1.1 a 1.7 — espaçamento generoso para conforto de leitura</td></tr>
+        <tr><td>O que transmite</td><td>Contemporânea, limpa, premium. Liga o artístico ao profissional.</td></tr>
+      </tbody>
+    </table>
+    <p style="margin:0; font-size:0.875rem; color: var(--text-muted);">A fonte Geist é carregada do Google Fonts com <em>display: swap</em> — o texto fica legível imediatamente, mesmo antes da fonte carregar.</p>
+  </div>
+
+  <h3>Efeitos Visuais</h3>
+  <div class="fx-grid">
+    <div class="fx-card">
+      <div class="fx-name">Glassmorphismo</div>
+      <div class="fx-desc">Cards com fundo translúcido e blur (desfoque). Visual moderno e sofisticado, popular em interfaces premium.</div>
+    </div>
+    <div class="fx-card">
+      <div class="fx-name">Textura Noise</div>
+      <div class="fx-desc">Sobreposição SVG subtil (6% opacidade) que emula textura de papel ou pele — liga ao mundo orgânico da tatuagem.</div>
+    </div>
+    <div class="fx-card">
+      <div class="fx-name">Gradiente Radial</div>
+      <div class="fx-desc">Decoração de fundo centrada em cada secção. Cria profundidade visual sem distrair o conteúdo.</div>
+    </div>
+    <div class="fx-card">
+      <div class="fx-name">Shimmer nos Botões</div>
+      <div class="fx-desc">Brilho animado que percorre os CTAs. Chama a atenção de forma subtil e elegante.</div>
+    </div>
+    <div class="fx-card">
+      <div class="fx-name">Blur na Navbar</div>
+      <div class="fx-desc">A barra de navegação ganha um fundo desfocado ao fazer scroll — evita sobreposição com o conteúdo.</div>
+    </div>
+    <div class="fx-card">
+      <div class="fx-name">Hover com Elevação</div>
+      <div class="fx-desc">Botões e cards sobem ligeiramente ao passar o rato por cima — feedback visual claro e polido.</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 3 — PÁGINAS
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2>Páginas e Secções</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>O website é composto por <strong>6 páginas</strong>, cada uma com um propósito claro. Todas carregam de forma independente e rápida (lazy loading).</p>
+
+  <div class="page-grid">
+    <div class="page-card">
+      <span class="page-card-route">/</span>
+      <div class="page-card-title">Homepage</div>
+      <div class="page-card-desc">Primeira impressão, estatísticas, trabalhos em destaque, bio, processo e CTA final.</div>
+    </div>
+    <div class="page-card">
+      <span class="page-card-route">/gallery</span>
+      <div class="page-card-title">Galeria</div>
+      <div class="page-card-desc">34+ fotos organizadas em masonry, lightbox, categorias e botão de baralhar.</div>
+    </div>
+    <div class="page-card">
+      <span class="page-card-route">/about</span>
+      <div class="page-card-title">Sobre</div>
+      <div class="page-card-desc">Percurso profissional, formações, prémios e links sociais.</div>
+    </div>
+    <div class="page-card">
+      <span class="page-card-route">/blog</span>
+      <div class="page-card-title">Blog</div>
+      <div class="page-card-desc">3 artigos sobre tatuagem com filtros por categoria e estimativa de leitura.</div>
+    </div>
+    <div class="page-card">
+      <span class="page-card-route">/info</span>
+      <div class="page-card-title">Informações</div>
+      <div class="page-card-desc">Localizações, horários, processo de marcação detalhado e métodos de pagamento.</div>
+    </div>
+    <div class="page-card">
+      <span class="page-card-route">/blog/:slug</span>
+      <div class="page-card-title">Artigo individual</div>
+      <div class="page-card-desc">Página dedicada para cada artigo do blog, com layout editorial completo.</div>
+    </div>
+  </div>
+
+  <h3>Homepage — 6 Secções em Detalhe</h3>
+  <div class="step-list">
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Hero Section</div>
+        <div class="step-desc">Vídeo de fundo com sobreposição escura, localização (Porto, Portugal), tagline impactante, 3 estatísticas (anos de experiência, tatuagens realizadas, prémios), 2 botões de ação (Ver Galeria + WhatsApp) e indicador de scroll animado.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Trabalhos em Destaque</div>
+        <div class="step-desc">2 cards com fotografias selecionadas em destaque, cada um com link direto para o Instagram. Introduz o trabalho do artista logo na homepage.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Apresentação do Artista</div>
+        <div class="step-desc">Biografia em texto, especializações (anime, gaming, realismo, blackwork) e badge de prémio. Humaniza o artista e cria confiança.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div>
+        <div class="step-title">Processo de Marcação</div>
+        <div class="step-desc">3 passos visuais: Consulta → Design → Tatuagem. Remove a ansiedade de clientes novos ao mostrar como funciona o processo.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">5</div>
+      <div>
+        <div class="step-title">Pré-visualização do Blog</div>
+        <div class="step-desc">3 artigos recentes com imagem, título e data. Incentiva o visitante a explorar mais conteúdo.</div>
+      </div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">6</div>
+      <div>
+        <div class="step-title">CTA Final</div>
+        <div class="step-desc">Chamada à ação de fecho com botão WhatsApp e link para Informações. Garante conversão antes do utilizador sair da página.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 4 — GALERIA
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2>Galeria de Portfolio</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>A galeria é um dos elementos mais importantes do website — é onde potenciais clientes avaliam a qualidade do trabalho e decidem se querem marcar.</p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-value">34+</div>
+      <div class="stat-label">Fotografias</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Categorias</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">3→2</div>
+      <div class="stat-label">Col. desktop→mobile</div>
+    </div>
+  </div>
+
+  <h3>Funcionalidades</h3>
+  <ul class="feature-list">
+    <li><strong>Layout Masonry</strong> — colunas de alturas variadas, semelhante ao Pinterest. As imagens aproveitam melhor o espaço e criam um visual dinâmico.</li>
+    <li><strong>Categorias</strong> — Realismo, Blackwork, Fine Line. Permite a clientes filtrar pelo estilo que procuram.</li>
+    <li><strong>Lightbox</strong> — ao clicar numa imagem, abre em ecrã completo com navegação. Botões ← →, teclas de teclado e tecla Esc para fechar.</li>
+    <li><strong>Botão Baralhar</strong> — aleatoriza a ordem da galeria. Clientes que visitam mais do que uma vez veem sempre uma disposição diferente.</li>
+    <li><strong>Frames flutuantes</strong> — no cabeçalho da página, 3 fotografias flutuam animadas — visual imersivo que convida à exploração.</li>
+    <li><strong>Hover com zoom</strong> — ao passar o rato, a imagem faz zoom subtil e aparece uma sobreposição com o título. Feedback visual polido.</li>
+    <li><strong>Lazy loading</strong> — as imagens só carregam quando visíveis no ecrã. Página mais rápida, especialmente em mobile.</li>
+    <li><strong>Back button no mobile</strong> — ao abrir o lightbox no telemóvel, o botão de retrocesso fecha a imagem em vez de sair do site.</li>
+  </ul>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 5 — FORMULÁRIO E CONTACTO
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2>Formulário de Contacto e Reserva</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>O formulário de contacto foi desenhado para ser simples e eficaz — mínimo de fricção para o cliente, máximo de informação útil para o artista.</p>
+
+  <h3>Campos do Formulário</h3>
+  <table>
+    <thead>
+      <tr><th>Campo</th><th>Tipo</th><th>Obrigatório</th><th>Notas</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Nome</td><td>Texto</td><td>Sim</td><td>Identificação do cliente</td></tr>
+      <tr><td>Email</td><td>Email</td><td>Sim</td><td>Validação de formato em tempo real</td></tr>
+      <tr><td>Telefone</td><td>Texto</td><td>Não</td><td>Opcional, para contacto alternativo</td></tr>
+      <tr><td>Mensagem</td><td>Texto longo</td><td>Sim</td><td>Descrição da ideia ou questão</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Estados do Formulário</h3>
+  <div class="card-grid">
+    <div class="card-sm">
+      <div class="card-sm-label">A enviar</div>
+      <div class="card-sm-value">Spinner + botão desativado</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Sucesso</div>
+      <div class="card-sm-value">Confirmação + "Enviar outra"</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Erro</div>
+      <div class="card-sm-value">Mensagem de erro + retry</div>
+    </div>
+  </div>
+
+  <h3>Integração EmailJS</h3>
+  <p>As mensagens enviadas pelo formulário chegam diretamente ao email do artista (<strong>Wagno.ink@gmail.com</strong>) sem necessidade de servidor. O serviço EmailJS processa o envio de forma segura.</p>
+
+  <h3>Cartões de Informação de Contacto</h3>
+  <p>À esquerda do formulário, existem 4 cartões clicáveis com a informação de contacto essencial:</p>
+  <div class="card-grid">
+    <div class="card-sm"><div class="card-sm-label">📍 Morada</div><div class="card-sm-value">Rio Tinto, Porto</div></div>
+    <div class="card-sm"><div class="card-sm-label">📞 Telefone</div><div class="card-sm-value">+351 910 848 391</div></div>
+    <div class="card-sm"><div class="card-sm-label">✉️ Email</div><div class="card-sm-value">Wagno.ink@gmail.com</div></div>
+    <div class="card-sm"><div class="card-sm-label">📸 Instagram</div><div class="card-sm-value">@wagno.ink</div></div>
+  </div>
+
+  <h3>Botão WhatsApp de Contacto Rápido</h3>
+  <div class="callout">
+    <p>O botão WhatsApp abre diretamente uma conversa com a mensagem pré-preenchida: <strong>"Olá! Quero agendar uma tatuagem."</strong> — elimina qualquer fricção no primeiro contacto e aumenta a taxa de conversão.</p>
+  </div>
+
+  <h3>Horários de Atendimento</h3>
+  <table>
+    <thead><tr><th>Dia</th><th>Horário</th></tr></thead>
+    <tbody>
+      <tr><td>Segunda a Sexta</td><td>10:00 – 19:00</td></tr>
+      <tr><td>Sábado</td><td>11:00 – 18:00</td></tr>
+      <tr><td>Domingo</td><td>Fechado</td></tr>
+    </tbody>
+  </table>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 6 — REDES SOCIAIS
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2>Redes Sociais e Contactos</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>Todas as redes sociais estão integradas em múltiplos pontos do website, garantindo que o visitante nunca fica sem forma de contactar ou seguir o artista.</p>
+
+  <table>
+    <thead>
+      <tr><th>Plataforma</th><th>Contacto</th><th>Onde aparece</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-red">Instagram</span></td>
+        <td>@wagno.ink</td>
+        <td>Navbar, Footer, Sobre, Contacto, Trabalhos em Destaque</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-green">WhatsApp</span></td>
+        <td>+351 910 848 391</td>
+        <td>Navbar "Marcar Agora", CTA Homepage, Footer, Contacto, Info</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-amber">Email</span></td>
+        <td>Wagno.ink@gmail.com</td>
+        <td>Footer, Sobre, Formulário de contacto</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <p><strong>Consistência de marca:</strong> As cores originais do WhatsApp (verde #25D366) e do Instagram (gradiente rosa/laranja) são preservadas em todo o website. O utilizador reconhece instantaneamente as plataformas sem precisar de ler o texto.</p>
+  </div>
+
+  <h3>Localizações</h3>
+  <div class="card-grid">
+    <div class="card-sm">
+      <div class="card-sm-label">🇵🇹 Estúdio Principal</div>
+      <div class="card-sm-value">Katsu Tattoo — Rio Tinto, Porto</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">🇪🇸 Guest Spot</div>
+      <div class="card-sm-value">Cambados, Galiza (Espanha)</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">🇪🇸 Guest Spot</div>
+      <div class="card-sm-value">Cangas, Galiza (Espanha)</div>
+    </div>
+  </div>
+  <p>As três localizações têm links diretos para o Google Maps.</p>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 7 — TRADUÇÕES
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <h2>Sistema de Tradução — 3 Idiomas</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>O website está totalmente traduzido em 3 idiomas, cobrindo 100% do conteúdo visível — desde a navegação até aos textos do formulário e mensagens de erro.</p>
+
+  <div class="lang-grid">
+    <div class="lang-card">
+      <span class="lang-flag">🇵🇹</span>
+      <div class="lang-name">Português</div>
+      <div class="lang-status lang-default">Padrão</div>
+    </div>
+    <div class="lang-card">
+      <span class="lang-flag">🇬🇧</span>
+      <div class="lang-name">Inglês</div>
+      <div class="lang-status">Completo</div>
+    </div>
+    <div class="lang-card">
+      <span class="lang-flag">🇪🇸</span>
+      <div class="lang-name">Espanhol</div>
+      <div class="lang-status">Completo</div>
+    </div>
+  </div>
+
+  <h3>Como funciona</h3>
+  <ul class="feature-list">
+    <li><strong>Seletor no navbar</strong> — botão de idioma sempre visível, tanto em desktop como em mobile.</li>
+    <li><strong>Preferência guardada</strong> — o idioma escolhido é guardado no browser e mantido em visitas futuras.</li>
+    <li><strong>100% do conteúdo traduzido</strong> — navbar, hero, galeria, sobre, blog, contacto, informações, mensagens de erro.</li>
+    <li><strong>Plurais e variáveis</strong> — suporte a formas plurais (ex: "1 artigo / 3 artigos") e variáveis dinâmicas (ano no footer).</li>
+    <li><strong>Fácil de atualizar</strong> — cada idioma está num ficheiro JSON separado. Adicionar ou alterar texto não requer conhecimentos de código.</li>
+  </ul>
+
+  <h3>Relevância para o negócio</h3>
+  <div class="card-grid">
+    <div class="card-sm">
+      <div class="card-sm-label">🇪🇸 Clientes espanhóis</div>
+      <div class="card-sm-value">Cobertura natural dado os guest spots na Galiza</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">🌍 Turistas em Porto</div>
+      <div class="card-sm-value">Porto recebe milhares de turistas internacionais por ano</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">📈 SEO Internacional</div>
+      <div class="card-sm-value">Conteúdo multilingue melhora visibilidade em pesquisas internacionais</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 8 — SEO
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">08</span>
+    <h2>SEO — Visibilidade no Google</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>Uma série de otimizações técnicas foram implementadas para garantir que o Google indexa e apresenta o website nos resultados de pesquisa de forma correta e atrativa.</p>
+
+  <h3>O que foi implementado</h3>
+  <ul class="feature-list">
+    <li><strong>robots.txt</strong> — instrui os motores de pesquisa a indexar todas as páginas do website.</li>
+    <li><strong>sitemap.xml</strong> — mapa completo do site com prioridades. Homepage (prioridade 1.0) → Galeria (0.9) → Sobre (0.8) → Info (0.7) → Blog (0.6).</li>
+    <li><strong>Títulos dinâmicos</strong> — cada página tem o seu próprio título na aba do browser, otimizado para pesquisa.</li>
+    <li><strong>Meta descrição</strong> — texto de apresentação nos resultados do Google, escrito para atrair cliques.</li>
+    <li><strong>Open Graph</strong> — quando o link é partilhado no WhatsApp, Facebook ou LinkedIn, aparece uma pré-visualização bonita com imagem, título e descrição.</li>
+    <li><strong>JSON-LD / Schema.org</strong> — dados estruturados que dizem ao Google que este é um negócio local do tipo "Salão de Tatuagens", com morada, telefone, horários e métodos de pagamento.</li>
+  </ul>
+
+  <h3>Impacto esperado</h3>
+  <div class="card-grid">
+    <div class="card-sm">
+      <div class="card-sm-label">Pesquisas locais</div>
+      <div class="card-sm-value">"tatuador porto", "tattoo realismo porto"</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Negócio no Google Maps</div>
+      <div class="card-sm-value">Schema.org reconhece como estabelecimento local</div>
+    </div>
+    <div class="card-sm">
+      <div class="card-sm-label">Partilhas sociais</div>
+      <div class="card-sm-value">Pré-visualização com imagem de portfolio ao partilhar o link</div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 9 — PERFORMANCE E VELOCIDADE
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">09</span>
+    <h2>Performance e Velocidade</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>A velocidade do website afeta diretamente a experiência do utilizador e o posicionamento no Google. Foram tomadas diversas decisões técnicas para garantir carregamento rápido.</p>
+
+  <ul class="feature-list">
+    <li><strong>Vite como bundler</strong> — ferramenta moderna que produz ficheiros otimizados para produção. Carregamento inicial muito mais rápido que alternativas.</li>
+    <li><strong>Code splitting</strong> — cada página carrega de forma independente. O visitante não precisa de descarregar o código de todas as páginas de uma vez.</li>
+    <li><strong>Imagens WebP</strong> — formato moderno, tipicamente 25–35% mais leve que JPG com a mesma qualidade visual.</li>
+    <li><strong>Lazy loading de imagens</strong> — as imagens da galeria só carregam quando visíveis no ecrã. A página fica pronta mais rápido e não desperdiça dados do utilizador.</li>
+    <li><strong>Fontes com display:swap</strong> — o texto é visível imediatamente, mesmo antes da fonte Geist terminar de carregar.</li>
+    <li><strong>Preload de recursos críticos</strong> — o Vite pré-carrega os ficheiros mais importantes antes de serem necessários.</li>
+  </ul>
+
+  <div class="callout">
+    <p><strong>Regra do Google:</strong> Páginas que carregam em menos de 3 segundos têm taxas de rejeição significativamente mais baixas e melhor posicionamento orgânico.</p>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 10 — ANIMAÇÕES E UX
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">10</span>
+    <h2>Animações e Experiência de Utilizador</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>As animações foram escolhidas com critério: subtis o suficiente para não distrair, impactantes o suficiente para elevar a qualidade percebida do website.</p>
+
+  <h3>Princípios adotados</h3>
+  <ul class="feature-list">
+    <li><strong>Reduced Motion</strong> — o sistema respeita a preferência do sistema operativo do utilizador. Quem tem animações desativadas (por questões de acessibilidade ou preferência) vê a página sem animações.</li>
+    <li><strong>Suavidade consistente</strong> — todas as transições usam curvas de aceleração (easing) naturais. Nada é abrupto ou mecânico.</li>
+    <li><strong>Stagger</strong> — na galeria e em listas, os elementos entram escalonados (um a um), criando um efeito de "cascata" elegante.</li>
+  </ul>
+
+  <h3>Animações por componente</h3>
+  <table>
+    <thead><tr><th>Componente</th><th>Animação</th><th>Efeito</th></tr></thead>
+    <tbody>
+      <tr><td>Navbar</td><td>Blur ao fazer scroll</td><td>Profundidade e separação do conteúdo</td></tr>
+      <tr><td>Transições de página</td><td>Fade + Y suave (0.28s)</td><td>Navegação fluida e profissional</td></tr>
+      <tr><td>Cards da galeria</td><td>Entrada escalonada</td><td>Apresentação progressiva do portfolio</td></tr>
+      <tr><td>Frames flutuantes (galeria)</td><td>Bounce infinito + rotação</td><td>Imersão visual no header</td></tr>
+      <tr><td>Botões CTA</td><td>Shimmer + elevação ao hover</td><td>Apelo à ação claro e elegante</td></tr>
+      <tr><td>Imagens</td><td>Zoom ao hover (1.04×)</td><td>Interatividade e feedback visual</td></tr>
+      <tr><td>Blog (decoração)</td><td>Linhas pulsantes</td><td>Vitalidade visual subtil</td></tr>
+      <tr><td>Mobile nav pill</td><td>Entrada slide-up</td><td>Aparecer natural ao carregar a página</td></tr>
+    </tbody>
+  </table>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 11 — MOBILE
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">11</span>
+    <h2>Dispositivos e Responsividade</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>Mais de 60% do tráfego web vem de dispositivos móveis. O website foi desenvolvido com abordagem <em>mobile-first</em> — a experiência em telemóvel foi uma prioridade, não um afterthought.</p>
+
+  <table>
+    <thead>
+      <tr><th>Dispositivo</th><th>Layout</th><th>Características específicas</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="tag tag-blue">Desktop ≥1024px</span></td>
+        <td>Navbar no topo, sidebar na página Sobre, galeria 3 colunas</td>
+        <td>Experiência completa com todos os detalhes visuais</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-amber">Tablet 768–1023px</span></td>
+        <td>Layout adaptado, galeria 2–3 colunas</td>
+        <td>Navigation pill, elementos redimensionados</td>
+      </tr>
+      <tr>
+        <td><span class="tag tag-red">Mobile &lt;768px</span></td>
+        <td>Bottom pill navigation, galeria 2 colunas, layout empilhado</td>
+        <td>Back button integrado no lightbox, toque otimizado</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Funcionalidades exclusivas para mobile</h3>
+  <ul class="feature-list">
+    <li><strong>Bottom Pill Navigation</strong> — barra de navegação fixa na parte inferior, com ícones e indicador da página ativa. Mais ergonómica que menus no topo.</li>
+    <li><strong>Back button integrado</strong> — ao abrir uma foto em fullscreen, o botão de retroceder do telemóvel fecha a imagem em vez de sair do website.</li>
+    <li><strong>Prevenção de long-press</strong> — desativado o menu contextual ao manter o dedo nas imagens (comportamento padrão iOS), evitando interações acidentais.</li>
+    <li><strong>Touch optimizado</strong> — todos os botões e áreas clicáveis têm tamanhos adequados para interação com o dedo.</li>
+  </ul>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 12 — ACESSIBILIDADE
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">12</span>
+    <h2>Acessibilidade</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>O website foi desenvolvido com boas práticas de acessibilidade, tornando-o utilizável por um maior leque de pessoas e melhor avaliado por motores de pesquisa.</p>
+
+  <ul class="feature-list">
+    <li><strong>Labels ARIA</strong> — todos os botões e ícones têm descrições para leitores de ecrã (utilizadores com deficiência visual).</li>
+    <li><strong>Navegação por teclado</strong> — galeria (teclas ←/→/Esc), menus dropdown e formulários são totalmente navegáveis sem rato.</li>
+    <li><strong>Contraste adequado</strong> — branco suave sobre fundo escuro garante legibilidade confortável.</li>
+    <li><strong>Alt text nas imagens</strong> — descrições textuais em todas as imagens para leitores de ecrã e SEO.</li>
+    <li><strong>Reduced motion</strong> — animações desativadas automaticamente para utilizadores com preferências de acessibilidade.</li>
+    <li><strong>HTML semântico</strong> — estrutura correta com &lt;nav&gt;, &lt;main&gt;, &lt;footer&gt;, &lt;section&gt; — melhor para leitores de ecrã e SEO.</li>
+  </ul>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 13 — BLOG
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">13</span>
+    <h2>Blog — Conteúdo e Autoridade</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <p>O blog serve um duplo propósito: educar potenciais clientes (o que aumenta a confiança e reduz dúvidas antes da marcação) e melhorar o posicionamento no Google com conteúdo relevante.</p>
+
+  <h3>Artigos publicados</h3>
+  <table>
+    <thead><tr><th>Artigo</th><th>Categoria</th><th>Valor para o cliente</th></tr></thead>
+    <tbody>
+      <tr><td>Cuidados com a tatuagem</td><td>Aftercare</td><td>Resolve as dúvidas mais comuns após a sessão</td></tr>
+      <tr><td>O primeiro tattoo — guia</td><td>Guide</td><td>Remove ansiedade de clientes que nunca tatuaram</td></tr>
+      <tr><td>História da tatuagem</td><td>História</td><td>Contexto cultural, posiciona o artista como conhecedor</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Funcionalidades do blog</h3>
+  <ul class="feature-list">
+    <li>Filtro por categoria — clientes encontram facilmente o conteúdo que procuram.</li>
+    <li>Estimativa de tempo de leitura — define expectativas antes de começar a ler.</li>
+    <li>Artigo em destaque com imagem de capa de dimensão completa.</li>
+    <li>Página individual para cada artigo, com layout editorial clean.</li>
+    <li>Imagens, citações e parágrafos formatados corretamente.</li>
+  </ul>
+
+
+  <!-- ═══════════════════════════════════════
+       SECÇÃO 14 — FICHA TÉCNICA
+  ════════════════════════════════════════ -->
+  <div class="section-header">
+    <span class="section-number">14</span>
+    <h2>Ficha Técnica de Entrega</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Item</th><th>Detalhe</th></tr></thead>
+    <tbody>
+      <tr><td>URL</td><td>wagno.ink</td></tr>
+      <tr><td>Framework</td><td>React 19 + Vite 7</td></tr>
+      <tr><td>Interface visual</td><td>Material-UI 7 + Emotion CSS-in-JS</td></tr>
+      <tr><td>Animações</td><td>Framer Motion 12</td></tr>
+      <tr><td>Formulário de email</td><td>EmailJS (sem servidor próprio)</td></tr>
+      <tr><td>Traduções</td><td>i18next — Português, Inglês, Espanhol</td></tr>
+      <tr><td>Repositório</td><td>Git (histórico de versões incluído)</td></tr>
+      <tr><td>Variáveis de ambiente</td><td>Chaves EmailJS (não incluídas no repositório por segurança)</td></tr>
+      <tr><td>Formato de imagens</td><td>WebP (otimizadas para web)</td></tr>
+      <tr><td>SEO</td><td>robots.txt, sitemap.xml, Open Graph, JSON-LD Schema.org</td></tr>
+      <tr><td>Fonte</td><td>Geist (Google Fonts) — pesos 100–900</td></tr>
+      <tr><td>Breakpoints</td><td>Mobile &lt;768px, Tablet 768–1023px, Desktop ≥1024px</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tag-row">
+    <span class="tag tag-red">React 19</span>
+    <span class="tag tag-amber">Vite 7</span>
+    <span class="tag tag-blue">Material-UI 7</span>
+    <span class="tag tag-green">EmailJS</span>
+    <span class="tag tag-gray">Framer Motion</span>
+    <span class="tag tag-green">i18next</span>
+    <span class="tag tag-amber">WebP</span>
+    <span class="tag tag-blue">Schema.org</span>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="report-footer">
+  <div>
+    <strong style="color: var(--text);">WAGNO INK</strong> — Relatório do Website &copy; 2026
+  </div>
+  <div>
+    Desenvolvido por <a href="https://www.linkedin.com/in/fatima-azevedo">Fátima Azevedo</a>
+  </div>
+</div>
+
+</body>
+</html>

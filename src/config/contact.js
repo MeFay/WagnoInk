@@ -1,3 +1,5 @@
+// I keep all contact details in one place so I only need to update them here,
+// not search through every component that uses them.
 export const WHATSAPP_URL =
   "https://wa.me/351910848391?text=Olá!%20Quero%20agendar%20uma%20tatuagem.";
 

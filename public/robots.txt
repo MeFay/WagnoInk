@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wagno.ink/sitemap.xml
+Sitemap: https://wagnoink-three.vercel.app/sitemap.xml

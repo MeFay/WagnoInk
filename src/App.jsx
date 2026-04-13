@@ -75,8 +75,8 @@ const AnimatedRoutes = () => {
 
 function App() {
   return (
-    {/* reducedMotion="user" tells Framer Motion to read the user's OS accessibility setting.
-        If they have "reduce motion" turned on in their device, all animations are disabled automatically. */}
+    // reducedMotion="user" tells Framer Motion to read the user's OS accessibility setting.
+    // If they have "reduce motion" turned on in their device, all animations are disabled automatically.
     <MotionConfig reducedMotion="user">
       <BrowserRouter>
         <ScrollToTop />

@@ -10,16 +10,20 @@ import { blogPosts as allPosts } from "../blog/Blog.data";
 
 const MotionBox = motion(Box);
 
-// Single source of truth — derives the 3 preview cards from Blog.data.js
-// Adapts coverImage → image and slug → link to match the Card component's props
-const blogPosts = allPosts.slice(0, 3).map((p) => ({
-  ...p,
-  image: p.coverImage,
-  link: `/blog/${p.slug}`,
-}));
-
 const BlogSection = () => {
   const { t } = useTranslation();
+
+  // Build translated posts inside the component so t() is active
+  const blogPosts = allPosts.slice(0, 3).map((p) => ({
+    ...p,
+    title:    t(`blogPosts.${p.slug}.title`,    { defaultValue: p.title }),
+    excerpt:  t(`blogPosts.${p.slug}.excerpt`,  { defaultValue: p.excerpt }),
+    category: t(`blogPosts.${p.slug}.category`, { defaultValue: p.category }),
+    date:     t(`blogPosts.${p.slug}.date`,     { defaultValue: p.date }),
+    readTime: t(`blogPosts.${p.slug}.readTime`, { defaultValue: p.readTime }),
+    image: p.coverImage,
+    link: `/blog/${p.slug}`,
+  }));
   return (
   <SectionContainer id="section-blog">
     {/* Header */}

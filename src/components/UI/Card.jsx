@@ -4,12 +4,14 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useTranslation } from "react-i18next";
 import { typeScale } from "../../styles/theme";
 
 const MotionBox = motion(Box);
 
 const Card = ({ title, excerpt, date, readTime, category, image, link, index = 0 }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
   return (
     <MotionBox
       initial={{ opacity: 0, y: 40 }}
@@ -125,7 +127,7 @@ const Card = ({ title, excerpt, date, readTime, category, image, link, index = 0
             letterSpacing: 0.5,
           }}
         >
-          READ ARTICLE
+          {t("blog.readArticle")}
           <ArrowForwardIcon className="arrow" sx={{ fontSize: 18, transition: "transform 0.3s ease" }} />
         </Box>
       </Box>

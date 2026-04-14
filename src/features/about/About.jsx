@@ -398,7 +398,10 @@ const About = () => {
                 }}
               />
 
-              {workExperience.map((job, i) => (
+              {workExperience.map((job, i) => {
+                const role       = t(`aboutContent.workExperience.${i}.role`,       { defaultValue: job.role });
+                const highlights = t(`aboutContent.workExperience.${i}.highlights`, { returnObjects: true, defaultValue: job.highlights });
+                return (
                 <MotionBox
                   key={job.studio}
                   initial={{ opacity: 0, x: -16 }}
@@ -529,14 +532,14 @@ const About = () => {
                           letterSpacing: 0.3,
                         }}
                       >
-                        {job.role}
+                        {role}
                       </Typography>
                     </Box>
 
                     <Box
                       sx={{ display: "flex", flexDirection: "column", gap: 1 }}
                     >
-                      {job.highlights.map((h) => (
+                      {highlights.map((h) => (
                         <Box
                           key={h}
                           sx={{
@@ -569,7 +572,8 @@ const About = () => {
                     </Box>
                   </Box>
                 </MotionBox>
-              ))}
+                );
+              })}
             </Box>
           </TrackedSection>
 
@@ -598,9 +602,12 @@ const About = () => {
                 }}
               />
 
-              {training.map((t, i) => (
+              {training.map((item, i) => {
+                const focus       = t(`aboutContent.training.${i}.focus`,       { defaultValue: item.focus });
+                const description = t(`aboutContent.training.${i}.description`, { defaultValue: item.description });
+                return (
                 <MotionBox
-                  key={t.mentor}
+                  key={item.mentor}
                   initial={{ opacity: 0, x: -16 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
@@ -658,10 +665,10 @@ const About = () => {
                           letterSpacing: 0.5,
                         }}
                       >
-                        {t.period}
+                        {item.period}
                       </Typography>
                       <Typography sx={{ fontSize: 11, color: "text.disabled" }}>
-                        · {t.location}
+                        · {item.location}
                       </Typography>
                     </Box>
                     <Box
@@ -679,12 +686,12 @@ const About = () => {
                           lineHeight: 1.2,
                         }}
                       >
-                        {t.mentor}
+                        {item.mentor}
                       </Typography>
                       <Typography
                         sx={{ fontSize: 13, color: RED, fontWeight: 600 }}
                       >
-                        {t.focus}
+                        {focus}
                       </Typography>
                     </Box>
                     <Typography
@@ -694,11 +701,12 @@ const About = () => {
                         lineHeight: 1.8,
                       }}
                     >
-                      {t.description}
+                      {description}
                     </Typography>
                   </Box>
                 </MotionBox>
-              ))}
+                );
+              })}
             </Box>
           </TrackedSection>
 
@@ -709,6 +717,8 @@ const About = () => {
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               {contests.map((c, i) => {
+                const contestEvent  = t(`aboutContent.contests.${i}.event`,  { defaultValue: c.event });
+                const contestResult = t(`aboutContent.contests.${i}.result`, { defaultValue: c.result });
                 const isGold = c.place === 1;
                 const isBronze = c.place === 3;
                 const medalColor = isGold
@@ -782,7 +792,7 @@ const About = () => {
                         <Typography
                           sx={{ fontSize: 12, color: "text.disabled" }}
                         >
-                          {c.event}
+                          {contestEvent}
                         </Typography>
                       </Box>
                     </Box>
@@ -803,7 +813,7 @@ const About = () => {
                           letterSpacing: 0.3,
                         }}
                       >
-                        {c.result}
+                        {contestResult}
                       </Typography>
                       <Typography sx={{ fontSize: 11, color: "text.disabled" }}>
                         {c.year}
@@ -895,7 +905,7 @@ const About = () => {
                         textTransform: "uppercase",
                       }}
                     >
-                      {prizeImages[0].result}
+                      {t("aboutContent.prizeImages.0.result", { defaultValue: prizeImages[0].result })}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 16, fontWeight: 800, color: "white" }}
@@ -908,7 +918,9 @@ const About = () => {
                   </Box>
                 </MotionBox>
 
-                {prizeImages.slice(1).map((img, i) => (
+                {prizeImages.slice(1).map((img, i) => {
+                  const prizeResult = t(`aboutContent.prizeImages.${i + 1}.result`, { defaultValue: img.result });
+                  return (
                   <MotionBox
                     key={img.src}
                     initial={{ opacity: 0, x: 16 }}
@@ -965,7 +977,7 @@ const About = () => {
                           textTransform: "uppercase",
                         }}
                       >
-                        {img.result}
+                        {prizeResult}
                       </Typography>
                       <Typography
                         sx={{ fontSize: 14, fontWeight: 800, color: "white" }}
@@ -977,7 +989,8 @@ const About = () => {
                       </Typography>
                     </Box>
                   </MotionBox>
-                ))}
+                  );
+                })}
               </Box>
             </Box>
           </TrackedSection>

@@ -179,6 +179,66 @@
       ]
     }
   },
+  "aboutContent": {
+    "workExperience": [
+      {
+        "role": "Resident Artist",
+        "highlights": [
+          "Resident tattoo artist in Porto, specialising in realism, fine line, and blackwork.",
+          "Guest artist at Sorry Mon Tattoo and Golem Tattoo (Spain) and Lorenzo Tattoo (Lisbon)."
+        ]
+      },
+      {
+        "role": "Guest Artist",
+        "highlights": [
+          "First European guest appearances, laid the groundwork for the move to Portugal."
+        ]
+      },
+      {
+        "role": "Guest Artist",
+        "highlights": [
+          "Collaborated with Eduardo (Bokatattooing), one of Brazil's leading coloured-realism artists.",
+          "Competed in two conventions, winning 1st in Whipshading and 3rd in Blackwork."
+        ]
+      },
+      {
+        "role": "Guest Artist",
+        "highlights": [
+          "Competed in conventions and won 1st place in Fine Line (2021) and 1st place in Anime (2022).",
+          "Deepened technical skills in realism under studio mentorship."
+        ]
+      },
+      {
+        "role": "Owner & Tattoo Artist",
+        "highlights": [
+          "Opened his own studio in São Luís after returning from Goiânia.",
+          "Built a client base from scratch, evolving from foundational work to technically complex pieces.",
+          "Trained in realist techniques under Tiago Balbo, marking a turning point in style and quality."
+        ]
+      }
+    ],
+    "training": [
+      {
+        "focus": "Realist Tattoo Techniques",
+        "description": "Intensive mentorship in realism, the foundation of my signature style. Tiago introduced the technical rigour that shaped everything that followed."
+      },
+      {
+        "focus": "Tattoo Fundamentals",
+        "description": "First steps in tattooing, line work, shading theory, and practice on artificial skin. Two months of daily training that started it all."
+      }
+    ],
+    "contests": [
+      { "event": "Convention with Bokatattooing", "result": "3rd Place" },
+      { "event": "Convention with Bokatattooing", "result": "1st Place" },
+      { "event": "Gerson Feques Convention",      "result": "1st Place" },
+      { "event": "Gerson Feques Convention",      "result": "1st Place" }
+    ],
+    "prizeImages": [
+      { "result": "1st Place" },
+      { "result": "1st Place" },
+      { "result": "1st Place" }
+    ]
+  },
   "about": {
     "subtitle": "Tattoo Artist · Est. 2016",
     "bio": "Originally from São Luís, Brazil. Started tattooing in late 2017 after moving to Goiânia, where I did my first apprenticeship. Returned to São Luís in 2018, opened my own studio, and spent a few years refining my craft, picked up four convention awards along the way. In 2024 I made the move to Europe, working first in Spain before settling in Porto in early 2025. Now tattooing at Asgard Tattoo Barber Studio in Porto, and sometimes in Spain.",

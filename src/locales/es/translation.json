@@ -179,6 +179,66 @@
       ]
     }
   },
+  "aboutContent": {
+    "workExperience": [
+      {
+        "role": "Artista Residente",
+        "highlights": [
+          "Tatuador residente en Oporto, especializado en realismo, fine line y blackwork.",
+          "Artista invitado en Sorry Mon Tattoo y Golem Tattoo (España) y Lorenzo Tattoo (Lisboa)."
+        ]
+      },
+      {
+        "role": "Artista Invitado",
+        "highlights": [
+          "Primeras apariciones como artista invitado en Europa, que sentaron las bases para el traslado a Portugal."
+        ]
+      },
+      {
+        "role": "Artista Invitado",
+        "highlights": [
+          "Colaboró con Eduardo (Bokatattooing), uno de los principales artistas de realismo en color de Brasil.",
+          "Participó en dos convenciones, ganando el 1.er puesto en Whipshading y el 3.er puesto en Blackwork."
+        ]
+      },
+      {
+        "role": "Artista Invitado",
+        "highlights": [
+          "Participó en convenciones y ganó el 1.er lugar en Fine Line (2021) y el 1.er lugar en Anime (2022).",
+          "Profundizó las habilidades técnicas en realismo bajo la tutela del estudio."
+        ]
+      },
+      {
+        "role": "Propietario y Tatuador",
+        "highlights": [
+          "Abrió su propio estudio en São Luís tras regresar de Goiânia.",
+          "Construyó una clientela desde cero, evolucionando de trabajos iniciales a piezas técnicamente complejas.",
+          "Se formó en técnicas de realismo con Tiago Balbo, marcando un punto de inflexión en su estilo y calidad."
+        ]
+      }
+    ],
+    "training": [
+      {
+        "focus": "Técnicas de Tatuaje Realista",
+        "description": "Mentoría intensiva en realismo, la base de mi estilo característico. Tiago introdujo el rigor técnico que marcó todo lo que vino después."
+      },
+      {
+        "focus": "Fundamentos del Tatuaje",
+        "description": "Primeros pasos en el tatuaje: trazado de líneas, teoría del sombreado y práctica en piel artificial. Dos meses de entrenamiento diario que lo iniciaron todo."
+      }
+    ],
+    "contests": [
+      { "event": "Convención con Bokatattooing", "result": "3.er Lugar" },
+      { "event": "Convención con Bokatattooing", "result": "1.er Lugar" },
+      { "event": "Convención Gerson Feques",     "result": "1.er Lugar" },
+      { "event": "Convención Gerson Feques",     "result": "1.er Lugar" }
+    ],
+    "prizeImages": [
+      { "result": "1.er Lugar" },
+      { "result": "1.er Lugar" },
+      { "result": "1.er Lugar" }
+    ]
+  },
   "about": {
     "subtitle": "Tatuador · Est. 2016",
     "bio": "Oriundo de São Luís, Brasil. Empecé a tatuar a finales de 2017 tras mudarme a Goiânia, donde hice mi primer aprendizaje. Regresé a São Luís en 2018, abrí mi propio estudio y pasé varios años perfeccionando mi arte, ganando cuatro premios en convenciones por el camino. En 2024 me mudé a Europa, trabajando primero en España antes de establecerme en Oporto a principios de 2025. Actualmente tatúo en el Asgard Tattoo Barber Studio en Oporto, y ocasionalmente en España.",

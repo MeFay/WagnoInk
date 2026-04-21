@@ -64,7 +64,7 @@ const HeroSection = () => {
           height: "100%",
           objectFit: "cover",
           zIndex: 0,
-          opacity: 0.5,
+          opacity: 0.3,
           "&:not([src]), &[src='']": { display: "none" },
         }}
       />

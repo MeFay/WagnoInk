@@ -184,8 +184,15 @@
       {
         "role": "Resident Artist",
         "highlights": [
+          "Resident tattoo artist at Tattoo Asgard in Porto, specialising in realism, fine line, and blackwork.",
+          "Guest artist at Sorry Mom Tattoo and Golem Tattoo & Piercing Studio, both in Spain."
+        ]
+      },
+      {
+        "role": "Resident Artist",
+        "highlights": [
           "Resident tattoo artist in Porto, specialising in realism, fine line, and blackwork.",
-          "Guest artist at Sorry Mon Tattoo and Golem Tattoo (Spain) and Lorenzo Tattoo (Lisbon)."
+          "Guest artist at Sorry Mom Tattoo and Golem Tattoo (Spain) and Lorenzo Tattoo (Lisbon)."
         ]
       },
       {
@@ -241,7 +248,7 @@
   },
   "about": {
     "subtitle": "Tattoo Artist · Est. 2016",
-    "bio": "Originally from São Luís, Brazil. Started tattooing in late 2017 after moving to Goiânia, where I did my first apprenticeship. Returned to São Luís in 2018, opened my own studio, and spent a few years refining my craft, picked up four convention awards along the way. In 2024 I made the move to Europe, working first in Spain before settling in Porto in early 2025. Now tattooing at Asgard Tattoo Barber Studio in Porto, and sometimes in Spain.",
+    "bio": "Originally from São Luís, Brazil. Started tattooing in late 2017 after moving to Goiânia, where I did my first apprenticeship. Returned to São Luís in 2018, opened my own studio, and spent a few years refining my craft, picked up four convention awards along the way. In 2024 I made the move to Europe, working first in Spain before settling in Porto in early 2025. Now tattooing at Tattoo Asgard in Porto, and sometimes in Spain.",
     "sectionIntroduction": "Introduction",
     "sectionWorkExperience": "Work Experience",
     "sectionTraining": "Training",

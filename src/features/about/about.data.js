@@ -27,18 +27,29 @@ export const socialLinks = [
 
 export const workExperience = [
   {
-    studio: "Katsu Tattoo Studio",
+    studio: "Tattoo Asgard",
     role: "Resident Artist",
-    period: "2025 – Present",
+    period: "2026 – Present",
     location: "Porto, Portugal",
     current: true,
     highlights: [
-      "Resident tattoo artist in Porto, specialising in realism, fine line, and blackwork.",
-      "Guest artist at Sorry Mon Tattoo and Golem Tattoo (Spain) and Lorenzo Tattoo (Lisbon).",
+      "Resident tattoo artist at Tattoo Asgard in Porto, specialising in realism, fine line, and blackwork.",
+      "Guest artist at Sorry Mom Tattoo and Golem Tattoo & Piercing Studio, both in Spain.",
     ],
   },
   {
-    studio: "Golem Tattoo & Sorry Mon Tattoo",
+    studio: "Katsu Tattoo Studio",
+    role: "Resident Artist",
+    period: "2025 – 2026",
+    location: "Porto, Portugal",
+    current: false,
+    highlights: [
+      "Resident tattoo artist in Porto, specialising in realism, fine line, and blackwork.",
+      "Guest artist at Sorry Mom Tattoo and Golem Tattoo (Spain) and Lorenzo Tattoo (Lisbon).",
+    ],
+  },
+  {
+    studio: "Golem Tattoo & Piercing Studio & Sorry Mom Tattoo",
     role: "Guest Artist",
     period: "Nov 2024",
     location: "Spain",

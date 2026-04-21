@@ -184,8 +184,15 @@
       {
         "role": "Artista Residente",
         "highlights": [
+          "Tatuador residente en Tattoo Asgard en Oporto, especializado en realismo, fine line y blackwork.",
+          "Artista invitado en Sorry Mom Tattoo y Golem Tattoo & Piercing Studio, ambos en España."
+        ]
+      },
+      {
+        "role": "Artista Residente",
+        "highlights": [
           "Tatuador residente en Oporto, especializado en realismo, fine line y blackwork.",
-          "Artista invitado en Sorry Mon Tattoo y Golem Tattoo (España) y Lorenzo Tattoo (Lisboa)."
+          "Artista invitado en Sorry Mom Tattoo y Golem Tattoo (España) y Lorenzo Tattoo (Lisboa)."
         ]
       },
       {
@@ -241,7 +248,7 @@
   },
   "about": {
     "subtitle": "Tatuador · Est. 2016",
-    "bio": "Oriundo de São Luís, Brasil. Empecé a tatuar a finales de 2017 tras mudarme a Goiânia, donde hice mi primer aprendizaje. Regresé a São Luís en 2018, abrí mi propio estudio y pasé varios años perfeccionando mi arte, ganando cuatro premios en convenciones por el camino. En 2024 me mudé a Europa, trabajando primero en España antes de establecerme en Oporto a principios de 2025. Actualmente tatúo en el Asgard Tattoo Barber Studio en Oporto, y ocasionalmente en España.",
+    "bio": "Oriundo de São Luís, Brasil. Empecé a tatuar a finales de 2017 tras mudarme a Goiânia, donde hice mi primer aprendizaje. Regresé a São Luís en 2018, abrí mi propio estudio y pasé varios años perfeccionando mi arte, ganando cuatro premios en convenciones por el camino. En 2024 me mudé a Europa, trabajando primero en España antes de establecerme en Oporto a principios de 2025. Actualmente tatúo en Tattoo Asgard en Oporto, y ocasionalmente en España.",
     "sectionIntroduction": "Introducción",
     "sectionWorkExperience": "Experiencia",
     "sectionTraining": "Formación",

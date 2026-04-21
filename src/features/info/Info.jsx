@@ -337,7 +337,8 @@ const Info = () => {
               <Card
                 sx={{
                   height: "100%",
-                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
                   transition:
                     "border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
                   ...(loc.main && {
@@ -350,65 +351,88 @@ const Info = () => {
                   },
                 }}
               >
-                {loc.main && (
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 16,
-                      right: 16,
-                      px: 1.5,
-                      py: 0.4,
-                      borderRadius: 999,
-                      bgcolor: alpha(theme.palette.primary.main, 0.15),
-                      border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`,
-                    }}
-                  >
-                    <Typography
+                {/* Badge row — always renders so all cards have the same top spacing */}
+                <Box sx={{ minHeight: 28, display: "flex", justifyContent: "flex-end", mb: 2.5 }}>
+                  {loc.main && (
+                    <Box
                       sx={{
-                        fontSize: typeScale.label,
-                        fontWeight: 700,
-                        color: "primary.main",
-                        letterSpacing: 1.5,
-                        textTransform: "uppercase",
+                        alignSelf: "flex-start",
+                        px: 1.5,
+                        py: 0.4,
+                        borderRadius: 999,
+                        bgcolor: alpha(theme.palette.primary.main, 0.15),
+                        border: `1px solid ${alpha(theme.palette.primary.main, 0.3)}`,
                       }}
                     >
-                      {t("info.mainStudio")}
-                    </Typography>
-                  </Box>
-                )}
-                {loc.comingSoon && (
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 16,
-                      right: 16,
-                      px: 1.5,
-                      py: 0.4,
-                      borderRadius: 999,
-                      bgcolor: alpha(theme.palette.accent.main, 0.08),
-                      border: `1px solid ${alpha(theme.palette.accent.main, 0.25)}`,
-                    }}
-                  >
-                    <Typography
+                      <Typography
+                        sx={{
+                          fontSize: typeScale.label,
+                          fontWeight: 700,
+                          color: "primary.main",
+                          letterSpacing: 1.5,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {t("info.mainStudio")}
+                      </Typography>
+                    </Box>
+                  )}
+                  {loc.guestSpot && (
+                    <Box
                       sx={{
-                        fontSize: typeScale.label,
-                        fontWeight: 700,
-                        color: "accent.main",
-                        letterSpacing: 1.5,
-                        textTransform: "uppercase",
+                        alignSelf: "flex-start",
+                        px: 1.5,
+                        py: 0.4,
+                        borderRadius: 999,
+                        bgcolor: alpha(theme.palette.accent.main, 0.12),
+                        border: `1px solid ${alpha(theme.palette.accent.main, 0.35)}`,
                       }}
                     >
-                      {t("info.comingSoon")}
-                    </Typography>
-                  </Box>
-                )}
+                      <Typography
+                        sx={{
+                          fontSize: typeScale.label,
+                          fontWeight: 700,
+                          color: "accent.main",
+                          letterSpacing: 1.5,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {t("info.guestSpot")}
+                      </Typography>
+                    </Box>
+                  )}
+                  {loc.comingSoon && (
+                    <Box
+                      sx={{
+                        alignSelf: "flex-start",
+                        px: 1.5,
+                        py: 0.4,
+                        borderRadius: 999,
+                        bgcolor: alpha(theme.palette.accent.main, 0.08),
+                        border: `1px solid ${alpha(theme.palette.accent.main, 0.25)}`,
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: typeScale.label,
+                          fontWeight: 700,
+                          color: "accent.main",
+                          letterSpacing: 1.5,
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {t("info.comingSoon")}
+                      </Typography>
+                    </Box>
+                  )}
+                </Box>
 
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
                     gap: 2.5,
-                    pt: (loc.main || loc.comingSoon) ? 3 : 0,
+                    flex: 1,
                   }}
                 >
                   <Box
@@ -416,10 +440,10 @@ const Info = () => {
                   >
                     <Typography
                       sx={{
-                        fontSize: { xs: "1.4rem", md: "1.6rem" },
+                        fontSize: typeScale.heading,
                         fontWeight: 900,
                         color: "white",
-                        lineHeight: 1,
+                        lineHeight: 1.2,
                       }}
                     >
                       {loc.city}
@@ -449,7 +473,7 @@ const Info = () => {
                     />
                     <Typography
                       sx={{
-                        fontSize: typeScale.caption,
+                        fontSize: typeScale.body,
                         color: "text.secondary",
                         lineHeight: 1.5,
                       }}
@@ -471,7 +495,7 @@ const Info = () => {
                     />
                     <Typography
                       sx={{
-                        fontSize: typeScale.caption,
+                        fontSize: typeScale.body,
                         color: "text.secondary",
                         lineHeight: 1.5,
                       }}
@@ -490,10 +514,11 @@ const Info = () => {
                         display: "inline-flex",
                         alignItems: "center",
                         gap: 0.5,
-                        fontSize: typeScale.caption,
+                        fontSize: typeScale.body,
                         fontWeight: 600,
                         color: "accent.main",
                         textDecoration: "none",
+                        mt: "auto",
                         "&:hover": { color: "primary.main" },
                       }}
                     >

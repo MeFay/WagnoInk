@@ -1,13 +1,14 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { useTranslation } from "react-i18next";
 import CustomButton from "../../components/UI/Button";
+import Lightbox from "../../components/UI/Lightbox";
 import {
   SECTIONS,
   workExperience,
@@ -145,6 +146,35 @@ const About = () => {
   const AMBER = theme.palette.accent.main;
   const RED = theme.palette.primary.main;
   const [activeSection, setActiveSection] = useState("introduction");
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+  const hasHistoryEntry = useRef(false);
+
+  // Lightbox — prize images normalised to { src, title } for the shared component
+  const lightboxImages = prizeImages.map((img) => ({ src: img.src, title: img.award }));
+
+  const openLightbox = (i) => {
+    setLightboxIndex(i);
+    window.history.pushState({ lightboxOpen: true }, "");
+    hasHistoryEntry.current = true;
+  };
+  const closeLightbox = useCallback(() => {
+    setLightboxIndex(null);
+    if (hasHistoryEntry.current) {
+      hasHistoryEntry.current = false;
+      window.history.back();
+    }
+  }, []);
+  const prevPrize = () =>
+    setLightboxIndex((i) => (i - 1 + lightboxImages.length) % lightboxImages.length);
+  const nextPrize = () =>
+    setLightboxIndex((i) => (i + 1) % lightboxImages.length);
+
+  // Close lightbox on browser back button (mobile)
+  useEffect(() => {
+    const handlePopState = () => { hasHistoryEntry.current = false; setLightboxIndex(null); };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
 
   // IntersectionObserver fires a callback whenever a section enters or leaves the viewport.
   // I use rootMargin to shrink the detection zone so a section is only "active" when
@@ -853,6 +883,7 @@ const About = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.7 }}
                   viewport={{ once: true }}
+                  onClick={() => openLightbox(0)}
                   sx={{
                     gridRow: { sm: "1 / 3" },
                     borderRadius: 3,
@@ -865,7 +896,7 @@ const About = () => {
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     bgcolor: "rgba(26,26,26,0.6)",
-                    cursor: "default",
+                    cursor: "zoom-in",
                     transition: "transform 0.5s ease",
                     "&:hover": { transform: "scale(1.01)" },
                     "&:hover .prize-label": {
@@ -903,6 +934,7 @@ const About = () => {
                         fontWeight: 700,
                         letterSpacing: 2,
                         textTransform: "uppercase",
+                        textShadow: "0 1px 6px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9)",
                       }}
                     >
                       {t("aboutContent.prizeImages.0.result", { defaultValue: prizeImages[0].result })}
@@ -927,6 +959,7 @@ const About = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: i * 0.12 }}
                     viewport={{ once: true }}
+                    onClick={() => openLightbox(i + 1)}
                     sx={{
                       borderRadius: 3,
                       overflow: "hidden",
@@ -938,6 +971,7 @@ const About = () => {
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                       bgcolor: "rgba(26,26,26,0.6)",
+                      cursor: "zoom-in",
                       transition: "transform 0.5s ease",
                       "&:hover": { transform: "scale(1.02)" },
                       "&:hover .prize-label": {
@@ -975,6 +1009,7 @@ const About = () => {
                           fontWeight: 700,
                           letterSpacing: 2,
                           textTransform: "uppercase",
+                          textShadow: "0 1px 6px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9)",
                         }}
                       >
                         {prizeResult}
@@ -996,6 +1031,16 @@ const About = () => {
           </TrackedSection>
         </Box>
       </Box>
+
+      {lightboxIndex !== null && (
+        <Lightbox
+          images={lightboxImages}
+          index={lightboxIndex}
+          onClose={closeLightbox}
+          onPrev={prevPrize}
+          onNext={nextPrize}
+        />
+      )}
     </Box>
   );
 };

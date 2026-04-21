@@ -9,15 +9,22 @@ import { typeScale } from "../../styles/theme";
 
 const MotionBox = motion(Box);
 
-const Card = ({ title, excerpt, date, readTime, category, image, link, index = 0 }) => {
+// animateOnMount — when true, the card animates to visible on mount (no scroll trigger).
+// Use this in sections where the cards are already in view when rendered (e.g. home page blog section),
+// so language changes don't cause them to disappear while waiting for a viewport re-entry event.
+// Default (false) keeps the scroll-reveal behaviour used on the full Blog page.
+const Card = ({ title, excerpt, date, readTime, category, image, link, index = 0, animateOnMount = false }) => {
   const theme = useTheme();
   const { t } = useTranslation();
+
+  const motionProps = animateOnMount
+    ? { initial: { opacity: 0, y: 40 }, animate: { opacity: 1, y: 0 } }
+    : { initial: { opacity: 0, y: 40 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: false, amount: 0.1 } };
+
   return (
     <MotionBox
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      {...motionProps}
       transition={{ duration: 0.6, delay: index * 0.15 }}
-      viewport={{ once: true }}
       component={Link}
       to={link}
       sx={{

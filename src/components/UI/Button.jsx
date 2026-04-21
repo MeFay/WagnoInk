@@ -1,5 +1,6 @@
 import { Box, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
+import { Link } from "react-router-dom";
 import React from "react";
 
 // I built a custom button instead of using MUI's default because I needed
@@ -25,7 +26,11 @@ const CustomButton = React.forwardRef(
       large:  { px: 4.5, py: 1.3,  fontSize: 15 },
     };
 
-    const Component = href ? "a" : "button";
+    // Use React Router Link for internal paths (starts with "/") so navigation stays
+    // client-side and never causes a full page reload (which would 404 on some hosts).
+    // External URLs (http/mailto/tel) still render as a native <a>.
+    const isInternal = href && href.startsWith("/");
+    const Component = isInternal ? Link : href ? "a" : "button";
 
     const primaryStyles = {
       background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.15)}, ${alpha(theme.palette.primary.dark, 0.15)})`,
@@ -142,7 +147,7 @@ const CustomButton = React.forwardRef(
         ref={ref}
         component={Component}
         onClick={onClick}
-        href={href}
+        {...(isInternal ? { to: href } : { href })}
         target={target}
         rel={rel}
         {...props}

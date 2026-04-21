@@ -29,7 +29,7 @@ const BlogSection = () => {
     {/* Header */}
     <MotionBox
       initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }} viewport={{ once: true }}
+      transition={{ duration: 0.8 }} viewport={{ once: false, amount: 0.1 }}
       sx={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 2 }}
     >
       <Typography sx={{ fontSize: typeScale.label, fontWeight: 600, letterSpacing: 4, color: "accent.main", textTransform: "uppercase" }}>
@@ -46,14 +46,14 @@ const BlogSection = () => {
     {/* Grid */}
     <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)", lg: "repeat(3, 1fr)" }, gap: { xs: 3, md: 4 } }}>
       {blogPosts.map((post, index) => (
-        <Card key={post.link} {...post} index={index} />
+        <Card key={post.link} {...post} index={index} animateOnMount />
       ))}
     </Box>
 
     {/* View All */}
     <MotionBox
       initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: 0.5 }} viewport={{ once: false, amount: 0.1 }}
       sx={{ display: "flex", justifyContent: "center" }}
     >
       <CustomButton variant="secondary" size="medium" href="/blog">

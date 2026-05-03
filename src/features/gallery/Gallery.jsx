@@ -9,51 +9,33 @@ import Lightbox from "../../components/UI/Lightbox";
 
 const MotionBox = motion(Box);
 
-// Module-level cache: once a src has been triggered for loading, it's never reset —
-// survives shuffles and re-mounts so images don't reload on scroll-up.
+// Module-level cache: persists across shuffles and re-mounts so a loaded image
+// never fades in again — even if its LazyImage component remounts.
 const globalLoadedSrcs = new Set();
 
 const LazyImage = memo(({ src, alt }) => {
-  const [shouldLoad, setShouldLoad] = useState(() => globalLoadedSrcs.has(src));
-  const [isVisible, setIsVisible] = useState(() => globalLoadedSrcs.has(src));
-  const ref = useRef(null);
+  const [isLoaded, setIsLoaded] = useState(() => globalLoadedSrcs.has(src));
 
-  useEffect(() => {
-    if (shouldLoad) return;
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "700px 0px" },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [src, shouldLoad]);
+  const handleLoad = useCallback(() => {
+    globalLoadedSrcs.add(src);
+    setIsLoaded(true);
+  }, [src]);
 
   return (
     <Box
-      ref={ref}
       component="img"
-      src={shouldLoad ? src : undefined}
+      src={src}
       alt={alt}
       decoding="async"
-      onLoad={() => {
-        globalLoadedSrcs.add(src);
-        setIsVisible(true);
-      }}
+      onLoad={handleLoad}
       sx={{
         display: "block",
         width: "100%",
         height: "100%",
         objectFit: "cover",
         pointerEvents: "none",
-        transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease",
-        opacity: isVisible ? 1 : 0,
+        transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease",
+        opacity: isLoaded ? 1 : 0,
       }}
     />
   );
@@ -296,6 +278,7 @@ const Gallery = () => {
         userSelect: "none",
         WebkitUserSelect: "none",
         WebkitTouchCallout: "none",
+        background: "rgba(255,255,255,0.05)",
         boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
         transition: "transform 0.35s ease, box-shadow 0.35s ease",
         "&:hover": {

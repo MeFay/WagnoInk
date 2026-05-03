@@ -9,25 +9,34 @@ import Lightbox from "../../components/UI/Lightbox";
 
 const MotionBox = motion(Box);
 
-// Module-level cache: persists across shuffles and re-mounts so a loaded image
-// never fades in again — even if its LazyImage component remounts.
+// Module-level: survives shuffles, re-mounts, and navigation within the SPA.
 const globalLoadedSrcs = new Set();
 
 const LazyImage = memo(({ src, alt }) => {
   const [isLoaded, setIsLoaded] = useState(() => globalLoadedSrcs.has(src));
+  const imgRef = useRef(null);
 
-  const handleLoad = useCallback(() => {
-    globalLoadedSrcs.add(src);
-    setIsLoaded(true);
-  }, [src]);
+  // Handles images already in the browser cache — img.complete is true
+  // synchronously after mount, before onLoad would ever fire.
+  useEffect(() => {
+    const el = imgRef.current;
+    if (el && el.complete && el.naturalWidth > 0 && !isLoaded) {
+      globalLoadedSrcs.add(src);
+      setIsLoaded(true);
+    }
+  }, [src, isLoaded]);
 
   return (
     <Box
+      ref={imgRef}
       component="img"
       src={src}
       alt={alt}
       decoding="async"
-      onLoad={handleLoad}
+      onLoad={() => {
+        globalLoadedSrcs.add(src);
+        setIsLoaded(true);
+      }}
       sx={{
         display: "block",
         width: "100%",
@@ -212,6 +221,18 @@ const Gallery = () => {
   // I listen for the browser's popstate event (triggered by the back button on mobile).
   // When the lightbox is open and the user presses back, this catches it and closes the lightbox
   // instead of navigating away from the gallery page.
+  // Kick off downloads for all gallery images immediately so they are in the
+  // browser cache before the user scrolls to them. 31 WebP files is small
+  // enough to load all at once; this prevents any reload artifact on scroll.
+  useEffect(() => {
+    images.forEach(({ src }) => {
+      if (globalLoadedSrcs.has(src)) return;
+      const img = new Image();
+      img.onload = () => globalLoadedSrcs.add(src);
+      img.src = src;
+    });
+  }, []);
+
   useEffect(() => {
     const handlePopState = () => {
       hasHistoryEntry.current = false;

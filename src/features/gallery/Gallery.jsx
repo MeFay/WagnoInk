@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { typeScale } from "../../styles/theme";
@@ -8,6 +8,56 @@ import ShuffleIcon from "@mui/icons-material/Shuffle";
 import Lightbox from "../../components/UI/Lightbox";
 
 const MotionBox = motion(Box);
+
+// Module-level cache: once a src has been triggered for loading, it's never reset —
+// survives shuffles and re-mounts so images don't reload on scroll-up.
+const globalLoadedSrcs = new Set();
+
+const LazyImage = memo(({ src, alt }) => {
+  const [shouldLoad, setShouldLoad] = useState(() => globalLoadedSrcs.has(src));
+  const [isVisible, setIsVisible] = useState(() => globalLoadedSrcs.has(src));
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (shouldLoad) return;
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "700px 0px" },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [src, shouldLoad]);
+
+  return (
+    <Box
+      ref={ref}
+      component="img"
+      src={shouldLoad ? src : undefined}
+      alt={alt}
+      decoding="async"
+      onLoad={() => {
+        globalLoadedSrcs.add(src);
+        setIsVisible(true);
+      }}
+      sx={{
+        display: "block",
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        pointerEvents: "none",
+        transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1), opacity 0.45s ease",
+        opacity: isVisible ? 1 : 0,
+      }}
+    />
+  );
+});
 
 const images = [
   {
@@ -234,7 +284,7 @@ const Gallery = () => {
       key={img.src}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: globalIndex * 0.05 }}
+      transition={{ duration: 0.5, delay: globalIndex * 0.03 }}
       onClick={() => openLightbox(globalIndex)}
       sx={{
         height: (rowI + ci) % 2 === 0 ? heights.short : heights.tall,
@@ -252,19 +302,11 @@ const Gallery = () => {
           transform: "translateY(-6px) scale(1.02)",
           boxShadow: "0 20px 50px rgba(0,0,0,0.7)",
         },
-        "& img": {
-          display: "block",
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          transition: "transform 0.6s cubic-bezier(0.4,0,0.2,1)",
-          pointerEvents: "none", // prevents the iOS long-press "Save Image" menu from appearing
-        },
         "&:hover img": { transform: "scale(1.04)" },
         "&:hover .gallery-overlay": { opacity: 1 },
       }}
     >
-      <Box component="img" src={img.src} alt={img.title} loading="lazy" />
+      <LazyImage src={img.src} alt={img.title} />
       <Box
         className="gallery-overlay"
         sx={{
